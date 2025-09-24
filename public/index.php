@@ -25,6 +25,6 @@ if ($path === '/register' && $method === 'POST') {
     session_destroy();
     echo 'Logged out';
 } else {
-    http_response_code(404);
-    echo 'Not found';
+    header('Location: /404.php');
+    die;
 }
