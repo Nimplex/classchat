@@ -21,6 +21,9 @@ if ($path === '/register' && $method === 'POST') {
 } elseif ($path === '/login' && $method === 'POST') {
     $res = $authController->login($_POST);
     echo $res;
+} elseif ($path === '/logout') {
+    session_destroy();
+    echo 'Logged out';
 } else {
     http_response_code(404);
     echo 'Not found';
