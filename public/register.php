@@ -9,7 +9,7 @@
 
 <body>
     <form action="/register" method="POST">
-        <label>Nazwa użytkownika: <input type="text" name="username" required></label><br>
+        <label>Nazwa użytkownika: <input type="text" name="login" required></label><br>
         <label>E-mail: <input type="email" name="email" required></label><br>
         <label>Hasło: <input type="password" name="password" required></label><br>
         <input type="submit" value="Zarejestruj się">

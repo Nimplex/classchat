@@ -22,7 +22,8 @@ class User
 
     public function create(string $login, string $email, string $password): bool
     {
-        $stmt = $this->db->prepare('INSERT INTO users (login, email, password_hash) VALUES (?, ?, ?)');
+        $stmt = $this->db->prepare('INSERT INTO users (login, email, password_hash) VALUES (:login, :email, :password_hash)');
+        
         // https://www.php.net/manual/en/function.password-hash.php
         // I decided that ARGON2ID is stronger than bcrypt
         $hash = password_hash($password, PASSWORD_ARGON2ID, [
@@ -30,6 +31,11 @@ class User
             'time_cost' => 4,
             'threads' => 2
         ]);
-        return $stmt->execute([$login, $email, $hash]);
+        
+        return $stmt->execute([
+            ':login' => $login,
+            ':email' => $email,
+            ':password_hash' => $hash
+        ]);
     }
 }
