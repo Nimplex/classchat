@@ -12,6 +12,7 @@ class AuthController
     {
         $this->authService = $authService;
     }
+
     /**
      * @param array<int,string|null> $request
      */

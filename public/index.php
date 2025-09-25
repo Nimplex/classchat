@@ -1,12 +1,14 @@
 <?php
+
 session_start();
 
+/** @var PDO $db */
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../vendor/autoload.php';
 
+use App\Controller\AuthController;
 use App\Model\User;
 use App\Service\AuthService;
-use App\Controller\AuthController;
 
 $userModel = new User($db);
 $authService = new AuthService($userModel);

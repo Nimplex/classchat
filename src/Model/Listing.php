@@ -26,7 +26,7 @@ class Listing
     public function findByID(int $id): ?array
     {
         $stmt = $this->db->prepare('SELECT * FROM listings WHERE id = ?');
-        $stmt->execute([$id]);
+        $stmt->execute(array($id));
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
@@ -36,11 +36,11 @@ class Listing
             'INSERT INTO listings (user_id, title, price, description) VALUES (:user_id, :title, :price, :description)'
         );
 
-        return $stmt->execute([
+        return $stmt->execute(array(
             ':user_id' => $user_id,
             ':title' => $title,
             ':price' => $price,
             ':description' => $description
-        ]);
+        ));
     }
 }

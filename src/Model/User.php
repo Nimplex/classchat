@@ -16,7 +16,7 @@ class User
     public function findByEmail(string $email): ?array
     {
         $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ?');
-        $stmt->execute([$email]);
+        $stmt->execute(array($email));
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
@@ -26,16 +26,16 @@ class User
         
         // https://www.php.net/manual/en/function.password-hash.php
         // I decided that ARGON2ID is stronger than bcrypt
-        $hash = password_hash($password, PASSWORD_ARGON2ID, [
+        $hash = password_hash($password, PASSWORD_ARGON2ID, array(
             'memory_cost' => 1 << 16,
             'time_cost' => 4,
             'threads' => 2
-        ]);
+        ));
         
-        return $stmt->execute([
+        return $stmt->execute(array(
             ':login' => $login,
             ':email' => $email,
             ':password_hash' => $hash
-        ]);
+        ));
     }
 }

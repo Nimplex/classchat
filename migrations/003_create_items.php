@@ -1,5 +1,6 @@
 <?php
 
+/** @var PDO $db */
 require __DIR__ . '/../bootstrap.php';
 
 $sql = <<<SQL

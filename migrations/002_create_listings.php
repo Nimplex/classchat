@@ -1,5 +1,6 @@
 <?php
 
+/** @var PDO $db */
 require __DIR__ . '/../bootstrap.php';
 
 $sql = <<<SQL
@@ -18,4 +19,3 @@ SQL;
 $db->exec($sql);
 
 echo "Migration 002 applied\n";
-

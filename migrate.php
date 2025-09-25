@@ -1,5 +1,6 @@
 <?php
 
+/** @var PDO $db */
 require __DIR__ . '/bootstrap.php';
 
 $db->exec('
@@ -27,8 +28,7 @@ foreach ($files as $file) {
     require $file;
 
     $stmt = $db->prepare('INSERT INTO migrations (filename) VALUES (:filename)');
-    $stmt->execute(['filename' => $filename]);
+    $stmt->execute(array('filename' => $filename));
 }
 
 echo "Migrations up to date.\n";
-
