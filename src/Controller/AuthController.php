@@ -12,7 +12,9 @@ class AuthController
     {
         $this->authService = $authService;
     }
-
+    /**
+     * @param array<int,string|null> $request
+     */
     public function register(array $request): string
     {
         $login = $request['login'] ?? null;
@@ -31,6 +33,9 @@ class AuthController
         }
     }
 
+    /**
+     * @param array<int,string|null> $request
+     */
     public function login(array $request): string
     {
         $email = $request['email'] ?? null;
