@@ -1,16 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 use PhpCsFixer\Fixer\ArrayNotation\ArraySyntaxFixer;
 use PhpCsFixer\Fixer\ListNotation\ListSyntaxFixer;
+use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return ECSConfig::configure()
-    ->withPaths(array(__DIR__ . '/src', __DIR__ . '/tests'))
+    ->withPaths([
+        __DIR__ . '/public',
+        __DIR__ . '/src',
+    ])
+
+    // add a single rule
+    ->withRules([
+        NoUnusedImportsFixer::class,
+        ListSyntaxFixer::class,
+    ])
+
     ->withConfiguredRule(
         ArraySyntaxFixer::class,
-        array('syntax' => 'long')
+        array('syntax' => 'short')
     )
-    ->withRules(array(
-        ListSyntaxFixer::class,
-    ))
-    ->withPreparedSets(psr12: true);
+
+    // add sets - group of rules, from easiest to more complex ones
+    // uncomment one, apply one, commit, PR, merge and repeat
+    //->withPreparedSets(
+    //      spaces: true,
+    //      namespaces: true,
+    //      docblocks: true,
+    //      arrays: true,
+    //      comments: true,
+    //)
+    ;
