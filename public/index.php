@@ -7,10 +7,7 @@ require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../vendor/autoload.php';
 
 use App\Model\Auth;
-use App\Model\Listing;
-
 $auth = new Auth($db);
-$listing = new Listing($db);
 
 $path = $_SERVER['PATH_INFO'] ?? '/';
 $method = $_SERVER['REQUEST_METHOD'];
@@ -27,9 +24,13 @@ if ($path === "/") {
 } elseif ($path === '/logout') {
     session_destroy();
     echo 'Logged out';
-} elseif ($path === '/api/listings' && $method === 'GET') {
-    $res = $listing->listAll($_GET);
-    echo $res;
+} elseif (substr($path, 0, 5) === '/api/') {
+    require __DIR__ . match ([$path, $method]) {
+        ['/api/login', 'POST'] => '/../resources/api/login.php',
+        ['/api/new-listing', 'POST'] => '/../resources/api/new-listing.php',
+        default => '/404.php',
+    };
+    die;
 } else {
     require __DIR__ . '/404.php';
     die;

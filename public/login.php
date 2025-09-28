@@ -10,7 +10,7 @@
 <body>
     <form action="/login" method="POST">
         <label>E-mail: <input type="email" name="email" required></label><br>
-        <label>Hasło: <input type="password" name="password" required></label><br>
+        <label>Hasło: <input type="password" name="password" pattern=".{8,}" required></label><br>
         <input type="submit" value="Zaloguj się">
     </form>
 </body>
