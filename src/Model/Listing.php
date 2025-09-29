@@ -54,28 +54,30 @@ class Listing extends BaseDBModel
         return $this->_listAll(Listing::PER_PAGE, $offset);
     }
 
-    public function create(string $title, string $price, string $description): int | string
+    public function create(string $title, string $price, string $description): void
     {
         if (!$title || !$price || !$description) {
-            return 1;
+            throw new \InvalidArgumentException("Not enough arguments");
         }
 
         if (strlen($title) < Listing::MIN_TITLE_LEN || strlen($title) > Listing::MAX_TITLE_LEN) {
-            return 2;
+            throw new \InvalidArgumentException(
+                "Invalid title length; must be between ${Listing::MIN_TITLE_LEN} and ${Listing::MAX_TITLE_LEN}"
+            );
         }
 
         if (strlen($description) < Listing::MIN_DESC_LEN || strlen($description) > Listing::MAX_DESC_LEN) {
-            return 3;
+            throw new \InvalidArgumentException(
+                "Invalid description length; must be between ${Listing::MIN_TITLE_LEN} and ${Listing::MAX_TITLE_LEN}"
+            );
         }
 
         if (!preg_match('/^\d+(?:(?:,|\.)\d\d)?$/', $price)) {
-            return 4;
+            throw new \InvalidArgumentException("Price doesn't match the expected format");
         }
 
         $parsed_price = str_replace(',', '.', $price);
 
-        $this->_create($_SESSION['user_id'], $title, $parsed_price, $description);
-
-        return 0;
+        $res = $this->_create($_SESSION['user_id'], $title, $parsed_price, $description);
     }
 }
