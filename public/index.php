@@ -13,9 +13,9 @@ use App\Model\Auth;
 $auth = new Auth($db);
 $router = new Router();
 
-$test_middleware = function(array $query, array $body) {
-    $query_str = json_encode($query);
-    $body_str = json_encode($body);
+$test_middleware = function() {
+    $query_str = json_encode($_GET);
+    $body_str = json_encode($_POST);
     echo <<<HTML
     <style>
     #test-middleware {
@@ -42,32 +42,33 @@ $test_middleware = function(array $query, array $body) {
     HTML;
 };
 
-$router->GET("/", function (array $query, array $body) {
+$router->GET("/", function () {
     echo 'home page???<br>';
     echo 'is logged in: ' . (isset($_SESSION['user_id']) ? 'true' : 'false');
 })->with($test_middleware);
 
-$router->POST('/api/register', function (array $query, array $body) use ($auth) {
-    $res = $auth->register_from_request($body);
+$router->POST('/api/register', function () use ($auth) {
+    $res = $auth->register_from_request($_POST);
     echo $res;
 });
 
-$router->POST('/api/login', function (array $query, array $body) use ($auth) {
-    $res = $auth->login_from_request($body);
+$router->POST('/api/login', function () use ($auth) {
+    $res = $auth->login_from_request($_POST);
     echo $res;
 });
 
-$router->POST('/api/logout', function (array $query, array $body) {
+$router->POST('/api/logout', function () {
     session_destroy();
     echo 'Logged out';
 });
 
-$router->POST('/api/new-listing', function (array $query, array $body) {
+$router->POST('/api/new-listing', function () {
     include __DIR__ . '/../resources/api/new-listing.php';
 });
 
-$router->ERROR('404', function () {
+$router->DEFAULT(function () {
     include __DIR__ . '/404.php';
+    die;
 });
 
 $router->handle();
