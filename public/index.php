@@ -6,33 +6,40 @@ session_start();
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../vendor/autoload.php';
 
+require __DIR__ . '/router.php';
+
 use App\Model\Auth;
 
 $auth = new Auth($db);
+$router = new Router();
 
-$path = $_SERVER['PATH_INFO'] ?? '/';
-$method = $_SERVER['REQUEST_METHOD'];
-
-if ($path === "/") {
+$router->GET("/", function (array $query, array $body) {
+    echo $query;
     echo 'home page???<br>';
     echo 'is logged in: ' . (isset($_SESSION['user_id']) ? 'true' : 'false');
-} elseif ($path === '/register' && $method === 'POST') {
-    $res = $auth->register_from_request($_POST);
+});
+
+$router->POST('/api/register', function (array $query, array $body) use ($auth) {
+    $res = $auth->register_from_request($body);
     echo $res;
-} elseif ($path === '/login' && $method === 'POST') {
-    $res = $auth->login_from_request($_POST);
+});
+
+$router->POST('/api/login', function (array $query, array $body) use ($auth) {
+    $res = $auth->login_from_request($body);
     echo $res;
-} elseif ($path === '/logout') {
+});
+
+$router->POST('/api/logout', function (array $query, array $body) {
     session_destroy();
     echo 'Logged out';
-} elseif (substr($path, 0, 5) === '/api/') {
-    require __DIR__ . match ([$path, $method]) {
-        ['/api/login', 'POST'] => '/../resources/api/login.php',
-        ['/api/new-listing', 'POST'] => '/../resources/api/new-listing.php',
-        default => '/404.php',
-    };
-    die;
-} else {
-    require __DIR__ . '/404.php';
-    die;
-}
+});
+
+$router->POST('/api/new-listing', function (array $query, array $body) {
+    include __DIR__ . '/../resources/api/new-listing.php';
+});
+
+$router->ERROR('404', function () {
+    include __DIR__ . '/404.php';
+});
+
+$router->handle();
