@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use InvalidArgumentException;
 use PDO;
 
 class Auth extends BaseDBModel
@@ -33,7 +34,10 @@ class Auth extends BaseDBModel
     }
 
     // --- public methods ---
-    
+
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function register(string $login, string $email, string $password): bool
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -47,6 +51,9 @@ class Auth extends BaseDBModel
         return $this->_create($login, $email, $password);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function login(string $email, string $password): int
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

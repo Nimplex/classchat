@@ -31,6 +31,13 @@ class Listing extends BaseDBModel
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
+    private function _listByUser(int $user_id): array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM listings WHERE user_id = ?');
+        $stmt->execute([$user_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     private function _create(int $user_id, string $title, string $price, string $description): bool
     {
         $stmt = $this->db->prepare(
@@ -47,11 +54,16 @@ class Listing extends BaseDBModel
 
     // --- public methods ---
 
-    public function listAll(int $page): ?array
+    public function listAll(int $page): array
     {
         $page = max(Listing::MIN_PAGE, min(Listing::MAX_PAGE, $page));
         $offset = ($page - 1) * Listing::PER_PAGE;
         return $this->_listAll(Listing::PER_PAGE, $offset);
+    }
+
+    public function listByUser(int $user_id): array
+    {
+        return $this->_listByUser($user_id);
     }
 
     public function create(string $title, string $price, string $description): void

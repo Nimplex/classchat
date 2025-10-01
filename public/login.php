@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <form action="/login" method="POST">
+    <form action="/api/login" method="POST">
         <label>E-mail: <input type="email" name="email" required></label><br>
         <label>Hasło: <input type="password" name="password" pattern=".{8,}" required></label><br>
         <input type="submit" value="Zaloguj się">
