@@ -10,13 +10,16 @@ if (!isset($_target)) {
 $router = new App\Router();
 
 $router->GET("/", function () use ($_target) {
-    if (!isset($_SERVER['HTTP_HX_REQUEST'])) return;
+    if (!isset($_SERVER['HTTP_HX_REQUEST'])) {
+        return;
+    }
     require __DIR__ . '/hx-templates' . $_target;
+    die;
 });
 
 $router->DEFAULT(function () {
     require $_SERVER['DOCUMENT_ROOT'] . '/404.php';
+    die;
 });
 
 $router->handle();
-

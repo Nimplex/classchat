@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-use InvalidArgumentException;
 use PDO;
 
 class Auth extends BaseDBModel

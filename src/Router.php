@@ -135,4 +135,3 @@ class Route
         ($this->callback)();
     }
 }
-

@@ -1,11 +1,9 @@
 <?php
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
-
 $_target = "/listings.php";
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/hx-index.php';
-
-// ===================================
 ?>
+
 <!DOCTYPE HTML>
 <html lang="pl">
 

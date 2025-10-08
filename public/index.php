@@ -11,7 +11,7 @@ use App\Model\Auth;
 $auth = new Auth($db);
 $router = new App\Router();
 
-$test_middleware = function() {
+$test_middleware = function () {
     $query_str = json_encode($_GET);
     $body_str = json_encode($_POST);
     echo <<<HTML
