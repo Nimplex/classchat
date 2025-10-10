@@ -8,6 +8,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/_css/main.css">
     <title>Nowa oferta</title>
     <style>
         .money-input {
@@ -18,11 +19,7 @@ require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 
 <body>
     <h1>Nowa oferta</h1>
-    <?php if ($_GET['err']): ?>
-    <div class="err">
-        Wystąpił błąd podczas tworzenia nowej oferty. Spróbuj ponownie.
-    </div>
-    <?php endif; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/hx-templates/message-box.php'; ?>
     <form action="/api/new-listing" method="POST">
         <p>
             <label>Tytuł: <input type="text" name="title" minlength="8" maxlength="100" required></label><br>

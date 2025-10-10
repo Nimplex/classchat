@@ -10,15 +10,12 @@ $listingModel = (new App\Builder\ListingBuilder())->make();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/_css/main.css">
     <title>Moje oferty</title>
 </head>
 <body>
     <h1>Moje oferty</h1>
-    <?php if ($_GET['ok']): ?>
-    <div class="ok-message">
-        Utworzono nową ofertę!
-    </div>
-    <?php endif; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/hx-templates/message-box.php'; ?>
     <div>
         <?php foreach ($listingModel->listByUser($_SESSION['user_id']) as $listing): ?>
         <div class="listing">

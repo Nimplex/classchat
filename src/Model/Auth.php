@@ -6,6 +6,8 @@ use PDO;
 
 class Auth extends BaseDBModel
 {
+    private const MIN_PASS_LENGTH = 8;
+    
     private function _findByEmail(string $email): ?array
     {
         $stmt = $this->db->prepare('SELECT * FROM users WHERE email = ?');
@@ -40,11 +42,11 @@ class Auth extends BaseDBModel
     public function register(string $login, string $email, string $password): bool
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException("Invalid email format");
+            throw new \InvalidArgumentException('Nieprawidłowy adres e-mail', 1);
         }
         
-        if (strlen($password) < 8) {
-            throw new \InvalidArgumentException("Password has to be at least 8 characters long");
+        if (strlen($password) < Auth::MIN_PASS_LENGTH) {
+            throw new \InvalidArgumentException("Hasło musi składać się z conajmniej ${Auth::MIN_PASS_LENGTH} znaków", 1);
         }
         
         return $this->_create($login, $email, $password);
@@ -56,7 +58,7 @@ class Auth extends BaseDBModel
     public function login(string $email, string $password): int
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException("Invalid email format");
+            throw new \InvalidArgumentException('Nieprawidłowy adres e-mail', 1);
         }
 
         $user = $this->_findByEmail($email);
@@ -65,50 +67,37 @@ class Auth extends BaseDBModel
             return $user['id'];
         }
 
-        return -1;
+        throw new \InvalidArgumentException('Nieprawidłowy e-mail lub hasło', 1);
     }
 
     /**
      * @param array<int,string|null> $request
+     * @throws \InvalidArgumentException
      */
-    public function register_from_request(array $request): string
+    public function register_from_request(array $request): void
     {
         $login = $request['login'] ?? null;
         $email = $request['email'] ?? null;
         $password = $request['password'] ?? null;
 
         if (!$login || !$email || !$password) {
-            return "Missing fields";
+            throw new \InvalidArgumentException('Missing fields');
         }
 
-        try {
-            $this->register($login, $email, $password);
-            return "Registration successful";
-        } catch (\InvalidArgumentException $e) {
-            return "Error: {$e->getMessage()}";
-        }
+        $this->register($login, $email, $password);
     }
 
     /**
      * @param array<int,string|null> $request
+     * @throws \InvalidArgumentException
      */
-    public function login_from_request(array $request): string
+    public function login_from_request(array $request): void
     {
         $email = $request['email'] ?? null;
         $password = $request['password'] ?? null;
 
-        try {
-            $res = $this->login($email, $password);
+        $res = $this->login($email, $password);
 
-            if ($res == -1) {
-                return "User doesn't exist or the password is invalid";
-            }
-
-            $_SESSION['user_id'] = $res;
-
-            return "Logged in successfully";
-        } catch (\InvalidArgumentException $e) {
-            return "Error: {$e->getMessage()}";
-        }
+        $_SESSION['user_id'] = $res;
     }
 }

@@ -74,18 +74,20 @@ class Listing extends BaseDBModel
 
         if (strlen($title) < Listing::MIN_TITLE_LEN || strlen($title) > Listing::MAX_TITLE_LEN) {
             throw new \InvalidArgumentException(
-                "Invalid title length; must be between ${Listing::MIN_TITLE_LEN} and ${Listing::MAX_TITLE_LEN}"
+                "Nieprawidłowa długość tytułu; musi być pomiędzy ${Listing::MIN_TITLE_LEN} a ${Listing::MAX_TITLE_LEN}",
+                1
             );
         }
 
         if (strlen($description) < Listing::MIN_DESC_LEN || strlen($description) > Listing::MAX_DESC_LEN) {
             throw new \InvalidArgumentException(
-                "Invalid description length; must be between ${Listing::MIN_TITLE_LEN} and ${Listing::MAX_TITLE_LEN}"
+                "Nieprawidłowa długość opisu; musi być pomiędzy ${Listing::MIN_TITLE_LEN} a ${Listing::MAX_TITLE_LEN}",
+                1
             );
         }
 
         if (!preg_match('/^\d+(?:(?:,|\.)\d\d)?$/', $price)) {
-            throw new \InvalidArgumentException("Price doesn't match the expected format");
+            throw new \InvalidArgumentException("Nieprawidłowy format ceny", 1);
         }
 
         $parsed_price = str_replace(',', '.', $price);
