@@ -14,6 +14,11 @@ $listingModel = (new App\Builder\ListingBuilder())->make();
 </head>
 <body>
     <h1>Moje oferty</h1>
+    <?php if ($_GET['ok']): ?>
+    <div class="ok-message">
+        Utworzono nową ofertę!
+    </div>
+    <?php endif; ?>
     <div>
         <?php foreach ($listingModel->listByUser($_SESSION['user_id']) as $listing): ?>
         <div class="listing">

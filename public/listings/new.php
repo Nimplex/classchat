@@ -25,10 +25,10 @@ require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
     <?php endif; ?>
     <form action="/api/new-listing" method="POST">
         <p>
-            <label>Tytuł: <input type="text" name="title" pattern=".{8,100}" required></label><br>
+            <label>Tytuł: <input type="text" name="title" minlength="8" maxlength="100" required></label><br>
         </p>
         <p>
-            <label>Opis: <br><textarea name="description" rows="10" cols="50" pattern=".{20,1000}" required></textarea></label><br>
+            <label>Opis: <br><textarea name="description" rows="10" cols="50" minlength="20" maxlength="1000" required></textarea></label><br>
         </p>
         <p>
             <label>

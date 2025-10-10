@@ -43,6 +43,7 @@ $test_middleware = function () {
 $router->GET("/", function () {
     echo 'home page???<br>';
     echo 'is logged in: ' . (isset($_SESSION['user_id']) ? 'true' : 'false');
+    echo '<br><a href="/api/logout">Logout</a>';
 })->with($test_middleware);
 
 $router->POST('/api/register', function () use ($auth) {
@@ -55,9 +56,10 @@ $router->POST('/api/login', function () use ($auth) {
     echo $res;
 });
 
-$router->POST('/api/logout', function () {
+$router->GET('/api/logout', function () {
     session_destroy();
-    echo 'Logged out';
+    header('Location: /?logout=1', true, 303);
+    die;
 });
 
 $router->POST('/api/new-listing', function () {
