@@ -11,5 +11,6 @@ class BaseDBModel
     public function __construct(PDO $db)
     {
         $this->db = $db;
+        $this->db->query("SET lc_monetary TO 'pl_PL.utf8'");
     }
 }
