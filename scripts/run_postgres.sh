@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-if [ -z `docker ps -a -q -f name=classchat-db` ]; then
+if ! systemctl is-active docker > /dev/null; then
+  echo "'docker.service' isn't running"
+  exit 2;
+fi
+
+if [ -z $(docker ps -a -q -f name=classchat-db) ]; then
   dir=$(dirname "$0")
   if [ ! -f "$dir/Dockerfile" ]; then
-    echo "Dockerfile not found" >&2;
+    echo "'Dockerfile' not found" >&2;
     exit 1;
   fi
   docker build "$dir" -t classchat-db
@@ -15,7 +20,9 @@ if [ -z `docker ps -a -q -f name=classchat-db` ]; then
     -p 5432:5432 \
     --mount type=volume,src=classchat-data,dst=/var/lib/postgresql/18/docker \
     classchat-db
-else
+elif [ -z $(docker ps -q -f name=classchat-db) ]; then
   docker start classchat-db
+else
+  echo 'container already running'
 fi
 
