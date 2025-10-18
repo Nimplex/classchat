@@ -106,7 +106,6 @@ class Router
 
 class Route
 {
-    private array $middlewares;
     private \Closure $callback;
 
     /**
@@ -114,24 +113,11 @@ class Route
      */
     public function __construct(\Closure $callback)
     {
-        $this->middlewares = [];
         $this->callback = $callback;
-    }
-
-    /**
-     * @param Closure(): void $callback
-     */
-    public function with(\Closure $callback): Route
-    {
-        $this->middlewares[] = $callback;
-        return $this;
     }
 
     public function fire(): void
     {
-        foreach ($this->middlewares as $middleware) {
-            ($middleware)();
-        }
         ($this->callback)();
     }
 }
