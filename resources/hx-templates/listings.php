@@ -6,25 +6,27 @@ $page = max($_GET['page'] ?? 1, 1);
 ?>
 
 <?php foreach ($listing->listAll($page) as $lis): ?>
-<article>
-    <?php if (!empty($lis['cover_file_id'])) {
-        echo "
-            <header>
-                <img src=\"/covers/${lis['cover_file_id']}\">
-                <hr />
-            </header>
-        ";
-        }
-    ?>
-    <main>
-        <h2><?= $lis['title'] ?></h2>
-        <p><?= $lis['description'] ?></p>
-    </main>
-    <footer>
-        <hr />
-        <h2><?= $lis['price'] ?></h2>
-    </footer>
-</article>
+<a href="/listings/<?= $lis['listing_id'] ?>">
+    <article>
+        <?php if (!empty($lis['cover_file_id'])) {
+            echo "
+                <header>
+                    <img src=\"/covers/${lis['cover_file_id']}\">
+                    <hr />
+                </header>
+            ";
+            }
+        ?>
+        <main>
+            <h2><?= $lis['title'] ?></h2>
+            <p><?= $lis['description'] ?></p>
+        </main>
+        <footer>
+            <hr />
+            <h2><?= $lis['price'] ?></h2>
+        </footer>
+    </article>
+</a>
 <?php endforeach; ?>
 <?php if (!empty($listing->listAll($page + 1))): ?>
 <div

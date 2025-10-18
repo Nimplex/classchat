@@ -7,7 +7,7 @@
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
 }
 
-#offers > article {
+#offers article {
     display: flex;
     flex-direction: column;
     border: 1px solid gray;
@@ -16,7 +16,7 @@
     transition: opacity 300ms ease-in;
 }
 
-#offers > article.htmx-settling {
+#offers article.htmx-settling {
     opacity: 0;
 }
 
