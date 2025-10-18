@@ -7,17 +7,22 @@
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
 }
 
+#offers a {
+    text-decoration: inherit;
+    color: inherit;
+    transition: opacity 300ms ease-in;
+}
+
+#offers a.htmx-settling {
+    opacity: 0;
+}
+
 #offers article {
     display: flex;
     flex-direction: column;
     border: 1px solid gray;
     border-radius: 8px;
     padding: 8px;
-    transition: opacity 300ms ease-in;
-}
-
-#offers article.htmx-settling {
-    opacity: 0;
 }
 
 .htmx-indicator {

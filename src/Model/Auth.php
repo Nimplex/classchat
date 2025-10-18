@@ -81,7 +81,7 @@ class Auth extends BaseDBModel
     public function register_from_request(array $request): void
     {
         $login = $request['login'] ?? null;
-        $email = $request['email'] ?? null; ff
+        $email = $request['email'] ?? null;
         $password = $request['password'] ?? null;
 
         if (!$login || !$email || !$password) {

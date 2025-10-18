@@ -18,7 +18,7 @@ if (isset($_SERVER['HTTP_HX_REQUEST'])) {
     <title>Oferty</title>
 </head>
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/navbar.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/navbar.php'; ?>
     <h1>Aktualne oferty</h1>
     <div id="listings-outer">
         <div id="offers">
