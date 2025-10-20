@@ -1,0 +1,43 @@
+:root {
+  font-family: Inter, sans-serif;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1, /* Contextual alternates */
+    "tnum" 1, /* Tabular numbers */
+    "zero" 1, /* Slashed zero Slashed zero */
+    "ss02" 1, /* Disambiguation */
+    "ss03" 1; /* Round quotes & comma */
+  font-variant-numeric: tabular-nums;
+}
+@supports (font-variation-settings: normal) {
+  :root {
+    font-family: InterVariable, sans-serif;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 32px;
+  min-width: 100vw;
+  min-height: 100vh;
+
+  background: #020202;
+  color: white;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    transition: 250ms border;
+    border-bottom: 1px solid transparent;
+}
+
+nav a:hover {
+    color: #9e6dff;
+    border-color: #9e6dff;
+}

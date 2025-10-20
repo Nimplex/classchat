@@ -16,8 +16,8 @@ class Listing extends BaseDBModel
 
     private function _listAll(int $limit, int $offset): array
     {
-        $stmt = $this->db->prepare(
-            'SELECT 
+        $stmt = $this->db->prepare('
+        SELECT
             l.id AS listing_id,
             l.user_id,
             l.title,
@@ -30,17 +30,33 @@ class Listing extends BaseDBModel
             ON c.listing_id = l.id 
            AND c.main = TRUE
          ORDER BY l.created_at DESC
-         LIMIT :limit OFFSET :offset'
-        );       // I'm using bindValue to enforce use of INT
+         LIMIT :limit OFFSET :offset
+        ');       // I'm using bindValue to enforce use of INT
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
+   
     private function _findByID(int $id): ?array
     {
-        $stmt = $this->db->prepare('SELECT * FROM listings WHERE id = ?');
+        $stmt = $this->db->prepare('
+        SELECT
+           l.id as listing_id,
+           l.user_id,
+           l.title,
+           l.price,
+           l.description,
+           l.created_at,
+           c.file_id as cover_file_id,
+           u.display_name
+        FROM listings l
+        LEFT JOIN users u
+           ON u.id = l.user_id
+        LEFT JOIN covers c
+           ON c.listing_id = l.id
+        WHERE id = ?
+        ');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
@@ -73,6 +89,13 @@ class Listing extends BaseDBModel
         $page = max(Listing::MIN_PAGE, min(Listing::MAX_PAGE, $page));
         $offset = ($page - 1) * Listing::PER_PAGE;
         return $this->_listAll(Listing::PER_PAGE, $offset);
+    }
+
+    public function get(int $id) {
+        if (!$id) {
+            throw new \InvalidArgumentException("Not enough arguments");
+        }
+        return $this->findByID($id);
     }
 
     public function listByUser(int $user_id): array

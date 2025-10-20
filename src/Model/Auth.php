@@ -15,9 +15,9 @@ class Auth extends BaseDBModel
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
-    private function _create(string $login, string $email, string $password): bool
+    private function _create(string $login, string $display_name, string $email, string $password): bool
     {
-        $stmt = $this->db->prepare('INSERT INTO users (login, email, password_hash) VALUES (:login, :email, :password_hash)');
+        $stmt = $this->db->prepare('INSERT INTO users (login, display_name, email, password_hash) VALUES (:login, :display_name, :email, :password_hash)');
 
         // https://www.php.net/manual/en/function.password-hash.php
         // I decided that ARGON2ID is stronger than bcrypt
@@ -29,6 +29,7 @@ class Auth extends BaseDBModel
 
         return $stmt->execute([
             ':login' => $login,
+            ':display_name' => $display_name,
             ':email' => $email,
             ':password_hash' => $hash,
         ]);
@@ -39,7 +40,7 @@ class Auth extends BaseDBModel
     /**
      * @throws \InvalidArgumentException
      */
-    public function register(string $login, string $email, string $password): bool
+    public function register(string $login, string $display_name, string $email, string $password): bool
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \InvalidArgumentException('Nieprawidłowy adres e-mail', 1);
@@ -49,7 +50,7 @@ class Auth extends BaseDBModel
             throw new \InvalidArgumentException("Hasło musi składać się z conajmniej ${Auth::MIN_PASS_LENGTH} znaków", 1);
         }
         
-        return $this->_create($login, $email, $password);
+        return $this->_create($login, $display_name, $email, $password);
     }
 
     /**
@@ -67,6 +68,7 @@ class Auth extends BaseDBModel
             return [
                 'login' => $user['login'],
                 'email' => $user['email'],
+                'display_name' => $user['display_name'],
                 'id' => $user['id'],
             ];
         }
@@ -81,14 +83,15 @@ class Auth extends BaseDBModel
     public function register_from_request(array $request): void
     {
         $login = $request['login'] ?? null;
+        $display_name = $request['display_name'] ?? null;
         $email = $request['email'] ?? null;
         $password = $request['password'] ?? null;
 
-        if (!$login || !$email || !$password) {
+        if (!$login || !$display_name || !$email || !$password) {
             throw new \InvalidArgumentException('Missing fields');
         }
 
-        $this->register($login, $email, $password);
+        $this->register($login, $display_name, $email, $password);
     }
 
     /**
@@ -104,6 +107,7 @@ class Auth extends BaseDBModel
 
         $_SESSION['user_id'] = $res['id'];
         $_SESSION['user_email'] = $res['email'];
+        $_SESSION['user_display_name'] = $res['display_name'];
         $_SESSION['user_login'] = $res['login'];
     }
 }
