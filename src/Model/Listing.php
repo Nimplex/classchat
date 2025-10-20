@@ -95,7 +95,7 @@ class Listing extends BaseDBModel
         if (!$id) {
             throw new \InvalidArgumentException("Not enough arguments");
         }
-        return $this->findByID($id);
+        return $this->_findByID($id);
     }
 
     public function listByUser(int $user_id): array
