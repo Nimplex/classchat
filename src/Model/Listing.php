@@ -22,12 +22,15 @@ class Listing extends BaseDBModel
             l.user_id,
             l.title,
             l.price,
-            l.description,
             l.created_at,
+            l.attributes,
+            u.display_name,
             c.file_id AS cover_file_id
          FROM listings l
-         LEFT JOIN covers c 
-            ON c.listing_id = l.id 
+        LEFT JOIN users u
+           ON u.id = l.user_id
+         LEFT JOIN covers c
+            ON c.listing_id = l.id
            AND c.main = TRUE
          ORDER BY l.created_at DESC
          LIMIT :limit OFFSET :offset

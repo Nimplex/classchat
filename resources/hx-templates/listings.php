@@ -6,24 +6,42 @@ $page = max($_GET['page'] ?? 1, 1);
 ?>
 
 <?php foreach ($listing->listAll($page) as $lis): ?>
-<a href="/listings/<?= $lis['listing_id'] ?>">
+<a id="offers" class="offer-card" href="/listings/<?= $lis['listing_id'] ?>" role="link">
     <article>
-        <?php if (!empty($lis['cover_file_id'])) {
-            echo "
-                <header>
-                    <img src=\"/covers/${lis['cover_file_id']}\">
-                    <hr />
-                </header>
-            ";
-            }
-        ?>
+        <?php if (!empty($lis['cover_file_id'])):
+            $encoded_file = urlencode($lis['cover_file_id']); ?>
+            <header>
+                <img height="300" src="/covers.php?file=<?= $encoded_file ?>" alt="<?= htmlspecialchars($lis['title']) ?>">
+            </header>
+            <span class="vr"></span>
+        <?php endif; ?>
+
         <main>
-            <h2><?= $lis['title'] ?></h2>
-            <p><?= $lis['description'] ?></p>
+            <h2><?= htmlspecialchars($lis['title']) ?></h2>
+            <ul>
+                <li><p><?= htmlspecialchars($lis['display_name']) ?></p></li>
+                <li><p><?= htmlspecialchars($lis['created_at']) ?></p></li>
+            </ul>
+            <span class="small-text">Naciśnij aby wyświetlić więcej szczegółów</span>
         </main>
+        <span class="vr"></span>
         <footer>
-            <hr />
-            <h2><?= $lis['price'] ?></h2>
+            <h1><?= htmlspecialchars($lis['price']) ?></h1>
+            <div>
+                <button
+                    type="button"
+                    onclick="event.preventDefault(); event.stopPropagation();"
+                    aria-label="Dodaj '<?= htmlspecialchars($lis['title']) ?>' do ulubionych">
+                        Dodaj do ulubionych
+                </button>
+                <button
+                    type="button"
+                    class="btn-accent"
+                    onclick="event.preventDefault(); event.stopPropagation();"
+                    aria-label="Skontaktuj się z sprzedającym na temat '<?= htmlspecialchars($lis['title']) ?>'">
+                        Napisz do ogłoszeniodawcy
+                </button>
+            </div>
         </footer>
     </article>
 </a>

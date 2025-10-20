@@ -54,11 +54,3 @@ button {
   justify-content: space-between;
   gap: 3rem;
 }
-
-.small-text {
-  padding: 0;
-  font-size: 0.875rem;
-  color: #666;
-  line-height: 1.4;
-  margin-top: 1rem;
-}

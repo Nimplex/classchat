@@ -24,6 +24,7 @@ function render_content()
     
     return <<<HTML
     <h1>Aktualne oferty</h1>
+    <hr />
     <div id="offers">
         $listings
         <!-- this is just a placeholder, later we can put something else in here -->

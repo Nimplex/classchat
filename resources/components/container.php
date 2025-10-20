@@ -23,8 +23,9 @@ if (!in_array($lang, $allowed, true)) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="/_css/base.css" as="style">
     <link rel="preload" href="/_js/htmx.min.js" as="script">
-    <link rel="stylesheet" href="/_css/base.css">
+    <link rel="preload" href="https://rsms.me/inter/inter.css" as="style">
     <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="/_css/base.css">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <?php if (function_exists('render_head')) {
