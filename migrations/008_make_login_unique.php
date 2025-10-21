@@ -4,7 +4,7 @@
 require __DIR__ . '/../bootstrap.php';
 
 $sql = <<<SQL
-ALTER TABLE users ADD UNIQUE (login); 
+ALTER TABLE users ADD UNIQUE (login);
 SQL;
 
 $db->exec($sql);
