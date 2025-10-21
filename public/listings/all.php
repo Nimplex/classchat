@@ -7,7 +7,7 @@ if (isset($_SERVER['HTTP_HX_REQUEST'])) {
     die;
 }
 
-$title = 'Oferty';
+$title = 'Ogłoszenia';
 
 function render_head()
 {
@@ -23,7 +23,7 @@ function render_content()
     $listings = ob_get_clean();
     
     return <<<HTML
-    <h1>Aktualne oferty</h1>
+    <h1>Aktualne ogłoszenia</h1>
     <hr>
     <div id="offers">
         $listings

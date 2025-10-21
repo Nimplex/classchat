@@ -4,6 +4,7 @@
   --gray-bg: #252525;
   --border-gray: #575757;
   --white: #ebe9e9;
+  --red: #dc3545;
 
   font-family: Inter, sans-serif;
   /* prettier-ignore */
@@ -35,6 +36,13 @@ body {
 
   background: var(--main-bg);
   color: var(--white);
+}
+
+body,
+input,
+button,
+textarea {
+  font-family: inherit;
 }
 
 body > main,
@@ -111,7 +119,6 @@ nav {
   align-items: center;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
   text-wrap: nowrap;
   gap: 2rem;
 }
@@ -144,7 +151,7 @@ nav li {
 nav a {
   display: inline-flex;
   align-items: center;
-  gap: 0.3em;
+  gap: 0.5em;
   color: inherit;
   text-decoration: none;
   transform: translateY(0.25rem);
@@ -215,6 +222,28 @@ button svg {
   height: 1em;
 }
 
+button {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-no-border-red {
+  border: none !important;
+  background: none !important;
+  color: var(--red);
+}
+
+.btn-red {
+  color: var(--white);
+  background: var(--red);
+  border: 1px solid var(--red);
+}
+
+.btn-red:hover {
+  background: var(--main-bg);
+}
+
 input[type="submit"],
 .btn-accent {
   color: var(--main-bg);
@@ -237,6 +266,7 @@ input[type="submit"]:hover,
 body > main {
   max-width: 1400px;
   margin: 2rem auto;
+  box-sizing: content-box;
 }
 
 hr {

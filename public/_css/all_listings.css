@@ -83,6 +83,7 @@ main hr {
   flex-direction: column;
   justify-content: space-between;
   min-width: 260px;
+  flex: 0;
 }
 
 #offers article footer button {

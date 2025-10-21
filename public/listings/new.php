@@ -7,7 +7,7 @@ $title = "Nowe ogłoszenie";
 function render_content()
 {
     return <<<HTML
-    <h1>Nowa oferta</h1>
+    <h1>Nowe ogłoszenie</h1>
     <hr>
     <div>
         <form action="/api/new-listing" method="POST">

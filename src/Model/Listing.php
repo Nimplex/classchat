@@ -51,6 +51,7 @@ class Listing extends BaseDBModel
            l.price,
            l.description,
            l.created_at,
+           l.attributes,
            c.file_id as cover_file_id,
            u.display_name
         FROM listings l
@@ -62,6 +63,13 @@ class Listing extends BaseDBModel
         ');
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+    }
+
+    private function _listCoversByID(int $id): ?array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM covers WHERE listing_id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     private function _listByUser(int $user_id): array
@@ -100,6 +108,14 @@ class Listing extends BaseDBModel
             throw new \InvalidArgumentException("Not enough arguments");
         }
         return $this->_findByID($id);
+    }
+
+    public function getCovers(int $id): ?array
+    {
+        if (!$id) {
+            throw new \InvalidArgumentException("Not enough arguments");
+        }
+        return $this->_listCoversByID($id);
     }
 
     public function listByUser(int $user_id): array
