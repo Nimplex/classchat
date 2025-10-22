@@ -15,14 +15,14 @@ function getEntries() {
   // Get all CSS files
   const cssFiles = glob.sync('./resources/css/**/*.css');
   cssFiles.forEach(file => {
-    const name = path.basename(file, '.css');
+    const name = 'css-' + path.basename(file, '.css');
     entries[name] = path.resolve(__dirname, file); // Use absolute path
   });
   
   // Get all JS files
   const jsFiles = glob.sync('./resources/js/**/*.js');
   jsFiles.forEach(file => {
-    const name = path.basename(file, '.js');
+    const name = 'js-' + path.basename(file, '.js');
     entries[name] = path.resolve(__dirname, file); // Use absolute path
   });
   
