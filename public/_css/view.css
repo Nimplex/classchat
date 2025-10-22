@@ -145,6 +145,7 @@ img {
   display: flex;
   flex-direction: column;
   background: var(--gray-bg);
+  border: 1px solid var(--border-gray);
   padding: 1rem;
   gap: 1rem;
 }
@@ -154,18 +155,18 @@ img {
 }
 
 @media only screen and (max-width: 1200px) {
-    .row {
-        flex-direction: column;
-    }
+  .row {
+    flex-direction: column;
+  }
 
-    .carousel {
-        width: 100% !important;
-        flex: 1;
-    }
-    
-    #main-cover {
-        max-height: unset;
-        width: 100%;
-        max-width: 560px;
-    }
+  .carousel {
+    width: 100% !important;
+    flex: 1;
+  }
+
+  #main-cover {
+    max-height: unset;
+    width: 100%;
+    max-width: 560px;
+  }
 }
