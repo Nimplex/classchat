@@ -11,7 +11,7 @@ $page = max($_GET['page'] ?? 1, 1);
         <?php if (!empty($lis['cover_file_id'])):
             $encoded_file = urlencode($lis['cover_file_id']); ?>
             <header>
-                <img height="300" src="/covers.php?file=<?= $encoded_file ?>" alt="<?= htmlspecialchars($lis['title']) ?>">
+                <img height="300" width="300" src="/covers.php?file=<?= $encoded_file ?>" alt="<?= htmlspecialchars($lis['title']) ?>">
             </header>
             <span class="vr"></span>
         <?php endif; ?>

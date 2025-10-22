@@ -2,12 +2,16 @@
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/../src/WebpackManifest.php';
+use App\WebpackManifest;
+
 $title = "Nowe ogłoszenie";
 
 function render_head()
 {
+    $style_path = WebpackManifest::asset('new.css');
     return <<<HTML
-        <link rel="stylesheet" href="{WebpackManifest::asset('new.css')}">
+        <link rel="stylesheet" href="{$style_path}">
         <style>
         .money-input {
             width: 5em;

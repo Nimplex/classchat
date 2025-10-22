@@ -30,9 +30,9 @@ if (!in_array($lang, $allowed, true)) {
     <link rel="preload" href="<?= WebpackManifest::asset('htmx.min.js') ?>" as="script">
     <link rel="preload" href="https://rsms.me/inter/inter.css" as="style">
     <link rel="preconnect" href="https://rsms.me/">
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <link rel="stylesheet" href="<?= WebpackManifest::asset('base.css') ?>">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" defer>
+    <link rel="stylesheet" href="<?= WebpackManifest::asset('base.css') ?>" async>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <?php if (function_exists('render_head')) {
         echo render_head();
     } ?>
@@ -55,8 +55,10 @@ if (!in_array($lang, $allowed, true)) {
         echo render_scripts();
     } ?>
 
-    <script>
-        lucide.createIcons();
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            lucide.createIcons();
+        });
     </script>
 
     <script src="<?= WebpackManifest::asset('htmx.min.js') ?>"></script>

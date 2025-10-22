@@ -55,7 +55,7 @@ function render_content(): string
 
         $carousel .= <<<HTML
         <li>
-            <img src="/covers.php?file={$cover['file_id']}" alt="Podgląd '{$title}'">
+            <img loading="lazy" src="/covers.php?file={$cover['file_id']}" alt="Podgląd '{$title}'">
         </li>
         HTML;
     }
@@ -127,8 +127,9 @@ function render_content(): string
 
 function render_scripts()
 {
+    $script_path = WebpackManifest::asset('carousel.js');
     return <<<HTML
-    <script src="/_js/carousel.js"></script>
+    <script src="{$script_path}"></script>
     HTML;
 }
 
