@@ -39,6 +39,14 @@ main hr {
   #image-input {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .row {
+    flex-direction: column;
+  }
+
+  .row > div {
+    width: revert;
+  }
 }
 
 #image-input > div {

@@ -95,6 +95,7 @@ function render_content(): string
                         >
                         <span>zł</span>
                     </label>
+                    <br><br>
                 </div>
                 <div id="image-input-outer">
                     <h3>Zdjęcia</h3>
