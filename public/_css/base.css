@@ -191,8 +191,8 @@ nav .mobile {
 }
 
 #menu-toggle {
-    aspect-ratio: 1/1;
-    transform: translateY(-3px);
+  aspect-ratio: 1/1;
+  transform: translateY(-3px);
 }
 
 @media (max-width: 1000px) {
