@@ -313,7 +313,7 @@ input[type="submit"],
 .btn-accent {
   color: var(--main-bg);
   background: var(--accent);
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent) !important;
 }
 
 input[type="submit"]:hover,
