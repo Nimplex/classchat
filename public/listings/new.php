@@ -4,7 +4,66 @@ require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 
 $title = "Nowe ogłoszenie";
 
-function render_content()
+function render_scripts(): string
+{
+    return <<<'HTML'
+    <script>
+        function previewFile(input) {
+            const file = input.files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                const label = input.parentNode;
+                const wrapper = label.parentNode;
+                const grid = document.getElementById('image-input');
+                const img = document.createElement('img');
+                label.replaceChild(img, label.firstChild);
+
+                img.src = reader.result;
+
+                if (wrapper.className === "has-img")
+                    return;
+
+                // new input field
+                const new_field = document.createElement('div');
+                new_field.innerHTML = `
+                    <label>
+                        +
+                        <input
+                            type="file"
+                            class="sr-only"
+                            onchange="previewFile(this)"
+                            name="image${[...grid.children].indexOf(wrapper) + 1}"
+                        >
+                    </label>
+                    <div onclick="removeFile(this)">×</div>`;
+                grid.insertBefore(new_field, wrapper.nextSibling);
+                wrapper.className = "has-img";
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                img.src = "";
+            }
+        }
+        
+        function removeFile(close) {
+            const wrapper = close.parentNode;
+            const grid = document.getElementById('image-input');
+
+            wrapper.remove();
+
+            const field_amount = grid.children.length - 1;
+            for (let i = 0; i < field_amount; i++) {
+                grid.children[i].firstElementChild.children[1].name = `image${i}`;
+            }
+        }
+    </script>
+    HTML;
+}
+
+function render_content(): string
 {
     return <<<HTML
     <h1>Nowe ogłoszenie</h1>
@@ -39,12 +98,20 @@ function render_content()
                 </div>
                 <div id="image-input-outer">
                     <h3>Zdjęcia</h3>
+                    <br>
                     <div id="image-input">
-                        <img>
-                        <label>
-                            +
-                            <input type="file" class="sr-only">
-                        </label>
+                        <div>
+                            <label>
+                                +
+                                <input
+                                    type="file"
+                                    class="sr-only"
+                                    onchange="previewFile(this)"
+                                    name="image0"
+                                >
+                            </label>
+                            <div onclick="removeFile(this)">×</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,7 +122,7 @@ function render_content()
     HTML;
 }
 
-function render_head()
+function render_head(): string
 {
     return <<<HTML
         <link rel="stylesheet" href="/_css/new.css">

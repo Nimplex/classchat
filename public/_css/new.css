@@ -23,19 +23,26 @@ main hr {
 }
 
 #image-input-outer {
-  display: flex;
-  flex-direction: column;
   background: var(--gray-bg);
   border: 1px solid var(--border-gray);
   border-radius: var(--radius);
   padding: 1rem;
-  gap: 1rem;
 }
 
 #image-input {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  #image-input {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+#image-input > div {
+  position: relative;
 }
 
 #image-input label {
@@ -43,7 +50,6 @@ main hr {
   height: auto;
   aspect-ratio: 1;
   font-size: 2rem;
-  padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,16 +59,53 @@ main hr {
   outline: none;
   transition: 250ms all;
   cursor: pointer;
+  overflow: hidden;
 }
 
-#image-input img {
+#image-input label > img {
   width: 100%;
-  height: auto;
-  aspect-ratio: 1;
-  border: 1px solid var(--border-gray);
-  border-radius: var(--radius);
+  height: 100%;
+  object-fit: cover;
+  transition: 250ms scale;
+}
+
+#image-input label > img:hover {
+  scale: 1.2;
 }
 
 #image-input label:hover {
   border-color: var(--white);
+}
+
+/* this #image-input is needed for specificity */
+#image-input .has-img > div {
+  width: 42px;
+  height: 42px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  background-color: var(--gray-bg);
+  font-size: 2rem;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 250ms opacity, 250ms color;
+  opacity: 0;
+  z-index: 1;
+}
+
+#image-input div div {
+  display: none;
+  font-feature-settings: "case"; /* this centers the "×" nicely */
+}
+
+#image-input > div:hover > div {
+  opacity: 1;
+}
+
+.has-img > div:hover {
+  color: var(--red);
 }
