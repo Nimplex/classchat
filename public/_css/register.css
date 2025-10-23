@@ -8,9 +8,10 @@ main {
 }
 
 form {
-      padding: 2rem;
+  padding: 2rem;
   background: var(--gray-bg);
-    max-width: 600px;
+  max-width: 600px;
+  border-radius: var(--radius);
 }
 
 h1 {

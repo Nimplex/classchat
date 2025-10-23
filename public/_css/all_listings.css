@@ -6,17 +6,17 @@ main hr {
   margin: 2rem 0;
 }
 
-#offers a {
+.offer-card {
   text-decoration: inherit;
   color: inherit;
   transition: opacity 300ms ease-in;
 }
 
-#offers a.htmx-settling {
+.offer-card.htmx-settling {
   opacity: 0;
 }
 
-#offers article {
+.offer-card article {
   display: flex;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -24,61 +24,64 @@ main hr {
   background: var(--gray-bg);
   border: 1px solid var(--border-gray);
   transition: 250ms all;
+  border-radius: var(--radius);
 }
 
-#offers article header {
+.offer-card article header {
   flex: 0 1 300px;
   max-width: 300px;
   width: 100%;
 }
 
-#offers article header img {
+.offer-card article header img {
   width: 100%;
   height: auto;
   max-height: 300px;
   object-fit: cover;
   display: block;
+  border: 2px solid var(--border-gray);
+  border-radius: var(--radius);
 }
 
 @media only screen and (max-width: 1000px) {
-  #offers article {
+  .offer-card article {
     flex-direction: column;
   }
-  #offers article main .small-text {
+  .offer-card article main .small-text {
     margin-top: 1.5rem !important;
   }
-  #offers article header {
+  .offer-card article header {
     width: 100%;
     max-width: 100%;
   }
 }
 
-#offers article:hover {
+.offer-card article:hover {
   background: #151515;
 }
 
-#offers article main {
+.offer-card article main {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
-#offers article main h2 {
+.offer-card article main h2 {
   margin-bottom: 1rem;
 }
 
-#offers article main ul {
+.offer-card article main ul {
   margin-left: 1rem;
   line-height: 1.5rem;
 }
 
-#offers article main .small-text {
+.offer-card article main .small-text {
   margin-top: auto;
   color: #999;
   font-size: 1rem;
 }
 
-#offers article footer {
+.offer-card article footer {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -86,7 +89,7 @@ main hr {
   flex: 0;
 }
 
-#offers article footer button {
+.offer-card article footer button {
   margin-top: 1rem;
   width: 100%;
 }

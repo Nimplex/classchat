@@ -5,6 +5,7 @@
   --border-gray: #575757;
   --white: #ebe9e9;
   --red: #dc3545;
+  --radius: 8px;
 
   font-family: Inter, sans-serif;
   /* prettier-ignore */
@@ -207,6 +208,7 @@ button {
   outline: none;
   cursor: pointer;
   transition: 250ms all;
+  border-radius: var(--radius);
 }
 
 .inline-input {

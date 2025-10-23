@@ -1,6 +1,7 @@
 main {
   max-width: 1400px;
-  margin: 0 auto;
+  box-sizing: border-box !important;
+  margin: 0 auto !important;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -14,6 +15,7 @@ main {
   padding: 2rem;
   margin: 0 auto;
   background: var(--gray-bg);
+  border-radius: var(--radius);
 }
 
 @media only screen and (max-width: 768px) {
