@@ -6,3 +6,63 @@ main h1 {
 main hr {
   margin: 2rem 0;
 }
+
+.money-input {
+  display: inline-flex;
+  text-align: right;
+  width: 6rem;
+  margin-right: 0.5rem;
+}
+
+.row {
+  display: flex;
+}
+
+.row > div {
+  width: 50%;
+}
+
+#image-input-outer {
+  display: flex;
+  flex-direction: column;
+  background: var(--gray-bg);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+  padding: 1rem;
+  gap: 1rem;
+}
+
+#image-input {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+
+#image-input label {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  font-size: 2rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+  background: var(--main-bg);
+  outline: none;
+  transition: 250ms all;
+  cursor: pointer;
+}
+
+#image-input img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+}
+
+#image-input label:hover {
+  border-color: var(--white);
+}

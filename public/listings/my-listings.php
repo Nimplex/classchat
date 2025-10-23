@@ -1,11 +1,13 @@
 <?php
+
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 $listingModel = (new App\Builder\ListingBuilder())->make();
 
 $title = "Oferty użytkownika {$_SESSION['user_display_name']}";
 
-function render_content() {
+function render_content()
+{
     global $listingModel;
     $html = "<h1>Moje oferty</h1><div>";
     foreach ($listingModel->listByUser($_SESSION['user_id']) as $listing) {

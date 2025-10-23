@@ -34,7 +34,6 @@
 body {
   min-width: 100vw;
   min-height: 100vh;
-
   background: var(--main-bg);
   color: var(--white);
 }
@@ -44,6 +43,8 @@ input,
 button,
 textarea {
   font-family: inherit;
+  font-feature-settings: inherit;
+  font-variant-numeric: inherit;
 }
 
 body > main,
@@ -251,7 +252,7 @@ input,
 textarea,
 button {
   height: 3rem;
-  padding: 0 1rem;
+  padding: 1rem;
   font-size: 1rem;
   display: flex;
   align-items: center;
@@ -259,9 +260,13 @@ button {
   border: 1px solid var(--border-gray);
   background: var(--main-bg);
   outline: none;
-  cursor: pointer;
   transition: 250ms all;
   border-radius: var(--radius);
+}
+
+button,
+input[type="submit"] {
+  cursor: pointer;
 }
 
 .inline-input {
@@ -281,6 +286,10 @@ button {
   display: inline-flex;
   gap: 0.5rem;
   align-items: center;
+}
+
+button:hover {
+  border-color: var(--white);
 }
 
 .btn-no-border-red {
@@ -339,4 +348,15 @@ hr {
   color: #666;
   line-height: 1.4;
   margin-top: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }

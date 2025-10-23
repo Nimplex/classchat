@@ -2,11 +2,11 @@
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/../src/ISO3166.php';
-
-$listing_id = $_GET['listing'];
+use function App\iso3_to_language;
 
 $listingBuilder = (new App\Builder\ListingBuilder())->make();
 
+$listing_id = $_GET['listing'];
 $listing = $listingBuilder->get($listing_id);
 $listing_covers = $listingBuilder->getCovers($listing_id);
 
@@ -63,7 +63,7 @@ function render_content(): string
         $value = htmlspecialchars($value);
 
         switch ($attribute) {
-        case 'language':
+            case 'language':
                 $language = iso3_to_language($value);
                 $value = "{$language['normalized']} ({$language['localized']})";
                 break;
@@ -77,7 +77,7 @@ function render_content(): string
         HTML;
     }
 
-    $carousel_section = ($array_size == 0) ? null : <<<HTML
+    $carousel_section = ($array_size === 0) ? null : <<<HTML
         <section class="carousel" role="region" aria-roledescription="carousel" aria-label="Zdjęcia oferty">
             <div id="cover-container">
                 <img src="/covers.php?file={$main_cover}" id="main-cover">
@@ -87,6 +87,14 @@ function render_content(): string
             <hr>
             {$carousel}
         </section>
+    HTML;
+
+    $attribute_table = ($attributes === "") ? "" : <<<HTML
+        <table id="details">
+            <tbody>
+               {$attributes}
+            </tbody>
+        </table>
     HTML;
 
     $template = <<<HTML
@@ -101,11 +109,7 @@ function render_content(): string
                         <p class="with-icon"><i data-lucide="book-open-text" aria-hidden="true"></i>Opis:</p>
                         <p>{$description}</p>
                     </div>
-                    <table id="details">
-                        <tbody>
-                           {$attributes}
-                        </tbody>
-                    </table>
+                    {$attribute_table}
                 </div>
                 <div id="button-section">
                     <h1>{$listing['price']}</h1>

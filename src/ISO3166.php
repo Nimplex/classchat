@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /*
  * Conversion library for converting ISO 3166-1 alpha-3 country codes to language names.
  */
@@ -21,7 +23,7 @@ function iso3_to_language(string $code): ?array
         ],
         'AIA' => [
             'localized' => '',
-            'normalized' => '', 
+            'normalized' => '',
         ],
         'ALA' => [
             'localized' => '',
