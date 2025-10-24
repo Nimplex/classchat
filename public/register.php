@@ -3,15 +3,13 @@
 $title = 'Rejestracja';
 $no_navbar = true;
 
-function render_head(): string
-{
+$render_head = function (): string {
     return <<<HTML
     <link rel="stylesheet" href="/_css/register.css">
     HTML;
-}
+};
 
-function render_content(): string
-{
+$render_content = function (): string {
     return <<<HTML
     <form action="/api/register" method="POST">
         <h1>Zarejestruj się</h1>
@@ -29,6 +27,6 @@ function render_content(): string
         </footer>
     </form>
     HTML;
-}
+};
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

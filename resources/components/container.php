@@ -15,6 +15,9 @@ if (!in_array($lang, $allowed, true)) {
 
 /** @var string $title */
 /** @var bool $no_navbar */
+/** @var function $render_head */
+/** @var function $render_content */
+/** @var function $render_scripts */
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +26,7 @@ if (!in_array($lang, $allowed, true)) {
 <head>
     <meta charset="utf-8">
     <meta name="color-scheme" content="dark">
-    <title><?= $title ?? 'Neovim enjoyers club'?></title>
+    <title>Shopex: <?= $title ?? 'Neovim enjoyers club'?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="/_css/base.css" as="style">
     <link rel="preload" href="/_js/htmx.min.js" as="script">
@@ -33,8 +36,8 @@ if (!in_array($lang, $allowed, true)) {
     <link rel="stylesheet" href="/_css/base.css">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <?php if (function_exists('render_head')) {
-        echo render_head();
+    <?php if (isset($render_head)) {
+        echo $render_head();
     } ?>
 </head>
 
@@ -46,13 +49,13 @@ if (!in_array($lang, $allowed, true)) {
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/hx-templates/message-box.php'; ?>
 
     <main>
-    <?php if (function_exists('render_content')) {
-        echo render_content();
+    <?php if (isset($render_content)) {
+        echo $render_content();
     } ?>
     </main>
 
-    <?php if (function_exists('render_scripts')) {
-        echo render_scripts();
+    <?php if (isset($render_scripts)) {
+        echo $render_scripts();
     } ?>
 
     <script>

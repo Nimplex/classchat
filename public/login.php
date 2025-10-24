@@ -3,15 +3,13 @@
 $title = 'Logowanie';
 $no_navbar = true;
 
-function render_head(): string
-{
+$render_head = function (): string {
     return <<<HTML
     <link rel="stylesheet" href="/_css/login.css">
     HTML;
-}
+};
 
-function render_content(): string
-{
+$render_content = function (): string {
     return <<<HTML
     <div role="presentation" id="inner-container">
         <form action="/api/login" method="POST">
@@ -38,6 +36,6 @@ function render_content(): string
         </div>
     </div>
     HTML;
-}
+};
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

@@ -2,10 +2,9 @@
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 
-$title = "Nowe ogłoszenie";
+$title = 'Nowe ogłoszenie';
 
-function render_scripts(): string
-{
+$render_scripts = function (): string {
     return <<<'HTML'
     <script>
         function previewFile(input) {
@@ -61,10 +60,9 @@ function render_scripts(): string
         }
     </script>
     HTML;
-}
+};
 
-function render_content(): string
-{
+$render_content = function (): string {
     return <<<HTML
     <h1>Nowe ogłoszenie</h1>
     <hr>
@@ -121,13 +119,12 @@ function render_content(): string
         </form>
     </div>
     HTML;
-}
+};
 
-function render_head(): string
-{
+$render_head = function (): string {
     return <<<HTML
-        <link rel="stylesheet" href="/_css/new.css">
+    <link rel="stylesheet" href="/_css/new.css">
     HTML;
-}
+};
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

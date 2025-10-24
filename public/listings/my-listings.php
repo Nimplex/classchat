@@ -6,8 +6,7 @@ $listingModel = (new App\Builder\ListingBuilder())->make();
 
 $title = "Oferty użytkownika {$_SESSION['user_display_name']}";
 
-function render_content()
-{
+$render_content = function () {
     global $listingModel;
     $html = "<h1>Moje oferty</h1><div>";
     foreach ($listingModel->listByUser($_SESSION['user_id']) as $listing) {
@@ -21,6 +20,6 @@ function render_content()
     }
     $html .= "</div>";
     return $html;
-}
+};
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

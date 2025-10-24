@@ -1,14 +1,13 @@
-<?php http_response_code(403); ?>
-<!DOCTYPE html>
-<html lang="pl">
+<?php
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>403</title>
-</head>
-<body>
+http_response_code(403);
+
+$title = '403';
+
+$render_content = function (): string {
+    return <<<HTML
     <h1>Forbidden</h1>
-</body>
+    HTML;
+};
 
-</html>
+require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

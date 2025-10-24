@@ -1,14 +1,13 @@
-<?php http_response_code(401); ?>
-<!DOCTYPE html>
-<html lang="pl">
+<?php
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>401</title>
-</head>
-<body>
+http_response_code(401);
+
+$title = '401';
+
+$render_content = function (): string {
+    return <<<HTML
     <h1>Unauthorized</h1>
-</body>
+    HTML;
+};
 
-</html>
+require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

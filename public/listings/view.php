@@ -58,15 +58,13 @@ $key_lookup_table = [
     ],
 ];
 
-function render_head(): string
-{
+$render_head = function (): string {
     return <<<HTML
     <link rel="stylesheet" href="/_css/view.css">
     HTML;
-}
+};
 
-function render_content(): string
-{
+$render_content = function (): string {
     global $title, $listing, $listing_covers, $key_lookup_table, $iso;
 
     $array_size = count($listing_covers);
@@ -156,13 +154,12 @@ function render_content(): string
     HTML;
 
     return $template;
-}
+};
 
-function render_scripts()
-{
+$render_scripts = function () {
     return <<<HTML
     <script src="/_js/carousel.js"></script>
     HTML;
-}
+};
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

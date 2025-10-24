@@ -13,15 +13,13 @@ $listingBuilder = (new App\Builder\ListingBuilder())->make();
 $title = 'Ogłoszenia';
 $current_page = (int)$_GET['page'] ?? 0;
 
-function render_head()
-{
+$render_head = function () {
     return <<<HTML
     <link rel="stylesheet" href="/_css/all_listings.css">
     HTML;
-}
+};
 
-function render_content()
-{
+$render_content = function () {
     global $listingBuilder, $current_page;
     $total_pages = $listingBuilder->countPages();
 
@@ -64,13 +62,12 @@ function render_content()
         $pages_navigation
     </noscript>
     HTML;
-}
+};
 
-function render_scripts()
-{
+$render_scripts = function () {
     return <<<HTML
     <script src="/_js/htmx.min.js"></script>
     HTML;
-}
+};
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';
