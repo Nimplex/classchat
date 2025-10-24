@@ -12,31 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
-  const syncWidth = () => {
+  function syncWidth() {
     carousel.style.width = main.offsetWidth + "px";
     list.style.display = "flex";
-  };
+  }
 
-  const updateMain = (index) => {
+  function updateMain(index) {
     currentIndex = (index + items.length) % items.length;
     main.src = items[currentIndex].src;
-  };
+  }
 
-  btnLeft.addEventListener("click", () => {
-    updateMain(currentIndex - 1);
-  });
+  btnLeft.addEventListener("click", () => updateMain(currentIndex - 1));
+  btnRight.addEventListener("click", () => updateMain(currentIndex + 1));
 
-  btnRight.addEventListener("click", () => {
-    updateMain(currentIndex + 1);
-  });
-
-  window.addEventListener("resize", () => {
-    syncWidth();
-  });
-
-  for (const item of items) {
-    }
-
+  window.addEventListener("resize", syncWidth);
   main.addEventListener("load", syncWidth);
 
   syncWidth();
