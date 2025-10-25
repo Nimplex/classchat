@@ -16,6 +16,8 @@ main hr {
 
 .row {
   display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
 }
 
 .row > div {
@@ -63,16 +65,18 @@ main hr {
   transition: 250ms scale;
 }
 
-#image-input label > img:hover {
+#image-input label > img:hover,
+#image-input label > img:has(~ input:focus) {
   scale: 1.2;
 }
 
-#image-input label:hover {
+#image-input label:hover,
+#image-input label:has(> input:focus) {
   border-color: var(--white);
 }
 
 /* this #image-input is needed for specificity */
-#image-input .has-img > div {
+#image-input .has-img > button {
   width: 42px;
   height: 42px;
   position: absolute;
@@ -115,15 +119,18 @@ main hr {
   }
 }
 
-#image-input div div {
+#image-input div button {
   display: none;
   font-feature-settings: "case"; /* this centers the "×" nicely */
 }
 
-#image-input > div:hover > div {
+#image-input > div:hover > button,
+#image-input label:has(input:focus) + button,
+#image-input > div > button:focus {
   opacity: 1;
 }
 
-.has-img > div:hover {
+.has-img > button:hover,
+.has-img > button:focus {
   color: var(--red);
 }

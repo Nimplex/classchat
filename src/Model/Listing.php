@@ -144,7 +144,7 @@ class Listing extends BaseDBModel
 
         if (strlen($title) < Listing::MIN_TITLE_LEN || strlen($title) > Listing::MAX_TITLE_LEN) {
             throw new \InvalidArgumentException(
-                "Nieprawidłowa długość tytułu; musi być pomiędzy ${Listing::MIN_TITLE_LEN} a ${Listing::MAX_TITLE_LEN}",
+                "Nieprawidłowa długość tytułu; musi być pomiędzy {Listing::MIN_TITLE_LEN} a {Listing::MAX_TITLE_LEN}",
                 1
             );
         }

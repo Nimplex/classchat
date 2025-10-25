@@ -3,6 +3,7 @@
   --accent: #9e6dff;
   --gray-bg: #252525;
   --border-gray: #575757;
+  --border-hover: #808080;
   --white: #ebe9e9;
   --red: #dc3545;
   --radius: 4px;
@@ -247,11 +248,18 @@ textarea {
   height: 10rem !important;
 }
 
+input:hover,
+textarea:hover {
+  cursor: text;
+  border: 1px solid var(--border-hover);
+}
+
 input:focus,
 textarea:focus {
   cursor: text;
   border: 1px solid var(--accent);
 }
+
 
 input,
 textarea,
@@ -292,7 +300,8 @@ button {
   gap: 0.5rem;
 }
 
-button:hover {
+button:hover,
+button:focus {
   border-color: var(--white);
 }
 
@@ -308,7 +317,8 @@ button:hover {
   border: 1px solid var(--red);
 }
 
-.btn-red:hover {
+.btn-red:hover,
+.btn-red:focus {
   background: var(--main-bg);
 }
 
@@ -320,7 +330,9 @@ input[type="submit"],
 }
 
 input[type="submit"]:hover,
-.btn-accent:hover {
+input[type="submit"]:focus,
+.btn-accent:hover,
+.btn-accent:focus {
   color: var(--white);
   background: var(--main-bg);
 }

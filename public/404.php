@@ -4,6 +4,12 @@ http_response_code(404);
 
 $title = '404';
 
+$render_head = function (): string {
+    return <<<HTML
+    <link rel="stylesheet" href="/_css/error.css">
+    HTML;
+};
+
 $render_content = function (): string {
     return <<<HTML
     <h1>Not found</h1>
