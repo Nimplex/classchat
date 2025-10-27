@@ -40,7 +40,7 @@ body {
 }
 
 body > main {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 body,
@@ -113,7 +113,7 @@ body > footer {
 * ==============================================================================
 */
 
-nav {
+body > nav {
   width: 100%;
   font-size: 1rem;
   background: var(--gray-bg);
@@ -260,7 +260,6 @@ textarea:focus {
   border: 1px solid var(--accent);
 }
 
-
 input,
 textarea,
 button {
@@ -384,14 +383,41 @@ hr {
 */
 
 body > footer {
-    display: flex;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    gap: 2rem;
-    background: var(--gray-bg);
+  width: 100%;
+  min-height: 400px;
+  font-size: 1rem;
+  background: var(--gray-bg);
+  border-top: 2px solid var(--border-gray);
+  position: relative;
 }
 
-body > footer > ul li {
-    display: block;
-    margin: 1rem 0;
+.footer-inner {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 4rem;
+  background: var(--gray-bg);
+  max-width: 1400px;
+  margin: 0 auto;
+  text-wrap: nowrap;
+}
+
+.footer-inner h1 {
+  margin-bottom: 0.5rem;
+}
+
+.footer-inner ul li {
+  display: flex;
+}
+
+.footer-inner ul li a {
+  color: var(--accent);
+  flex: 1;
+  padding: 1rem 0;
+}
+
+@media (max-width: 1000px) {
+  .footer-inner {
+    flex-direction: column;
+  }
 }
