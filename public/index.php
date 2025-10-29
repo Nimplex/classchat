@@ -12,6 +12,8 @@ $auth = new Auth($db);
 $router = new App\Router();
 
 $router->GET("/", function () {
+    header('Location: /listings/all.php', true, 303);
+    die;
     echo 'home page???<br>';
     echo 'is logged in: ' . (isset($_SESSION['user_id']) ? 'true<br><a href="/api/logout">Logout</a>' : 'false');
 });
