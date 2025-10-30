@@ -25,6 +25,7 @@ $router->GET('/api/logout', function () {
     die;
 });
 
+$router->GET('/api/activate/:id/:token', fn () => require __DIR__ . '/../resources/api/activate.php');
 $router->POST('/api/register', fn () => require __DIR__ . '/../resources/api/register.php');
 $router->POST('/api/login', fn () => require __DIR__ . '/../resources/api/login.php');
 $router->POST('/api/new-listing', fn () => require __DIR__ . '/../resources/api/new-listing.php');

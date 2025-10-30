@@ -5,12 +5,15 @@ use App\FlashMessage;
 
 /** @var \App\Model\Auth $auth */
 global $auth;
+global $_ROUTE;
 
 try {
-    $auth->register_from_request($_POST);
-    (new FlashMessage())->setOk('Rejestracja udana! Wysłano kod aktywacyjny na skrzynke e-mail');
+    $auth->activate_from_request($_ROUTE);
+    (new FlashMessage())->setOk('Konto zostało aktywowane!');
     header('Location: /login.php', true, 303);
 } catch (\InvalidArgumentException $e) {
     (new FlashMessage())->fromException($e);
-    header('Location: /register.php', true, 303);
+    var_dump($e);
+    die;
+    header('Location: /', true, 303);
 }

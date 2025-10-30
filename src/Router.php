@@ -9,7 +9,7 @@ class Router
 
     private function _registerRoute(string $method, string $path, Route $route): void
     {
-        $this->routes[$path][$method] = $route;
+        $this->routes[$method][$path] = $route;
     }
 
     /**
@@ -20,7 +20,7 @@ class Router
      */
     private function _makeRoute(string $method, string $path, \Closure $callback): Route
     {
-        if (isset($this->routes[$path][$method])) {
+        if (isset($this->routes[$method][$path])) {
             throw new \ErrorException("'{$path}' has been already registered");
         }
 
@@ -67,25 +67,44 @@ class Router
         return $route;
     }
 
+    private function match(string $path, string $pattern): ?array
+    {
+        $regex = preg_replace('#:([\w]+)#', '(?P<$1>[^/]+)', $pattern);
+        $regex = "#^{$regex}$#";
+        if (preg_match($regex, $path, $matches)) {
+            return array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+        }
+        return null;
+    }
+
     /**
      * Handle all requests
      */
     public function handle(): void
     {
+        global $_ROUTE;
         $path = $_SERVER['PATH_INFO'] ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
 
-        if (isset($this->routes[$path][$method])) {
-            $this->routes[$path][$method]->fire();
-            return;
+        if (isset($this->routes[$method])) {
+            foreach ($this->routes[$method] as $pattern => $route) {
+                $params = $this->match($path, $pattern);
+                if ($params !== null) {
+                    $_ROUTE = $params;
+                    $route->fire();
+                    return;
+                }
+            }
         }
 
         if (isset($this->defaultRoute)) {
+            $_ROUTE = [];
             $this->defaultRoute->fire();
             return;
         }
 
         http_response_code(404);
+
         echo <<<'HTML'
         <!DOCTYPE html>
         <html lang="pl">
