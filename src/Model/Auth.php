@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
+use App\Mailer;
 use PDO;
 
 class Auth extends BaseDBModel
@@ -102,7 +104,7 @@ class Auth extends BaseDBModel
      * @param array<int,string|null> $request
      * @throws \InvalidArgumentException
      */
-    public function register_from_request(array $request): void
+    public function register_from_request(array $request): bool
     {
         $login = $request['login'] ?? null;
         $display_name = $request['display_name'] ?? null;
@@ -113,7 +115,19 @@ class Auth extends BaseDBModel
             throw new \InvalidArgumentException('Missing fields');
         }
 
-        $this->register($login, $display_name, $email, $password);
+        $res = $this->register($login, $display_name, $email, $password);
+
+        if ($res) {
+            $mailer = new Mailer();
+            $mailer->send(
+                $email,
+                'Potwierdzenie rejestracja',
+                'activation',
+                ['name' => $display_name, 'link' => '']
+            );
+        }
+
+        return $res;
     }
 
     /**
