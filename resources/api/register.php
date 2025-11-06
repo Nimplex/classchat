@@ -3,11 +3,11 @@
 require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 use App\FlashMessage;
 
-/** @var \App\Model\Auth $auth */
-global $auth;
+/** @var \App\Controller\UserController $user */
+global $user;
 
 try {
-    $auth->register_from_request($_POST);
+    $user->register_from_request($_POST);
     (new FlashMessage())->setOk('Rejestracja udana! Wysłano kod aktywacyjny na skrzynke e-mail');
     header('Location: /login.php', true, 303);
 } catch (\InvalidArgumentException $e) {

@@ -2,16 +2,16 @@
 
 namespace App\Builder;
 
-use App\Model\Auth;
+use App\Controller\UserController;
 
 class AuthBuilder
 {
-    public function make(): Auth
+    public function make(): UserController 
     {
         require __DIR__ . '/../../bootstrap.php';
 
         /** @var PDO $db */
-        $user = new Auth($db);
+        $user = new UserController($db);
         return $user;
     }
 }

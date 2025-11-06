@@ -6,9 +6,9 @@ session_start();
 require __DIR__ . '/../bootstrap.php';
 require __DIR__ . '/../vendor/autoload.php';
 
-use App\Model\Auth;
+use App\Controller\UserController;
 
-$auth = new Auth($db);
+$user = new UserController($db);
 $router = new App\Router();
 
 $router->GET("/", function () {
