@@ -49,7 +49,7 @@ $page = max($_GET['page'] ?? 1, 1);
 <?php endforeach; ?>
 <?php if (!empty($listing->listAll($page + 1))): ?>
 <div id="sentinel" data-next-page="<?= $page + 1 ?>"></div>
-<div id="throbber" aria-hidden="true" class="htmx-indicator small-text">Wczytywanie...</span>
+<div id="throbber" aria-hidden="true" class="htmx-indicator small-text">Wczytywanie...</div>
 <noscript>
     <div id="next-page">
         <a class="btn-primary" href="?page=<?= $page + 1 ?>">Następna strona</a>
