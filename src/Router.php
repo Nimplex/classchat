@@ -15,10 +15,10 @@ class Router
     /**
      * Constructs and registers a route.
      *
-     * @param Closure(): void $callback
+     * @param callable(): void $callback
      * @throws \ErrorException
      */
-    private function _makeRoute(string $method, string $path, \Closure $callback): Route
+    private function _makeRoute(string $method, string $path, callable $callback): Route
     {
         if (isset($this->routes[$method][$path])) {
             throw new \ErrorException("'{$path}' has been already registered");
@@ -33,9 +33,9 @@ class Router
     /**
      * Register a GET route.
      *
-     * @param Closure(): void $callback
+     * @param callable(): void $callback
      */
-    public function GET(string $path, \Closure $callback): Route
+    public function GET(string $path, callable $callback): Route
     {
         return $this->_makeRoute('GET', $path, $callback);
     }
@@ -43,9 +43,9 @@ class Router
     /**
      * Register a POST route.
      *
-     * @param Closure(): void $callback
+     * @param callable(): void $callback
      */
-    public function POST(string $path, \Closure $callback): Route
+    public function POST(string $path, callable $callback): Route
     {
         return $this->_makeRoute('POST', $path, $callback);
     }
@@ -53,9 +53,9 @@ class Router
     /**
      * Register a default route, in case no other routes hit.
      *
-     * @param Closure(): void $callback
+     * @param callable(): void $callback
      */
-    public function DEFAULT(\Closure $callback): Route
+    public function DEFAULT(callable $callback): Route
     {
         if (isset($this->defaultRoute)) {
             throw new \ErrorException("A default route has been already registered");
@@ -128,11 +128,11 @@ class Route
     private \Closure $callback;
 
     /**
-     * @param Closure(): void $callback
+     * @param callable(): void $callback
      */
-    public function __construct(\Closure $callback)
+    public function __construct(callable $callback)
     {
-        $this->callback = $callback;
+        $this->callback = $callback(...);
     }
 
     public function fire(): void
