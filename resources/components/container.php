@@ -34,7 +34,7 @@ if (!in_array($lang, $allowed, true)) {
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="/_css/base.css">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- <script src="https://unpkg.com/lucide@latest"></script> -->
     <?php if (isset($render_head)) {
         echo $render_head();
     } ?>
@@ -58,7 +58,7 @@ if (!in_array($lang, $allowed, true)) {
     } ?>
 
     <script>
-        document.addEventListener("DOMContentLoaded", lucide.createIcons);
+        // document.addEventListener("DOMContentLoaded", lucide.createIcons);
     </script>
     
     <script src="/_js/navbar.js"></script>

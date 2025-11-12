@@ -1,11 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
   const offers = document.getElementById("offers");
-  const throbber = document.getElementById("throbber");
   let loading = false;
 
+  function clearSettling() {
+    setTimeout(() => [...document.getElementsByClassName("settling")].forEach(x => x.classList.remove("settling")), 200);
+  }
+
+  clearSettling();
+
   async function loadNextPage(page) {
+    const throbber = document.getElementById("throbber");
     loading = true;
-    throbber.style.display = "block";
+    console.log(throbber);
     const res = await fetch(`/listings/all.php?page=${page}`, {
       headers: {
         RAW_REQUEST: true,
@@ -13,7 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     const html = await res.text();
     offers.insertAdjacentHTML("beforeend", html);
-    throbber.style.display = "none";
+    clearSettling();
+    throbber.remove();
     loading = false;
   }
 

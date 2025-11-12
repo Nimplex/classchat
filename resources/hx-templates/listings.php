@@ -6,7 +6,7 @@ $page = max($_GET['page'] ?? 1, 1);
 ?>
 
 <?php foreach ($listing->listAll($page) as $lis): ?>
-<a class="offer-card" href="/listings/view.php?listing=<?= urlencode($lis['listing_id']) ?>" role="link">
+<a class="offer-card<?= $_SERVER['HTTP_RAW_REQUEST'] ? ' settling' : '' ?>" href="/listings/view.php?listing=<?= urlencode($lis['listing_id']) ?>" role="link">
     <article>
         <?php if (!empty($lis['cover_file_id'])):
             $encoded_file = urlencode($lis['cover_file_id']); ?>
@@ -49,7 +49,7 @@ $page = max($_GET['page'] ?? 1, 1);
 <?php endforeach; ?>
 <?php if (!empty($listing->listAll($page + 1))): ?>
 <div id="sentinel" data-next-page="<?= $page + 1 ?>"></div>
-<div id="throbber" aria-hidden="true" class="htmx-indicator small-text">Wczytywanie...</div>
+<div id="throbber" aria-hidden="true" class="small-text">Wczytywanie...</div>
 <noscript>
     <div id="next-page">
         <a class="btn-primary" href="?page=<?= $page + 1 ?>">Następna strona</a>
