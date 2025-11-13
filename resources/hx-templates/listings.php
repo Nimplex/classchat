@@ -3,10 +3,12 @@ require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 $listing = (new App\Builder\ListingBuilder())->make();
 $page = max($_GET['page'] ?? 1, 1);
+$is_raw = $_SERVER['HTTP_RAW_REQUEST'] ?? null;
+
 ?>
 
 <?php foreach ($listing->listAll($page) as $lis): ?>
-<a class="offer-card<?= $_SERVER['HTTP_RAW_REQUEST'] ? ' settling' : '' ?>" href="/listings/view.php?listing=<?= urlencode($lis['listing_id']) ?>" role="link">
+<a class="offer-card<?= $is_raw ? ' settling' : '' ?>" href="/listings/view.php?listing=<?= urlencode($lis['listing_id']) ?>" role="link">
     <article>
         <?php if (!empty($lis['cover_file_id'])):
             $encoded_file = urlencode($lis['cover_file_id']); ?>
