@@ -6,7 +6,7 @@ use App\Controller\UserController;
 
 class AuthBuilder
 {
-    public function make(): UserController 
+    public function make(): UserController
     {
         require __DIR__ . '/../../bootstrap.php';
 
