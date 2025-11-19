@@ -395,7 +395,6 @@ hr {
 */
 
 body > footer {
-  width: 100%;
   min-height: 280px;
   font-size: 1rem;
   background: var(--gray-bg);

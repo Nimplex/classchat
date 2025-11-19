@@ -10,8 +10,6 @@ $render_content = function () {
     global $favouritesModel;
     $html = "<h1>Polubione</h1><div>";
     foreach ($favouritesModel->find_by_user_id($_SESSION['user_id']) as $listing) {
-        var_dump($listing);
-        die;
         $html .= <<<HTML
         <div class="listing">
             <div class="listing-title">{$listing['title']}</div>

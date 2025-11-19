@@ -16,7 +16,7 @@ if (!isset($_SESSION['user_id'])) {
         </a>
     </li>
     <li>
-        <a href="/profile/@my-favourites.php">
+        <a href="/profile/@favourites.php">
             <i data-lucide="star"></i>
             Polubione
         </a>
