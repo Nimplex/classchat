@@ -106,7 +106,9 @@ class Listing extends BaseDBModel
         return false;
     }
 
-
+    /**
+     * @param array<int,mixed> $files
+     */
     private function _addCovers(int $listing_id, array $files): bool
     {
         if (!isset($files) || !isset($files['images']) || empty($files['images']) || !isset($files['images']['error'])) {
@@ -149,7 +151,7 @@ class Listing extends BaseDBModel
             $res = $stmt->execute([
                 ':listing_id' => $listing_id,
                 ':file_id' => $new_name,
-                ':main' => $i == 0,
+                ':main' => ($i == 0) ? 'true' : 'false',
             ]);
 
             if (!$res) {
