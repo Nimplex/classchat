@@ -21,11 +21,28 @@ class Favourites extends BaseDBModel
     public function find_by_user_id(int $user_id): ?array
     {
         $stmt = $this->db->prepare(<<<SQL
-        SELECT * FROM favourites WHERE user_id = ?
+        SELECT
+            l.id as listing_id,
+            l.user_id,
+            l.title,
+            l.price,
+            l.created_at,
+            l.attributes,
+            u.display_name,
+            c.file_id AS cover_file_id
+        FROM favourites f
+        LEFT JOIN listings l
+            ON f.listing_id = l.id
+        LEFT JOIN users u
+            ON f.user_id = u.id
+        LEFT JOIN covers c
+            ON c.listing_id = l.id AND c.main = TRUE
+        WHERE l.user_id = ?
+        ORDER BY f.created_at DESC
         SQL);
 
         $stmt->execute([$user_id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: null;
     }
 
     public function exists(int $listing_id, int $user_id): ?array

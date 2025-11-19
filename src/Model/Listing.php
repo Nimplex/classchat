@@ -32,8 +32,10 @@ class Listing extends BaseDBModel
                 WHERE f.listing_id = l.id AND f.user_id = :current_user_id
             ) AS is_favourited
         FROM listings l
-        LEFT JOIN users u ON u.id = l.user_id
-        LEFT JOIN covers c ON c.listing_id = l.id AND c.main = TRUE
+        LEFT JOIN users u
+            ON u.id = l.user_id
+        LEFT JOIN covers c
+            ON c.listing_id = l.id AND c.main = TRUE
         ORDER BY l.created_at DESC
         LIMIT :limit OFFSET :offset
         SQL);
