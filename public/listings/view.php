@@ -1,5 +1,7 @@
 <?php
 
+@session_start();
+
 require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 $iso = new Matriphe\ISO639\ISO639();
@@ -65,7 +67,7 @@ $render_head = function (): string {
 };
 
 $render_content = function (): string {
-    global $title, $listing, $listing_covers, $key_lookup_table, $iso;
+    global $title, $listing, $listing_covers, $key_lookup_table, $iso, $listing_id;
 
     $array_size = count($listing_covers);
     $disabled = $array_size <= 1 ? "disabled" : null;
@@ -132,6 +134,9 @@ $render_content = function (): string {
         </table>
     HTML;
 
+    $template_favourited_class = $listing['is_favourited'] ? 'btn-red' : '';
+    $template_label = $listing['is_favourited'] ? "Usuń z ulubionych" : "Dodaj do ulubionych";
+
     $template = <<<HTML
     <div class="row">
         {$carousel_section}
@@ -148,8 +153,22 @@ $render_content = function (): string {
                 </div>
                 <div id="button-section">
                     <h1>{$listing['price']}</h1>
-                    <button>Dodaj do ulubionych</button>
-                    <button class="btn-accent">Napisz do sprzedawcy</button>
+                   <button
+                        type="button"
+                        onclick="event.preventDefault(); event.stopPropagation(); favourite(event)"
+                        class="{$template_favourited_class}"
+                        data-listing-id="{$listing_id}"
+                        aria-label="{$template_label}">
+                        {$template_label}
+                    </button>
+                    <button
+                        type="button"
+                        class="btn-accent"
+                        onclick="event.preventDefault(); event.stopPropagation(); message(event)"
+                        data-listing-id="{$listing_id}"
+                        aria-label="Skontaktuj się z sprzedającym">
+                            Napisz do ogłoszeniodawcy
+                    </button>
                     <button class="btn-no-border-red"><i data-lucide="flag"></i>Zgłoś</button>
                 </div>
             </div>
@@ -162,6 +181,7 @@ $render_content = function (): string {
 
 $render_scripts = function () {
     return <<<HTML
+    <script src="/_js/listings.js"></script>
     <script src="/_js/carousel.js"></script>
     HTML;
 };

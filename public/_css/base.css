@@ -328,6 +328,7 @@ button:focus {
 .btn-red:hover,
 .btn-red:focus {
   background: var(--main-bg);
+  border: 1px solid var(--red) !important;
 }
 
 input[type="submit"],

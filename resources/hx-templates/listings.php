@@ -34,7 +34,7 @@ $is_raw = $_SERVER['HTTP_RAW_REQUEST'] ?? null;
                     class="<?= $lis['is_favourited'] ? 'btn-red' : '' ?>"
                     data-listing-id="<?= urlencode($lis['listing_id']) ?>"
                     aria-label="<?= sprintf($lis['is_favourited'] ? "Usuń %s z ulubionych" : "Dodaj %s do ulubionych", htmlspecialchars($lis['title'])) ?>">
-                    <?= $lis['is_favourited'] ? "Usuń z ulubionych" : "Dodaj do ulubionych" ?>
+                        <?= $lis['is_favourited'] ? "Usuń z ulubionych" : "Dodaj do ulubionych" ?>
                 </button>
                 <button
                     type="button"
