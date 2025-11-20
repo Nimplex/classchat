@@ -128,7 +128,9 @@ body > nav {
   font-size: 1rem;
   background: var(--gray-bg);
   border-bottom: 2px solid var(--border-gray);
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .nav-inner {
