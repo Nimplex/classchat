@@ -53,7 +53,7 @@ main hr {
   border-radius: var(--radius);
   background: var(--main-bg);
   outline: none;
-  transition: 250ms all, 0s outline;
+  transition: all 250ms, outline 0s;
   cursor: pointer;
   overflow: hidden;
 }
@@ -62,7 +62,7 @@ main hr {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: 250ms scale;
+  transition: scale 250ms;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -95,7 +95,7 @@ main hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 250ms opacity, 250ms color;
+  transition: opacity 250ms, color 250ms;
   opacity: 0;
   z-index: 1;
 }

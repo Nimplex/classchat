@@ -181,7 +181,7 @@ nav a {
   transform: translateY(0.25rem);
   padding-bottom: 0.25rem;
   border-bottom: 2px solid transparent;
-  transition: 250ms all, 0s outline;
+  transition: all 250ms, outline 0s;
 }
 
 nav a:hover {
@@ -312,7 +312,7 @@ button {
   border: 1px solid var(--border-gray);
   background: var(--main-bg);
   outline: none;
-  transition: 250ms all, 0s outline;
+  transition: all 250ms, outline 0s;
   border-radius: var(--radius);
 }
 

@@ -23,7 +23,7 @@ article {
   gap: 1.5rem;
   background: var(--gray-bg);
   border: 1px solid var(--border-gray);
-  transition: 250ms all, 0s outline;
+  transition: all 250ms, outline 0s;
   border-radius: var(--radius);
 }
 
@@ -136,7 +136,7 @@ article footer button {
   border: 1px solid var(--border-gray);
   background: var(--main-bg);
   outline: none;
-  transition: 250ms all, 0s outline;
+  transition: all 250ms, outline 0s;
   border-radius: var(--radius);
   text-decoration: inherit;
   color: inherit;

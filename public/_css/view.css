@@ -26,7 +26,7 @@ main > hr {
   color: var(--border-gray);
   font-size: 2rem;
   opacity: 0;
-  transition: 250ms all, 0s outline;
+  transition: all 250ms, outline 0s;
 }
 
 #cover-container:hover button {
@@ -81,7 +81,7 @@ main > hr {
   border: 2px solid var(--border-gray);
   border-radius: var(--radius);
   overflow: hidden;
-  transition: 250ms border-color;
+  transition: border-color 250ms;
   flex-shrink: 0;
 }
 
@@ -99,7 +99,7 @@ main > hr {
   height: 100%;
   object-fit: cover;
   cursor: pointer;
-  transition: 250ms scale;
+  transition: scale 250ms;
 }
 
 
