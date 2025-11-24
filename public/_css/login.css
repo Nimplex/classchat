@@ -1,4 +1,32 @@
+body {
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  background-image: url("/_assets/andrei-castanha-DnZiR361K6Y-unsplash.webp");
+  background-size: cover;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+
+body::after {
+  content: "Andrei Castanha (Unsplash.com)";
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 1);
+  font-size: 16px;
+  position: fixed;
+  top: 32px;
+  left: 32px;
+  z-index: -1;
+}
+
 main {
+  position: relative;
   box-sizing: border-box !important;
   margin: 0 auto !important;
   min-height: 100vh;
@@ -15,6 +43,7 @@ main {
   margin: 0 auto;
   background: var(--gray-bg);
   border-radius: var(--radius);
+  box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 1);
 }
 
 @media only screen and (max-width: 768px) {

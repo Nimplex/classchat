@@ -1,6 +1,5 @@
 <footer>
     <div class="footer-inner">
-        <img src="/_assets/fill.png" alt="logo">
         <div class="footer-links">
             <ul>
                 <li><h1>Nawigacja</h1></li>
