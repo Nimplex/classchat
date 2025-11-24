@@ -30,6 +30,16 @@ class Router
         return $route;
     }
 
+    private function _match(string $path, string $pattern): ?array
+    {
+        $regex = preg_replace('#:([\w]+)#', '(?P<$1>[^/]+)', $pattern);
+        $regex = "#^{$regex}$#";
+        if (preg_match($regex, $path, $matches)) {
+            return array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+        }
+        return null;
+    }
+
     /**
      * Register a GET route.
      *
@@ -67,15 +77,6 @@ class Router
         return $route;
     }
 
-    private function match(string $path, string $pattern): ?array
-    {
-        $regex = preg_replace('#:([\w]+)#', '(?P<$1>[^/]+)', $pattern);
-        $regex = "#^{$regex}$#";
-        if (preg_match($regex, $path, $matches)) {
-            return array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
-        }
-        return null;
-    }
 
     /**
      * Handle all requests
@@ -88,7 +89,7 @@ class Router
 
         if (isset($this->routes[$method])) {
             foreach ($this->routes[$method] as $pattern => $route) {
-                $params = $this->match($path, $pattern);
+                $params = $this->_match($path, $pattern);
                 if ($params !== null) {
                     $_ROUTE = $params;
                     $route->fire();
