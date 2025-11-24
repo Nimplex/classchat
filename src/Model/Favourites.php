@@ -39,7 +39,7 @@ class Favourites extends BaseDBModel
             ON f.user_id = u.id
         LEFT JOIN covers c
             ON c.listing_id = l.id AND c.main = TRUE
-        WHERE l.user_id = ?
+        WHERE f.user_id = ?
         ORDER BY f.created_at DESC
         SQL);
 
