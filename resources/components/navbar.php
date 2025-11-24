@@ -22,7 +22,7 @@ if (!isset($_SESSION['user_id'])) {
         </a>
     </li>
     <li>
-        <a href="/profile/@me.php">
+        <a href="/profile/profile.php?id={$_SESSION['user_id']}">
             <i data-lucide="user"></i>
             Witaj {$_SESSION['user_login']}
         </a>

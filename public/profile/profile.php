@@ -26,10 +26,14 @@ $render_content = function () use ($res) {
 
     return <<<HTML
     <div>
-        <h1>{$display_name}</h1>
-        <p>{$created_at}</p>
-        <p>{$listing_count}</p>
-    </div>
+        <section>
+            <h1>{$display_name}</h1>
+            <p>{$created_at}</p>
+            <p>{$listing_count}</p>
+        </section>
+        <section>
+
+        </section>
     HTML;
 };
 
