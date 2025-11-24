@@ -68,7 +68,6 @@ $render_head = function (): string {
 
 $render_content = function () use ($title, $listing, $listing_covers, $key_lookup_table, $iso, $listing_id): string {
     $array_size = count($listing_covers);
-    $display_name = htmlspecialchars($listing['display_name']);
     $disabled = $array_size <= 1 ? "disabled" : null;
     $main_cover = "";
     $carousel = "<ul>";
@@ -141,10 +140,6 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
         {$carousel_section}
         <div id="inner-container">
             <h1>{$title}</h1>
-            <a href="/profile/profile.php?id={$listing['user_id']}">
-                <i data-lucide="user"></i>
-                {$display_name}
-            </a>
             <hr>
             <div class="row">
                 <div id="data-section">

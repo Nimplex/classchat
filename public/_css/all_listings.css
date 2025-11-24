@@ -23,7 +23,9 @@ article {
   gap: 1.5rem;
   background: var(--gray-bg);
   border: 1px solid var(--border-gray);
-  transition: all 250ms, outline 0s;
+  transition:
+    all 250ms,
+    outline 0s;
   border-radius: var(--radius);
 }
 
@@ -33,7 +35,9 @@ article > a {
   gap: 1.5rem;
   text-decoration: inherit;
   color: inherit;
-  transition: opacity 300ms ease-in, scale 200ms;
+  transition:
+    opacity 300ms ease-in,
+    scale 200ms;
 }
 
 article header {
@@ -85,8 +89,21 @@ article main h2 {
 }
 
 article main ul {
-  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   line-height: 1.5rem;
+}
+
+article main ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+article main ul li i {
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
 article main .small-text {
@@ -136,7 +153,9 @@ article footer button {
   border: 1px solid var(--border-gray);
   background: var(--main-bg);
   outline: none;
-  transition: all 250ms, outline 0s;
+  transition:
+    all 250ms,
+    outline 0s;
   border-radius: var(--radius);
   text-decoration: inherit;
   color: inherit;
