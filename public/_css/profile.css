@@ -1,0 +1,173 @@
+main {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+@media (max-width: 1000px) {
+  main {
+    flex-direction: column;
+  }
+
+  #profile-info {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  #profile-picture {
+    max-width: 150px;
+  }
+}
+
+section {
+  padding: 1rem;
+  border-radius: var(--radius);
+  background: var(--gray-bg);
+  border: 1px solid var(--border-gray);
+}
+
+#profile-info {
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  align-items: center;
+  min-width: 300px;
+}
+
+#profile-picture {
+  border-radius: 100%;
+  max-width: 350px;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 2px solid var(--border-gray);
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+  width: 100%;
+}
+
+.details h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+.stat i {
+  color: var(--accent);
+}
+
+#listings-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#listings-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.listing-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--main-bg);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+  transition: all 250ms;
+  text-decoration: none;
+  color: inherit;
+}
+
+.listing-card:hover {
+  background: var(--gray-hover);
+  border-color: var(--border-hover);
+}
+
+.listing-card:focus-visible {
+  outline: var(--sel-outline);
+}
+
+.listing-cover {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-gray);
+  object-fit: cover;
+}
+
+.listing-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.listing-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.listing-info .price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--accent);
+  margin-top: auto;
+}
+
+.listing-meta {
+  display: flex;
+  gap: 1rem;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.listing-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.no-listings {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #999;
+  font-size: 1.1rem;
+}
+
+.no-listings i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .listing-card {
+    flex-direction: column;
+  }
+
+  .listing-cover {
+    width: 100%;
+    height: 200px;
+  }
+
+  .listing-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+}

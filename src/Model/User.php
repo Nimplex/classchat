@@ -79,12 +79,15 @@ class User extends BaseDBModel
     {
         $stmt = $this->db->prepare(<<<SQL
         SELECT
-            display_name,
-            created_at,
+            u.display_name,
+            u.created_at,
             (
-                SELECT COUNT(*) FROM listings WHERE listings.user_id = users.id
-            ) as listing_count
-        FROM users WHERE id = ?
+                SELECT COUNT(*) FROM listings l WHERE l.user_id = u.id
+            ) as listing_count,
+            p.file_id as picture_id
+        FROM users u
+        LEFT JOIN profile_pictures p ON p.user_id = u.id
+        WHERE u.id = ?
         SQL);
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
