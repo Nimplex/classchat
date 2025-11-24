@@ -1,7 +1,5 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
-
 $title = 'Nowe ogłoszenie';
 
 $render_scripts = function (): string {

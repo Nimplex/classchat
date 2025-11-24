@@ -1,8 +1,8 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
+global $_ROUTE;
 
-$filename = $_GET['file'] ?? '';
+$filename = $_ROUTE['id'] ?? '';
 $baseDir = realpath($_SERVER['DOCUMENT_ROOT'] . '/../storage/profile-pictures') . DIRECTORY_SEPARATOR;
 
 $filepath = realpath($baseDir . $filename);

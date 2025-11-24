@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadNextPage(page) {
     const throbber = document.getElementById("throbber");
     loading = true;
-    const res = await fetch(`/listings/all.php?page=${page}`, {
+    const res = await fetch(`/listings?page=${page}`, {
       headers: {
         RAW_REQUEST: true,
       },
@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     clearSettling();
     throbber.remove();
     loading = false;
+    lucide.createIcons();
   }
 
   document.addEventListener("scroll", async () => {

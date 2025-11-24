@@ -1,20 +1,19 @@
 <?php
 
-require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
-$listingModel = (new App\Builder\ListingBuilder())->make();
+$favouritesModel = (new App\Builder\FavouritesBuilder())->make();
 
-$title = "Oferty użytkownika {$_SESSION['user_display_name']}";
+$title = "Polubione";
 
-$render_content = function () {
-    global $listingModel;
-    $html = "<h1>Moje oferty</h1><div>";
-    foreach ($listingModel->listByUser($_SESSION['user_id']) as $listing) {
+$render_content = function () use ($favouritesModel) {
+    $html = "<h1>Polubione</h1><div>";
+    foreach ($favouritesModel->find_by_user_id($_SESSION['user_id']) as $listing) {
         $html .= <<<HTML
         <div class="listing">
             <div class="listing-title">{$listing['title']}</div>
             <div class="listing-price">{$listing['price']}</div>
             <div class="listing-timestamp">{$listing['updated_at']}</div>
+            <div class="listing-active">{$listing['active']}</div>
         </div>
         HTML;
     }

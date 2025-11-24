@@ -1,13 +1,13 @@
 <?php
 
-@session_start();
+global $_ROUTE;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
 
 $iso = new Matriphe\ISO639\ISO639();
 $listingBuilder = (new App\Builder\ListingBuilder())->make();
 
-$listing_id = $_GET['listing'];
+$listing_id = $_ROUTE['id'];
 $listing = $listingBuilder->get($listing_id, $_SESSION['user_id']);
 $listing_covers = $listingBuilder->getCovers($listing_id);
 
@@ -81,7 +81,7 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
 
         $carousel .= <<<HTML
         <li>
-            <img src="/covers.php?file={$cover['file_id']}" alt="Podgląd '{$title}'" tabindex="0">
+            <img src="/storage/covers/{$cover['file_id']}" alt="Podgląd '{$title}'" tabindex="0">
         </li>
         HTML;
     }
@@ -115,7 +115,7 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
     $carousel_section = ($array_size === 0) ? null : <<<HTML
         <section class="carousel" role="region" aria-roledescription="carousel" aria-label="Zdjęcia oferty">
             <div id="cover-container">
-                <img src="/covers.php?file={$main_cover}" id="main-cover">
+                <img src="/storage/covers/{$main_cover}" id="main-cover">
                 <button class="left" aria-label="Poprzednie zdjęcie" tabindex="-1" $disabled>‹</button>
                 <button class="right" aria-label="Kolejne zdjęcie" tabindex="-1" $disabled>›</button>
             </div>

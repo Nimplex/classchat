@@ -11,13 +11,84 @@ use App\Controller\UserController;
 $user = new UserController($db);
 $router = new App\Router();
 
-$router->GET("/", function () {
-    header('Location: /listings/all.php', true, 303);
+$router->GET('/', function () {
+    header('Location: /listings', true, 303);
     die;
-    echo 'home page???<br>';
-    echo 'is logged in: ' . (isset($_SESSION['user_id']) ? 'true<br><a href="/api/logout">Logout</a>' : 'false');
 });
 
+//=====LOGIN=================================================================//
+
+$router->GET(
+    '/login',
+    fn () => require __DIR__ . '/../resources/login.php'
+);
+$router->GET(
+    '/register',
+    fn () => require __DIR__ . '/../resources/register.php'
+);
+
+//=====LISTINGS==============================================================//
+
+$router->GET(
+    '/listings',
+    fn () => require __DIR__ . '/../resources/listings/all.php'
+);
+
+$router->GET(
+    '/listings/new',
+    fn () => require __DIR__ . '/../resources/listings/new.php'
+);
+
+$router->GET(
+    '/listings/:id',
+    fn () => require __DIR__ . '/../resources/listings/view.php'
+);
+
+//=====PROFILE===============================================================//
+
+$router->GET(
+    '/profile/favourites',
+    fn () => require __DIR__ . '/../resources/profile/@favourites.php'
+);
+
+$router->GET(
+    '/profile/listings',
+    fn () => require __DIR__ . '/../resources/profile/@listings.php'
+);
+
+$router->GET(
+    '/profile/:id',
+    fn () => require __DIR__ . '/../resources/profile/profile.php'
+);
+
+//=====STORAGE===============================================================//
+
+$router->GET(
+    '/storage/covers/:id',
+    fn () => require __DIR__ . '/../resources/covers.php'
+);
+
+$router->GET(
+    '/storage/profile-pictures/:id',
+    fn () => require __DIR__ . '/../resources/profile-picture.php'
+);
+
+//=====ERRORS================================================================//
+
+$router->GET(
+    '/401',
+    fn () => require __DIR__ . '/../resources/errors/401.php'
+);
+$router->GET(
+    '/403',
+    fn () => require __DIR__ . '/../resources/errors/403.php'
+);
+$router->GET(
+    '/404',
+    fn () => require __DIR__ . '/../resources/errors/404.php'
+);
+
+//=====API===================================================================//
 
 $router->GET('/api/logout', function () {
     session_destroy();
@@ -25,15 +96,29 @@ $router->GET('/api/logout', function () {
     die;
 });
 
-$router->GET('/api/activate/:id/:token', fn () => require __DIR__ . '/../resources/api/activate.php');
-
-$router->POST('/api/register', fn () => require __DIR__ . '/../resources/api/register.php');
-$router->POST('/api/login', fn () => require __DIR__ . '/../resources/api/login.php');
-$router->POST('/api/new-listing', fn () => require __DIR__ . '/../resources/api/new-listing.php');
-$router->POST('/api/listings/favourite', fn () => require __DIR__ . '/../resources/api/favourites.php');
+$router->GET(
+    '/api/activate/:id/:token',
+    fn () => require __DIR__ . '/../resources/api/activate.php'
+);
+$router->POST(
+    '/api/listings/favourite',
+    fn () => require __DIR__ . '/../resources/api/favourites.php'
+);
+$router->POST(
+    '/api/login',
+    fn () => require __DIR__ . '/../resources/api/login.php'
+);
+$router->POST(
+    '/api/register',
+    fn () => require __DIR__ . '/../resources/api/register.php'
+);
+$router->POST(
+    '/api/new-listing',
+    fn () => require __DIR__ . '/../resources/api/new-listing.php'
+);
 
 $router->DEFAULT(function () {
-    require __DIR__ . '/404.php';
+    header('Location: /404', true, 303);
     die;
 });
 

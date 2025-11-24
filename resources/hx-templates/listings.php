@@ -10,11 +10,11 @@ $is_raw = $_SERVER['HTTP_RAW_REQUEST'] ?? null;
 
 <?php foreach ($listing->listAll($page, $_SESSION['user_id']) as $lis): ?>
 <article class="<?= $is_raw ? 'settling' : '' ?>">
-    <a href="/listings/view.php?listing=<?= urlencode($lis['listing_id']) ?>" role="link" aria-label="Zobacz szczegóły ogłoszenia <?= htmlspecialchars($lis['title']) ?>">
+    <a href="/listings/<?= urlencode($lis['listing_id']) ?>" role="link" aria-label="Zobacz szczegóły ogłoszenia <?= htmlspecialchars($lis['title']) ?>">
         <?php if (!empty($lis['cover_file_id'])):
             $encoded_file = urlencode($lis['cover_file_id']); ?>
         <header>
-            <img height="300" width="300" src="/covers.php?file=<?= $encoded_file ?>" alt="Zdjęcie: <?= htmlspecialchars($lis['title']) ?>" loading="lazy">
+            <img height="300" width="300" src="/storage/covers/<?= $encoded_file ?>" alt="Zdjęcie: <?= htmlspecialchars($lis['title']) ?>" loading="lazy">
         </header>
         <?php endif; ?>
 

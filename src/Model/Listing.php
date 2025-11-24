@@ -57,6 +57,7 @@ class Listing extends BaseDBModel
             l.description,
             l.created_at,
             l.attributes,
+            l.active,
             u.display_name,
             c.file_id AS cover_file_id,
             EXISTS (
@@ -87,7 +88,22 @@ class Listing extends BaseDBModel
 
     private function _listByUser(int $user_id): array
     {
-        $stmt = $this->db->prepare('SELECT * FROM listings WHERE user_id = ?');
+        $stmt = $this->db->prepare(<<<SQL
+        SELECT
+            l.id AS listing_id,
+            l.user_id,
+            l.title,
+            l.price,
+            l.description,
+            l.created_at,
+            l.attributes,
+            l.active,
+            c.file_id AS cover_file_id
+        FROM listings l
+        LEFT JOIN covers c
+            ON c.listing_id = l.id
+        WHERE l.user_id = ?
+        SQL);
         $stmt->execute([$user_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

@@ -4,25 +4,25 @@ $user_item = "";
 if (!isset($_SESSION['user_id'])) {
     $user_item .= <<<HTML
     <li>
-        <a href="/login.php">Zaloguj się</a>
+        <a href="/login">Zaloguj się</a>
     </li>
     HTML;
 } else {
     $user_item .= <<<HTML
     <li>
-        <a href="/listings/all.php">
+        <a href="/listings">
             <i data-lucide="badge-euro"></i>
             Ogłoszenia
         </a>
     </li>
     <li>
-        <a href="/profile/@favourites.php">
+        <a href="/profile/favourites">
             <i data-lucide="star"></i>
             Polubione
         </a>
     </li>
     <li>
-        <a href="/profile/profile.php?id={$_SESSION['user_id']}">
+        <a href="/profile/{$_SESSION['user_id']}">
             <i data-lucide="user"></i>
             Witaj {$_SESSION['user_login']}
         </a>

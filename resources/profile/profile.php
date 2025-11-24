@@ -1,17 +1,15 @@
 <?php
 
-session_start();
+/** @var \App\Controller\UserController $user */
+global $user, $_ROUTE;
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../vendor/autoload.php';
-require $_SERVER['DOCUMENT_ROOT'] . '/../resources/check-auth.php';
 
-use App\Builder\AuthBuilder;
 use App\Builder\ListingBuilder;
 
-$user = (new AuthBuilder())->make();
 $listingModel = (new ListingBuilder())->make();
 
-$id = $_GET['id'];
+$id = $_ROUTE['id'];
 
 $res = $user->user->get_profile($id);
 $listings = $listingModel->listByUser($id);
@@ -39,7 +37,7 @@ $render_content = function () use ($res, $listings) {
     if (isset($picture_id)) {
         $picture_id_encoded = urlencode($picture_id);
         $img_element = <<<HTML
-        <img src="/profile-picture.php?file={$picture_id_encoded}" id="profile-picture" alt="Zdjęcie profilowe {$display_name}">
+        <img src="/storage/profile-pictures/{$picture_id_encoded}" id="profile-picture" alt="Zdjęcie profilowe {$display_name}">
         HTML;
     }
 
@@ -53,7 +51,7 @@ $render_content = function () use ($res, $listings) {
         HTML;
     } else {
         foreach ($listings as $listing) {
-            $listing_id = urlencode($listing['id']);
+            $listing_id = urlencode($listing['listing_id']);
             $listing_title = htmlspecialchars($listing['title']);
             $listing_price = htmlspecialchars($listing['price']);
             $listing_date = date('d.m.Y', strtotime($listing['created_at']));
@@ -61,15 +59,16 @@ $render_content = function () use ($res, $listings) {
             $listing_status_icon = $listing['active'] ? 'check-circle' : 'x-circle';
             
             $cover_html = "";
+
             if (!empty($listing['cover_file_id'])) {
                 $cover_id = urlencode($listing['cover_file_id']);
                 $cover_html = <<<HTML
-                <img src="/covers.php?file={$cover_id}" class="listing-cover" alt="{$listing_title}">
+                <img src="/storage/covers/{$cover_id}" class="listing-cover" alt="{$listing_title}">
                 HTML;
             }
 
             $listings_html .= <<<HTML
-            <a href="/listings/view.php?listing={$listing_id}" class="listing-card">
+            <a href="/listings/{$listing_id}" class="listing-card">
                 {$cover_html}
                 <div class="listing-info">
                     <h3>{$listing_title}</h3>
