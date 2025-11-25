@@ -140,9 +140,6 @@ $router->POST(
     true,
 );
 
-$router->DEFAULT(function () {
-    header('Location: /404', true, 303);
-    die;
-});
+$router->DEFAULT(fn () => require __DIR__ . '/../resources/errors/404.php');
 
 $router->handle();
