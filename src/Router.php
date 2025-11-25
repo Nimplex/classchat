@@ -4,8 +4,9 @@ namespace App;
 
 class Router
 {
-    private array $routes;
-    private Route $defaultRoute;
+    private array $routes = [];
+    private ?Route $defaultRoute = null;
+    private array $globalMiddlewares = [];
 
     private function _registerRoute(string $method, string $path, Route $route): void
     {
@@ -67,13 +68,51 @@ class Router
         return $route;
     }
 
+    /**
+     * Register a global middleware that runs on all routes.
+     *
+     * @param callable(callable): void $middleware
+     */
+    public function middleware(callable $middleware): self
+    {
+        $this->globalMiddlewares[] = $middleware;
+        return $this;
+    }
+ 
     private function match(string $path, string $pattern): ?array
     {
-        $regex = preg_replace('#:([\w]+)#', '(?P<$1>[^/]+)', $pattern);
-        $regex = "#^{$regex}$#";
+        $types = [
+            'int' => '\d+',
+            'string' => '[a-zA-Z0-9_-]+',
+        ];
+
+        $regex = preg_replace_callback(
+            '#:(\w+)(?::(\w+))?#',
+            function ($matches) use ($types) {
+                $paramName = $matches[1];
+                $paramType = $matches[2] ?? null;
+                if ($paramType && isset($types[$paramType])) {
+                    $pattern = $types[$paramType];
+                } else {
+                    $pattern = '[^/]+';
+                }
+                return "(?P<{$paramName}>{$pattern})";
+            },
+            $pattern
+        );
+
+        $regex = "#^{$regex}$#i";
+        
         if (preg_match($regex, $path, $matches)) {
-            return array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+            $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+            foreach ($params as $key => $value) {
+                if (preg_match('/\(\?P<' . preg_quote($key) . '>' . $types['int'] . '\)/', $regex)) {
+                    $params[$key] = (int) $value;
+                }
+            }
+            return $params;
         }
+        
         return null;
     }
 
@@ -91,7 +130,7 @@ class Router
                 $params = $this->match($path, $pattern);
                 if ($params !== null) {
                     $_ROUTE = $params;
-                    $route->fire();
+                    $route->fire($this->globalMiddlewares);
                     return;
                 }
             }
@@ -99,7 +138,7 @@ class Router
 
         if (isset($this->defaultRoute)) {
             $_ROUTE = [];
-            $this->defaultRoute->fire();
+            $this->defaultRoute->fire($this->globalMiddlewares);
             return;
         }
 
@@ -126,6 +165,7 @@ class Router
 class Route
 {
     private \Closure $callback;
+    private array $middlewares = [];
 
     /**
      * @param callable(): void $callback
@@ -135,8 +175,32 @@ class Route
         $this->callback = $callback(...);
     }
 
-    public function fire(): void
+    /**
+     * Add middleware to this specific route.
+     *
+     * @param callable(callable): void $middleware
+     */
+    public function middleware(callable $middleware): self
     {
-        ($this->callback)();
+        $this->middlewares[] = $middleware;
+        return $this;
+    }
+
+    /**
+     * Execute the route with its middlewares.
+     *
+     * @param array $globalMiddlewares
+     */
+    public function fire(array $globalMiddlewares = []): void
+    {
+        $allMiddlewares = array_merge($globalMiddlewares, $this->middlewares);
+        
+        $handler = $this->callback;
+        
+        foreach (array_reverse($allMiddlewares) as $middleware) {
+            $middleware();
+        }
+        
+        $handler();
     }
 }
