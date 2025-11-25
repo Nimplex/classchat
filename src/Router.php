@@ -45,7 +45,7 @@ class Router
      *
      * @param callable(): void $callback
      */
-    public function GET(string $path, callable $callback, bool $check_auth): Route
+    public function GET(string $path, callable $callback, bool $check_auth = false): Route
     {
         return $this->_makeRoute('GET', $path, $callback, $check_auth);
     }
@@ -55,7 +55,7 @@ class Router
      *
      * @param callable(): void $callback
      */
-    public function POST(string $path, callable $callback, bool $check_auth): Route
+    public function POST(string $path, callable $callback, bool $check_auth = false): Route
     {
         return $this->_makeRoute('POST', $path, $callback, $check_auth);
     }
@@ -73,7 +73,7 @@ class Router
         }
 
         // never check auth on default route (it should be accessible to everyone)
-        $route = new Route($callback, $check_auth);
+        $route = new Route($callback, false);
         $this->defaultRoute = $route;
 
         return $route;
