@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loading = true;
     const res = await fetch(`/listings?page=${page}`, {
       headers: {
-        RAW_REQUEST: true,
+        PARTIAL_REQ: true,
       },
     });
     const html = await res.text();

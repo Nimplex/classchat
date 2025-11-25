@@ -8,7 +8,7 @@ $baseDir = realpath($_SERVER['DOCUMENT_ROOT'] . '/../storage/profile-pictures') 
 $filepath = realpath($baseDir . $filename);
 
 if (!$filepath || !str_starts_with($filepath, $baseDir) || !is_file($filepath)) {
-    require $_SERVER['DOCUMENT_ROOT'] . '/404.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/errors/404.php';
     die;
 }
 

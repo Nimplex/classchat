@@ -1,7 +1,7 @@
 <?php
 
-if (isset($_SERVER['HTTP_RAW_REQUEST'])) {
-    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/hx-templates/listings.php';
+if (isset($_SERVER['HTTP_PARTIAL_REQ'])) {
+    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/templates/listings.php';
     die;
 }
 
@@ -24,7 +24,7 @@ $render_content = function () use ($lis) {
     $total_pages = $lis->countPages();
 
     ob_start();
-    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/hx-templates/listings.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/templates/listings.php';
     $listings = ob_get_clean();
 
     return <<<HTML

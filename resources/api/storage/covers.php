@@ -8,14 +8,14 @@ $baseDir = realpath($_SERVER['DOCUMENT_ROOT'] . '/../storage/covers') . DIRECTOR
 $filepath = realpath($baseDir . $filename);
 
 if (!$filepath || !str_starts_with($filepath, $baseDir) || !is_file($filepath)) {
-    require $_SERVER['DOCUMENT_ROOT'] . '/404.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/errors/404.php';
     die;
 }
 
 $mime = mime_content_type($filepath);
 
 if (!in_array($mime, ['image/jpeg', 'image/png'], true)) {
-    require $_SERVER['DOCUMENT_ROOT'] . '/404.php';
+    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/errors/404.php';
     die;
 }
 

@@ -61,7 +61,7 @@ $render_content = function () use ($res, $listings) {
             if (!empty($listing['cover_file_id'])) {
                 $cover_id = urlencode($listing['cover_file_id']);
                 $cover_html = <<<HTML
-                <img src="/storage/covers/{$cover_id}" class="listing-cover" alt="{$listing_title}">
+                <img src="/api/storage/covers/{$cover_id}" class="listing-cover" alt="{$listing_title}">
                 HTML;
             }
 

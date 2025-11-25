@@ -43,7 +43,7 @@ if (!in_array($lang, $allowed, true)) {
     if (!isset($no_navbar)) {
         require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/navbar.php';
     } ?>
-    <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/hx-templates/message-box.php'; ?>
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/message-box.php'; ?>
 
     <main>
     <?php if (isset($render_content)) {

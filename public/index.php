@@ -27,30 +27,30 @@ $router->GET('/', function () {
 
 $router->GET(
     '/login',
-    fn () => require __DIR__ . '/../resources/login.php'
+    fn () => require __DIR__ . '/../resources/pub/login.php'
 );
 $router->GET(
     '/register',
-    fn () => require __DIR__ . '/../resources/register.php'
+    fn () => require __DIR__ . '/../resources/pub/register.php'
 );
 
 //==== LISTINGS =============================================================//
 
 $router->GET(
     '/listings',
-    fn () => require __DIR__ . '/../resources/listings/all.php',
+    fn () => require __DIR__ . '/../resources/pub/listings/all.php',
     true,
 );
 
 $router->GET(
     '/listings/new',
-    fn () => require __DIR__ . '/../resources/listings/new.php',
+    fn () => require __DIR__ . '/../resources/pub/listings/new.php',
     true,
 );
 
 $router->GET(
     '/listings/:id:int',
-    fn () => require __DIR__ . '/../resources/listings/view.php',
+    fn () => require __DIR__ . '/../resources/pub/listings/view.php',
     true,
 );
 
@@ -58,19 +58,19 @@ $router->GET(
 
 $router->GET(
     '/profile/favourites',
-    fn () => require __DIR__ . '/../resources/profile/@favourites.php',
+    fn () => require __DIR__ . '/../resources/pub/profile/favourites.php',
     true,
 );
 
 $router->GET(
     '/profile/listings',
-    fn () => require __DIR__ . '/../resources/profile/@listings.php',
+    fn () => require __DIR__ . '/../resources/pub/profile/listings.php',
     true,
 );
 
 $router->GET(
     '/profile/:id:int',
-    fn () => require __DIR__ . '/../resources/profile/profile.php',
+    fn () => require __DIR__ . '/../resources/pub/profile/profile.php',
     true,
 );
 
@@ -78,21 +78,7 @@ $router->GET(
 
 $router->GET(
     '/messages',
-    fn () => require __DIR__ . '/../resources/messages/messages.php',
-    true,
-);
-
-//==== STORAGE ==============================================================//
-
-$router->GET(
-    '/storage/covers/:id',
-    fn () => require __DIR__ . '/../resources/covers.php',
-    true,
-);
-
-$router->GET(
-    '/storage/profile-pictures/:id',
-    fn () => require __DIR__ . '/../resources/profile-picture.php',
+    fn () => require __DIR__ . '/../resources/pub/messages/messages.php',
     true,
 );
 
@@ -124,6 +110,18 @@ $router->GET('/api/logout', function () {
 $router->GET(
     '/api/activate/:id/:token',
     fn () => require __DIR__ . '/../resources/api/activate.php'
+);
+
+$router->GET(
+    '/api/storage/covers/:id',
+    fn () => require __DIR__ . '/../resources/api/storage/covers.php',
+    true,
+);
+
+$router->GET(
+    '/api/storage/profile-pictures/:id',
+    fn () => require __DIR__ . '/../resources/api/storage/profile-picture.php',
+    true,
 );
 
 $router->POST(

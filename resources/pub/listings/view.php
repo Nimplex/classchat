@@ -79,7 +79,7 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
 
         $carousel .= <<<HTML
         <li>
-            <img src="/storage/covers/{$cover['file_id']}" alt="Podgląd '{$title}'" tabindex="0">
+            <img src="/api/storage/covers/{$cover['file_id']}" alt="Podgląd '{$title}'" tabindex="0">
         </li>
         HTML;
     }
@@ -113,7 +113,7 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
     $carousel_section = ($array_size === 0) ? null : <<<HTML
         <section class="carousel" role="region" aria-roledescription="carousel" aria-label="Zdjęcia oferty">
             <div id="cover-container">
-                <img src="/storage/covers/{$main_cover}" id="main-cover">
+                <img src="/api/storage/covers/{$main_cover}" id="main-cover">
                 <button class="left" aria-label="Poprzednie zdjęcie" tabindex="-1" $disabled>‹</button>
                 <button class="right" aria-label="Kolejne zdjęcie" tabindex="-1" $disabled>›</button>
             </div>
