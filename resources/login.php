@@ -22,7 +22,7 @@ $render_content = function (): string {
         <div class="right">
             <h2>Nie posiadasz jeszcze konta?</h2>
             <div>
-                <form action="/register.php" method="get">
+                <form action="/register" method="get">
                     <input type="submit" value="Zarejestruj się!">
                 </form>
                 <footer role="contentinfo">

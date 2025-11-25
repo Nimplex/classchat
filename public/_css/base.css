@@ -219,7 +219,6 @@ nav .mobile {
 #mobile-container {
   display: none;
   margin-top: 1rem;
-  background: var(--gray-bg);
   border-top: 1px solid var(--border-gray);
   padding: 1rem 0;
   flex-direction: column;
