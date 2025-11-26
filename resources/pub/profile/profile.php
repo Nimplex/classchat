@@ -35,7 +35,7 @@ $render_content = function () use ($res, $listings) {
     if (isset($picture_id)) {
         $picture_id_encoded = urlencode($picture_id);
         $img_element = <<<HTML
-        <img src="/storage/profile-pictures/{$picture_id_encoded}" id="profile-picture" alt="Zdjęcie profilowe {$display_name}">
+        <img src="/api/storage/profile-pictures/{$picture_id_encoded}" id="profile-picture" alt="Zdjęcie profilowe {$display_name}">
         HTML;
     }
 

@@ -134,6 +134,8 @@ class Listing extends BaseDBModel
 
     /**
      * @param array<int,mixed> $files
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      */
     private function _addCovers(int $listing_id, array $files): bool
     {
@@ -277,5 +279,9 @@ class Listing extends BaseDBModel
         }
 
         $res = $this->_addCovers($id, $images);
+
+        if (!$res) {
+            throw new \InvalidArgumentException('Failed to add cover');
+        }
     }
 }

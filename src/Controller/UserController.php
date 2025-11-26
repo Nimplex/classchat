@@ -13,6 +13,7 @@ class UserController
     public User $user;
     public Activation $activation;
     public Favourites $favourites;
+    public const int MAX_PFP_FILE_SIZE = 5_000_000;
 
     public function __construct(PDO $db)
     {
@@ -30,6 +31,61 @@ class UserController
         }
 
         return true;
+    }
+
+    /**
+     * @param array<string,string|null> $image
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     */
+    public function add_profile_picture(int $user_id, array $image): void
+    {
+        if (empty($image)) {
+            throw new \InvalidArgumentException("No image provided");
+        }
+
+        $err = $image['error'];
+        
+        if ($err !== UPLOAD_ERR_OK) {
+            throw new \RuntimeException("Upload error (code: $err)");
+        }
+
+        [
+            'tmp_name' => $tmp_name,
+            'size' => $size,
+        ] = $image;
+
+        $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($tmp_name);
+        $allowed = ['image/jpeg' => '.jpg', 'image/png' => '.png'];
+
+        if (!isset($allowed[$mime])) {
+            throw new \InvalidArgumentException('Unsupported file type');
+        }
+
+        if ($size <= 0 || $size > UserController::MAX_PFP_FILE_SIZE) {
+            throw new \InvalidArgumentException('Invalid file size');
+        }
+
+        $new_name = 'pfp_' . $user_id . $allowed[$mime];
+
+        $target = $_SERVER['DOCUMENT_ROOT'] . '/../storage/profile-pictures/' . $new_name;
+
+        if (!move_uploaded_file($tmp_name, $target)) {
+            throw new \RuntimeException('Failed to move uploaded file');
+        }
+
+        $stmt = $this->db->prepare(
+            'INSERT INTO profile_pictures (user_id, file_id) VALUES (:user_id, :file_id)'
+        );
+
+        $res = $stmt->execute([
+            ':user_id' => $user_id,
+            ':file_id' => $new_name,
+        ]);
+
+        if (!$res) {
+            throw new \RuntimeException("Couldn't insert a record into the database");
+        }
     }
 
     /**
