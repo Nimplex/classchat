@@ -41,7 +41,7 @@ $is_partial = $_SERVER['HTTP_PARTIAL_REQ'] ?? null;
         <div>
             <button
                 type="button"
-                onclick="event.preventDefault(); event.stopPropagation(); favourite(event)"
+                onclick="favourite(event)"
                 class="<?= $lis['is_favourited'] ? 'btn-red' : '' ?>"
                 data-listing-id="<?= urlencode($lis['listing_id']) ?>"
                 aria-pressed="<?= $lis['is_favourited'] ? 'true' : 'false' ?>"
@@ -49,15 +49,17 @@ $is_partial = $_SERVER['HTTP_PARTIAL_REQ'] ?? null;
                 <i data-lucide="star" aria-hidden="true"></i>
                 <span><?= $lis['is_favourited'] ? 'Usuń z ulubionych' : 'Dodaj do ulubionych' ?></span>
             </button>
-            <button
-                type="button"
-                class="btn-accent"
-                onclick="event.preventDefault(); event.stopPropagation(); message(event)"
-                data-listing-id="<?= urlencode($lis['listing_id']) ?>"
-                aria-label="Skontaktuj się z sprzedającym na temat '<?= htmlspecialchars($lis['title']) ?>'">
-                <i data-lucide="message-circle" aria-hidden="true"></i>
-                <span>Napisz do ogłoszeniodawcy</span>
-            </button>
+            <form action="/messages/new" method="get">
+                <input type="hidden" name="listing-id" value="<?= urlencode($lis['listing_id']) ?>">
+                <button
+                    type="submit"
+                    class="btn-accent"
+                    data-listing-id="<?= urlencode($lis['listing_id']) ?>"
+                    aria-label="Skontaktuj się z sprzedającym na temat '<?= htmlspecialchars($lis['title']) ?>'">
+                    <i data-lucide="message-circle" aria-hidden="true"></i>
+                    <span>Napisz do ogłoszeniodawcy</span>
+                </button>
+            </form>
         </div>
     </footer>
 </article>

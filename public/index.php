@@ -82,6 +82,12 @@ $router->GET(
     true,
 );
 
+$router->GET(
+    '/messages/:id',
+    fn () => require __DIR__ . '/../resources/pub/messages/messages.php',
+    true
+);
+
 //==== ERRORS ===============================================================//
 
 $router->GET(
