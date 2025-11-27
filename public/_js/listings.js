@@ -23,10 +23,10 @@ async function favourite(event) {
   const isFavourited = body == "yes";
 
   if (isFavourited) {
-    target.classList.add("btn-red");
+    target.classList.add("favourited");
     target.querySelector("span").innerHTML = "Usuń z ulubionych";
   } else {
-    target.classList.remove("btn-red");
+    target.classList.remove("favourited");
     target.querySelector("span").innerHTML = "Dodaj do ulubionych";
   }
 }

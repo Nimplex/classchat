@@ -42,7 +42,7 @@ $is_partial = $_SERVER['HTTP_PARTIAL_REQ'] ?? null;
             <button
                 type="button"
                 onclick="favourite(event)"
-                class="<?= $lis['is_favourited'] ? 'btn-red' : '' ?>"
+                class="<?= $lis['is_favourited'] ? 'favourited' : '' ?>"
                 data-listing-id="<?= urlencode($lis['listing_id']) ?>"
                 aria-pressed="<?= $lis['is_favourited'] ? 'true' : 'false' ?>"
                 aria-label="<?= sprintf($lis['is_favourited'] ? 'Usuń %s z ulubionych' : 'Dodaj %s do ulubionych', htmlspecialchars($lis['title'])) ?>">
