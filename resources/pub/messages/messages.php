@@ -18,7 +18,7 @@ $render_content = function () use ($chatsModel) {
     foreach ($chats as $chat) {
         $img = "";
         $display_name = $chat['is_seller'] ? $chat['buyer_name'] : $chat['seller_name'];
-        $list .= <<<HTML
+    $list .= <<<HTML
         <div class="chat">
             <p>{$display_name}</p>
         </div>
@@ -29,9 +29,16 @@ $render_content = function () use ($chatsModel) {
     <section id="chats-list">
         {$list}
     </section>
-    <section id="message-box">
-    
+    <section id="tabs">
+        <ul>
+            <li>Wszystkie</li>
+        </ul>
     </section>
+    <div>
+        <section id="message-box">
+    
+        </section>
+    </div>
     HTML;
 };
 

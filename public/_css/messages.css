@@ -6,6 +6,8 @@ main {
 
 section {
   background: var(--gray-bg);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
 }
 
 #chats-list {

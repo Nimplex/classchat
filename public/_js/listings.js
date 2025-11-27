@@ -1,5 +1,5 @@
 async function favourite(event) {
-  let target = event.target.closest("button");
+  const target = event.target.type === "button" ? event.target : event.target.closest("button");
 
   const { listingId } = target.dataset;
 

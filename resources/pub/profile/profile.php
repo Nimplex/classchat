@@ -88,7 +88,14 @@ $render_content = function () use ($res, $listings, $id) {
     $profile_edit_section = ($_SESSION['user_id'] == $id) ? <<<HTML
     <button>Edytuj profil</button>
     HTML : <<<HTML
-    <button class="btn-red-alt">Zgłoś profil</button>
+    <form action="/messages/new" method="get">
+        <input type="hidden" name="user_id" value="{$id}">
+        <button type="submit" class="btn-accent">
+            <i data-lucide="message-circle" aria-hidden="true"></i>
+            <span>Napisz do użytkownika</span>
+        </button>
+    </form>
+    <button class="btn-red-alt"><i data-lucide="flag"></i>Zgłoś profil</button>
     HTML;
 
     return <<<HTML

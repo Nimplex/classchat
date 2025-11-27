@@ -30,10 +30,12 @@ section {
 
 #profile-edit {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 #profile-edit button {
-  flex: 1;
+  width: 100%;
 }
 
 #profile-info {

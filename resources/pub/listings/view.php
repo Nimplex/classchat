@@ -130,8 +130,11 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
         </table>
     HTML;
 
-    $template_favourited_class = ($listing['is_favourited'] ?? null) ? 'btn-red' : '';
+    $template_favourited_class = ($listing['is_favourited'] ?? null) ? 'favourited' : '';
     $template_label = ($listing['is_favourited'] ?? null) ? "Usuń z ulubionych" : "Dodaj do ulubionych";
+    $is_favourited = $listing['is_favourited'] ? 'true' : 'false';
+
+    $aria_label = sprintf($listing['is_favourited'] ? 'Usuń %s z ulubionych' : 'Dodaj %s do ulubionych', $title);
 
     $template = <<<HTML
     <div class="row">
@@ -149,22 +152,27 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
                 </div>
                 <div id="button-section">
                     <h1>{$listing['price']}</h1>
-                   <button
-                        type="button"
-                        onclick="event.preventDefault(); event.stopPropagation(); favourite(event)"
-                        class="{$template_favourited_class}"
-                        data-listing-id="{$listing_id}"
-                        aria-label="{$template_label}">
-                        {$template_label}
-                    </button>
                     <button
                         type="button"
-                        class="btn-accent"
-                        onclick="event.preventDefault(); event.stopPropagation(); message(event)"
+                        onclick="favourite(event)"
+                        class="{$template_favourited_class}"
                         data-listing-id="{$listing_id}"
-                        aria-label="Skontaktuj się z sprzedającym">
-                            Napisz do ogłoszeniodawcy
+                        aria-pressed="{$is_favourited}"
+                        aria-label="<?=  ?>">
+                        <i data-lucide="star" aria-hidden="true"></i>
+                        <span>{$template_label}</span>
                     </button>
+                    <form action="/messages/new" method="get">
+                        <input type="hidden" name="listing-id" value="{$listing_id}">
+                        <button
+                            type="submit"
+                            class="btn-accent"
+                            data-listing-id="{$listing_id}?>"
+                            aria-label="Skontaktuj się z sprzedającym na temat '{$title}?>'">
+                            <i data-lucide="message-circle" aria-hidden="true"></i>
+                            <span>Napisz do ogłoszeniodawcy</span>
+                        </button>
+                    </form>
                     <button class="btn-red-alt"><i data-lucide="flag"></i>Zgłoś</button>
                 </div>
             </div>
