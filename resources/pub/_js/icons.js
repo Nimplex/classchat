@@ -23,6 +23,7 @@ import {
   Star,
   TableProperties,
   User,
+  XCircle,
 } from "lucide";
 
 export const iconRegistry = {
@@ -49,6 +50,7 @@ export const iconRegistry = {
   Star,
   TableProperties,
   User,
+  XCircle,
 };
 
 export function renderIcons() {
