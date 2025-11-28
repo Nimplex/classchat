@@ -8,9 +8,9 @@ session_set_cookie_params([
 
 @session_start();
 
-require __DIR__ . '/../vendor/autoload.php';
 /** @var PDO $db */
 require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use App\Controller\UserController;
 
