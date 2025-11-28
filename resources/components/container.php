@@ -27,7 +27,9 @@ if (!in_array($lang, $allowed, true)) {
     <title><?= $title ?? 'Helix enthusiasts club' ?> | Szopex</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="preload" href="/_dist/css/base.css" as="style">
+    <?php if (!isset($no_navbar)): ?>
     <link rel="preload" href="/_dist/js/navbar.js" as="script">
+    <?php endif; ?>
     <link rel="preload" href="https://rsms.me/inter/inter.css" as="style">
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="/_dist/css/base.css">
@@ -55,7 +57,9 @@ if (!in_array($lang, $allowed, true)) {
         echo $render_scripts();
     } ?>
 
+    <?php if (!isset($no_navbar)): ?>
     <script type="module" src="/_dist/js/navbar.js"></script>
+    <?php endif; ?>
 
     <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/footer.php'; ?>
 </body>

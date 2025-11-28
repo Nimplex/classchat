@@ -14,6 +14,8 @@ class UserController
     public Activation $activation;
     public Favourites $favourites;
     public const int MAX_PFP_FILE_SIZE = 5_000_000;
+    public const string PASSWORD_PATTERN = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
+
 
     public function __construct(PDO $db)
     {
@@ -31,9 +33,7 @@ class UserController
      */
     private function _check_password_complexity(string $password): bool
     {
-        $password_pattern = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
-
-        if (!preg_match($password_pattern, $password)) {
+        if (!preg_match(UserController::PASSWORD_PATTERN, $password)) {
             return false;
         }
 

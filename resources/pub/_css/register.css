@@ -5,7 +5,6 @@ body {
 body::before {
   content: "";
   position: fixed;
-  top: 0;
   height: 100vh;
   width: 100vw;
   background-image: url("../_assets/andrei-castanha-rKu4WK5UYw8-unsplash.webp");
@@ -59,6 +58,30 @@ button {
   margin-top: 1rem;
 }
 
+ul {
+  padding-left: 1rem;
+}
+
+li {
+  padding-left: 0.5ex;
+  font-size: 0.9rem;
+}
+
+li::marker {
+  content: "✗";
+  color: var(--red);
+}
+
+li.ok::marker {
+  content: "✓";
+  color: green;
+}
+
 a {
   color: var(--accent);
+}
+
+.req {
+  padding: 0.5rem;
+  color: var(--gray-text);
 }
