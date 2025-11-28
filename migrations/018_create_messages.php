@@ -15,4 +15,4 @@ SQL;
 
 $db->exec($sql);
 
-echo "Migration 016 applied\n";
+echo "Migration 018 applied\n";
