@@ -1,10 +1,11 @@
 <?php
 
-session_set_cookie_params([
-    'samesite' => 'Strict',
-    'secure' => true,
-    'httponly' => true,
-]);
+// for now disable
+// session_set_cookie_params([
+//     'samesite' => 'Strict',
+//     'secure' => true,
+//     'httponly' => true,
+// ]);
 
 @session_start();
 
