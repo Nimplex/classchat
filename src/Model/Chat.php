@@ -19,17 +19,23 @@ class Chat extends BaseDBModel
     {
         $stmt = $this->db->prepare(<<<SQL
         SELECT
-            c.*,
-            b.display_name as buyer_name,
-            s.display_name as seller_name,
-            (c.seller_id = :user_id) AS is_seller
+            c.id AS chat_id,
+            s.display_name AS seller_name,
+            s.id AS seller_id,
+            b.display_name AS buyer_name,
+            b.id AS buyer_id,
+            l.title AS listing_title,
+            l.id AS listing_id,
+            l.price AS listing_price,
+            cv.file_id AS cover_file_id,
+            (c.seller_id = :user_id) AS is_seller,
+            (c.listing_id IS NOT NULL) AS contains_listing
         FROM chats c
-        JOIN users b
-            ON c.buyer_id = b.id
-        JOIN users s
-            ON c.seller_id = s.id
-        WHERE c.seller_id = :user_id
-            OR c.buyer_id = :user_id
+        LEFT JOIN users s ON c.seller_id = s.id
+        LEFT JOIN users b ON c.buyer_id = b.id
+        LEFT JOIN listings l ON c.listing_id = l.id
+        LEFT JOIN covers cv ON cv.listing_id = l.id AND cv.main = TRUE
+        WHERE s.id = :user_id OR b.id = :user_id; 
         SQL);
         $stmt->execute([
             ':user_id' => $user_id
@@ -65,10 +71,8 @@ class Chat extends BaseDBModel
             u.display_name,
             (c.seller_id = u.id) AS is_seller
         FROM chats c
-        LEFT JOIN messages m
-            ON m.chat_id = c.id
-        LEFT JOIN users u
-            ON m.sender_id = u.id
+        LEFT JOIN messages m ON m.chat_id = c.id
+        LEFT JOIN users u ON m.sender_id = u.id
         WHERE c.id = ?
         SQL);
         $stmt->execute([$chat_id]);
