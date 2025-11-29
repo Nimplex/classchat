@@ -52,7 +52,7 @@ class Chat extends BaseDBModel
         $stmt = $this->db->prepare(<<<SQL
         SELECT * FROM chats WHERE seller_id = ? AND buyer_id = ? AND listing = null
         SQL);
-        $stmt->execute([ $seller_id, $buyer_id ]);
+        $stmt->execute([$seller_id, $buyer_id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 
@@ -61,7 +61,7 @@ class Chat extends BaseDBModel
         $stmt = $this->db->prepare(<<<SQL
         SELECT * FROM chats WHERE seller_id = ? AND buyer_id = ? AND listing = ?
         SQL);
-        $stmt->execute([ $seller_id, $buyer_id, $listing_id ]);
+        $stmt->execute([$seller_id, $buyer_id, $listing_id]);
         return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
 

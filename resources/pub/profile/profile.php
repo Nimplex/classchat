@@ -94,7 +94,8 @@ $render_content = function () use ($res, $listings, $id) {
         </button>
     </form>
     HTML : <<<HTML
-    <form action="/messages/new" method="get">
+    <form action="/messages" method="get">
+        <input type="hidden" name="new_message" value="t">
         <input type="hidden" name="user_id" value="{$id}">
         <button type="submit" class="btn-accent">
             <i data-lucide="message-circle" aria-hidden="true"></i>

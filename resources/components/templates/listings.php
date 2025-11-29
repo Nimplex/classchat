@@ -49,7 +49,8 @@ $is_partial = $_SERVER['HTTP_PARTIAL_REQ'] ?? null;
                 <i data-lucide="star" aria-hidden="true"></i>
                 <span><?= $lis['is_favourited'] ? 'Usuń z ulubionych' : 'Dodaj do ulubionych' ?></span>
             </button>
-            <form action="/messages/new" method="get">
+            <form action="/messages" method="get">
+                <input type="hidden" name="new_message" value="t">
                 <input type="hidden" name="listing-id" value="<?= urlencode($lis['listing_id']) ?>">
                 <button
                     type="submit"

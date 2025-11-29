@@ -137,7 +137,8 @@ $render_content = function () use ($title, $listing, $listing_covers, $key_looku
     $aria_label = sprintf($listing['is_favourited'] ? 'Usuń %s z ulubionych' : 'Dodaj %s do ulubionych', $title);
 
     $button_chat = ($_SESSION['user_id'] == $listing['user_id']) ? "" : <<<HTML
-    <form action="/messages/new" method="get">
+    <form action="/messages" method="get">
+        <input type="hidden" name="new_message" value="t">
         <input type="hidden" name="listing-id" value="{$listing_id}">
         <button
             type="submit"

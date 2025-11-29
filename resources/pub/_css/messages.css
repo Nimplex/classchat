@@ -145,4 +145,9 @@ body > main {
 
 #message-box {
   flex: 1;
+  padding: 1rem;
+}
+
+#message-box > div {
+  background-color: var(--main-bg);
 }

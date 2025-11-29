@@ -1,6 +1,6 @@
 <?php
 
-$chatsModel = (new App\Builder\ChatsBuilder())->make();
+$chats_model = (new App\Builder\ChatsBuilder())->make();
 
 $title = "Wiadomości";
 
@@ -10,8 +10,8 @@ $render_head = function (): string {
     HTML;
 };
 
-$render_content = function () use ($chatsModel) {
-    $chats = $chatsModel->find_by_user($_SESSION['user_id']);
+$render_content = function () use ($chats_model) {
+    $chats = $chats_model->find_by_user($_SESSION['user_id']);
 
     $list = "";
 
