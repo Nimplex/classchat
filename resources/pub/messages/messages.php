@@ -47,7 +47,7 @@ $render_content = function () use ($chats_model) {
     <noscript>
         <div id="noscript">
             <h1>Ta strona wymaga działania skryptów JS do prawidłowego działania!</h1>
-            <p>Włącz działanie skryptów aby przejść dalej!</p>
+            <p>Włącz działanie skryptów aby przejść dalej</p>
             <ul>
                 <li><a href="https://support.google.com/adsense/answer/12654">Google Chrome</a></li>
                 <li><a href="https://support.mozilla.org/en-US/kb/javascript-settings-for-interactive-web-pages">Firefox</a></li>

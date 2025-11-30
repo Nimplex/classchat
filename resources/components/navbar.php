@@ -11,25 +11,25 @@ if (!isset($_SESSION['user_id'])) {
     $user_item .= <<<HTML
     <li>
         <a href="/listings">
-            <i data-lucide="package"></i>
+            <i data-lucide="package" aria-hidden="true"></i>
             Ogłoszenia
         </a>
     </li>
     <li>
         <a href="/profile/favourites">
-            <i data-lucide="star"></i>
+            <i data-lucide="star" aria-hidden="true"></i>
             Polubione
         </a>
     </li>
     <li>
         <a href="/messages">
-            <i data-lucide="message-circle"></i>
+            <i data-lucide="message-circle" aria-hidden="true"></i>
             Wiadomości
         </a>
     </li>
     <li>
         <a href="/profile/{$_SESSION['user_id']}">
-            <i data-lucide="user"></i>
+            <i data-lucide="user" aria-hidden="true"></i>
             Witaj {$_SESSION['user_login']}
         </a>
     </li>
@@ -52,7 +52,12 @@ if (!isset($_SESSION['user_id'])) {
         <button id="menu-toggle" class="mobile" aria-expanded="false" aria-controls="mobile-container">≡</button>
     </div>
     <ul id="mobile-container" hidden>
-        <li><a href="/">Strona główna</a></li>
+        <li>
+            <a href="/">
+                <i data-lucide="house" aria-hidden="true"></i>
+                Strona główna
+            </a>
+        </li>
         <?= $user_item ?>
     </ul>
 </nav>
