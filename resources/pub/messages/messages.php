@@ -29,13 +29,15 @@ $render_content = function () use ($chats_model) {
 
             $top_text = $refers_to_listing
                 ? $chat['listing_title']
-                : ($chat['is_seller']
+                : (
+                    $chat['is_seller']
                     ? htmlspecialchars($chat['buyer_name'])
                     : htmlspecialchars($chat['seller_name'])
                 );
 
             $bottom_text = $refers_to_listing
-                ? ($chat['is_seller']
+                ? (
+                    $chat['is_seller']
                     ? htmlspecialchars($chat['buyer_name'])
                     : htmlspecialchars($chat['seller_name'])
                 )
