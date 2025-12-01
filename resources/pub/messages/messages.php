@@ -36,7 +36,7 @@ $render_content = function () use ($user, $listing_model, $chats_model, $req_use
         HTML;
     } else {
         foreach ($chats as $chat) {
-            $id = $chat['id'];
+            $id = $chat['chat_id'];
             $is_seller = $chat['is_seller'];
             $refers_to_listing = $chat['contains_listing'];
 
