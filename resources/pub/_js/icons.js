@@ -1,5 +1,6 @@
 import {
   createIcons,
+  ArrowBigDownDash,
   Barcode,
   Book,
   BookOpen,
@@ -19,6 +20,7 @@ import {
   MessageSquareDashed,
   Package,
   PackageOpen,
+  PackagePlus,
   PackageX,
   Search,
   Send,
@@ -30,6 +32,7 @@ import {
 } from "lucide";
 
 export const iconRegistry = {
+  ArrowBigDownDash,
   Barcode,
   Book,
   BookOpen,
@@ -49,6 +52,7 @@ export const iconRegistry = {
   MessageSquareDashed,
   Package,
   PackageOpen,
+  PackagePlus,
   PackageX,
   Search,
   Send,

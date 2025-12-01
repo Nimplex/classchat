@@ -25,7 +25,13 @@ if (!isset($_SESSION['user_id'])) {
     <li>
         <a href="/messages">
             <i data-lucide="message-circle" aria-hidden="true"></i>
-            Wiadomości
+            Czaty
+        </a>
+    </li>
+    <li>
+        <a href="/listings/new">
+            <i data-lucide="package-plus" aria-hidden="true"></i>
+            Nowe ogłoszenie
         </a>
     </li>
     <li>
