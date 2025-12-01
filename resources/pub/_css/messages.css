@@ -87,6 +87,7 @@ body > main {
   height: 100%;
   color: var(--main-bg);
   background-color: var(--accent);
+  line-height: 200%;
 }
 
 #chats-list {
@@ -113,7 +114,8 @@ body > main {
   text-align: left;
 }
 
-.chat:hover {
+.chat:hover,
+.chat.active {
   background: var(--accent);
   color: black;
 }

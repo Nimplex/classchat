@@ -87,9 +87,11 @@ $render_content = function () use ($user, $listing_model, $chats_model, $req_use
                 : '';
 
             $img = sprintf("/api/storage/%s", $refers_to_listing ? sprintf('covers/%s', $chat['cover_file_id']) : sprintf('profile-pictures/%s', $is_seller ? $chat['buyer_pfp_file_id'] : $chat['seller_pfp_file_id']));
-        
+
+            $active = $req_chat_id ? ($req_chat_id == $id ? "active" : "" ): "";
+
             $list .= <<<HTML
-            <button class="chat" onclick="window.openChat(event)" data-chat-id="{$id}">
+            <button class="chat {$active}" onclick="window.openChat(event)" data-chat-id="{$id}">
                 <img src="{$img}">
                 <div class="chat-details">
                     <h3>{$top_text}</h3>
