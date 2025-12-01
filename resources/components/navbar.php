@@ -47,7 +47,7 @@ if (!isset($_SESSION['user_id'])) {
 <nav aria-label="Main navigation">
     <div role="presentation" class="nav-inner">
         <ul class="desktop">
-            <li><a href="/"><img src="/_assets/thumbnail.png" height="40"></a></li>
+            <li><a href="/"><img id="home-thumbnail" src="/_assets/thumbnail.png" height="40"></a></li>
         </ul>
         <form class="inline-input" role="search" action="/listings/search.php" method="get">
             <input type="search" id="site-search" name="q" placeholder="Wyszukaj...">
