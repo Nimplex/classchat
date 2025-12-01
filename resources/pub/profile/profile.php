@@ -4,6 +4,7 @@
 global $user, $_ROUTE;
 
 use App\Builder\ListingBuilder;
+use App\Helper\DateHelper;
 
 $listingModel = (new ListingBuilder())->make();
 
@@ -31,6 +32,8 @@ $render_content = function () use ($res, $listings, $id) {
         'listing_count' => $listing_count,
         'picture_id' => $picture_id,
     ] = $res;
+
+    $listing_count_text = DateHelper::pluralize($listing_count, "ogłoszenie", "ogłoszenia", "ogłoszeń");
 
     $display_name = htmlspecialchars($display_name);
     $created_at_formatted = date('d.m.Y', strtotime($created_at));
@@ -117,7 +120,7 @@ $render_content = function () use ($res, $listings, $id) {
                 </div>
                 <div class="stat">
                     <i data-lucide="package" aria-hidden="true"></i>
-                    {$listing_count} ogłoszeń
+                    {$listing_count} {$listing_count_text}
                 </div>
             </div>
         </section>
@@ -126,7 +129,15 @@ $render_content = function () use ($res, $listings, $id) {
         </section>
     </div>
     <section id="listings-section">
-        <h2>Ogłoszenia użytkownika</h2>
+        <div id="heading">
+            <h2>Ogłoszenia użytkownika</h2>
+            <form action="/listings/new" method="GET">
+                <button class="btn-accent" type="submit">
+                    <i data-lucide="package-plus" aria-hidden="true"></i>
+                    Nowe ogłoszenie
+                </button>
+            </form>
+        </div>
         {$listings_html}
     </section>
     HTML;

@@ -28,7 +28,15 @@ $render_content = function () use ($lis) {
     $listings = ob_get_clean();
 
     return <<<HTML
-    <h1>Aktualne ogłoszenia</h1>
+    <div id="heading">
+        <h1>Aktualne ogłoszenia</h1>
+        <form action="/listings/new" method="GET">
+            <button class="btn-accent" type="submit">
+                <i data-lucide="package-plus" aria-hidden="true"></i>
+                Nowe ogłoszenie
+            </button>
+        </form>
+    </div>
     <hr>
     <div id="offers">$listings</div>
     HTML;

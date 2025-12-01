@@ -51,8 +51,8 @@ class DateHelper
             return '';
         }
     }
-    
-    private static function pluralize(int $n, string $one, string $few, string $many): string
+
+    public static function pluralize(int $n, string $one, string $few, string $many): string
     {
         if ($n === 1) {
             return $one;

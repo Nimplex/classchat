@@ -29,12 +29,6 @@ if (!isset($_SESSION['user_id'])) {
         </a>
     </li>
     <li>
-        <a href="/listings/new">
-            <i data-lucide="package-plus" aria-hidden="true"></i>
-            Nowe ogłoszenie
-        </a>
-    </li>
-    <li>
         <a href="/profile/{$_SESSION['user_id']}">
             <i data-lucide="user" aria-hidden="true"></i>
             Witaj {$user_login}

@@ -59,24 +59,39 @@ section {
   border: 2px solid var(--border-gray);
 }
 
-@media (max-width: 1000px) {
-  main {
+#heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1000px) {
+  body > main {
     flex-direction: column;
   }
 
   #profile-sidebar {
-    align-items: center !important;
-    max-width: 100% !important;
-    position: revert !important;
+    max-width: 100%;
+    position: revert;
   }
 
   #profile-info {
-    flex-direction: row !important;
+    flex-direction: row;
     max-width: 100%;
   }
 
   #profile-picture {
     max-width: 250px;
+  }
+
+  #heading {
+    display: block;
+    justify-content: unset;
+  }
+
+  #heading button {
+    width: 100%;
+    margin-top: 1.5rem;
   }
 }
 
