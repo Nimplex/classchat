@@ -109,7 +109,7 @@ $render_content = function () use ($user, $listing_model, $chats_model, $req_use
 
             $list .= <<<HTML
             <button class="chat{$active}" onclick="window.openChat(event)" data-chat-id="{$id}">
-                <img {$pfp_class}src="{$img}">
+                <img {$pfp_class} src="{$img}">
                 <div class="chat-details">
                     {$chat_details}
                 </div>
