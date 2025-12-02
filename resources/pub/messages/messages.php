@@ -17,6 +17,8 @@ $new_chat = isset($req_user_id) || isset($req_listing_id);
 $listing = null;
 
 if ($req_listing_id) {
+    unset($req_user_id);
+
     $listing = $listing_model->get($req_listing_id, -1);
     if (!$listing) {
         // todo: error handling, inform user
@@ -26,8 +28,8 @@ if ($req_listing_id) {
 }
 
 if ($req_user_id) {
-    $exists = $user->user->exists($req_user_id);
-    if (!$exists) {
+    $user = $user->user->find_by_id($req_user_id);
+    if (!$user || $current_user_id == $user['id']) {
         // todo: error handling, inform user
         header('Location: /messages', true, 303);
         die;
@@ -136,10 +138,10 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
 
     if ($new_chat) {
         $destination = '';
-        $image_source = '';
+        $href = '';
+        $img = '';
         $title = '';
         $hidden_input = '';
-        $href = '';
 
         if (isset($req_listing_id)) {
             $res = $listing_model->get($req_listing_id, -1);
@@ -150,7 +152,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
             }
 
             $href = "/listings/{$req_listing_id}";
-            $image_source = "/api/storage/covers/{$res['cover_file_id']}";
+            $img = sprintf('<img src="/api/storage/covers/%s" alt="Okładka czatu">', $res['cover_file_id']);
             $title = htmlspecialchars($res["title"]);
             $hidden_input = "<input type='hidden' name='listing_id' value='{$req_listing_id}'>";
         }
@@ -163,9 +165,8 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
                 die;
             }
 
-            $pic_id = $res['picture_id'] ?: "nil";
             $href = "/profile/{$req_user_id}";
-            $img = sprintf('<img src="%s" alt="Okładka czatu">', "/api/storage/profile-pictures/{$pic_id}");
+            $img = sprintf('<img src="/api/storage/profile-pictures/%s" alt="Okładka czatu">', $res['picture_id'] ?: "nil");
             $title = htmlspecialchars($res['display_name']);
             $hidden_input = "<input type='hidden' name='user_id' value='{$req_user_id}'>";
         }
