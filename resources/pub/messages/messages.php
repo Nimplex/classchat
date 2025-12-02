@@ -78,7 +78,8 @@ $render_head = function (): string {
 $render_content = function () use ($user, $current_user_id, $listing_model, $chats_model, $req_user_id, $req_listing_id, $new_chat, $req_chat_id) {
     $chats = $chats_model->find_by_user($_SESSION['user_id']);
 
-    $list = "";
+    //===== SIDEBAR =========================================================//
+    $list = '';
 
     if (!isset($chats) || empty($chats)) {
         $list = <<<HTML
@@ -119,7 +120,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
                 )
             );
 
-            $img = sprintf('<img src="%s" class="%s" alt="Okładka czatu">', $img_source, $refers_to_listing ? '' : 'pfp');
+            $img = ($refers_to_listing && !$chat['cover_file_id']) ? '' : sprintf('<img src="%s" class="%s" alt="Okładka czatu">', $img_source, $refers_to_listing ? '' : 'pfp');
 
             $active = ($req_chat_id == $id) ? ' active' : '';
 
@@ -134,6 +135,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
         }
     }
 
+    //===== NEW CHAT ========================================================//
     $message_box = '';
 
     if ($new_chat) {
@@ -152,7 +154,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
             }
 
             $href = "/listings/{$req_listing_id}";
-            $img = sprintf('<img src="/api/storage/covers/%s" alt="Okładka czatu">', $res['cover_file_id']);
+            $img = $res['cover_file_id'] ? sprintf('<img src="/api/storage/covers/%s" alt="Okładka czatu">', $res['cover_file_id']) : '';
             $title = htmlspecialchars($res["title"]);
             $hidden_input = "<input type='hidden' name='listing_id' value='{$req_listing_id}'>";
         }
@@ -181,7 +183,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
             <h3>napisz pierwszą wiadomość!</h3>
         </section>
         <section id="message-input">
-            <form method="post" action="/api/new-chat">
+            <form method="POST" action="/api/new-chat">
                 {$hidden_input}
                 <input type="text" name="content" placeholder="Treść wiadomości..." minlength="1" required>
                 <button type="submit">
@@ -190,6 +192,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
             </form>
         </section>
         HTML;
+        //===== NO CHAT =========================================================//
     } elseif (!$req_chat_id) {
         $message_box .= <<<HTML
         <div class="no-chats">
@@ -197,25 +200,29 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
             <span>Tutaj znajdzie się twój czat!</span>
         </div>
         HTML;
+        //===== CHAT ============================================================//
     } else {
         $messages = $chats_model->get_messages($req_chat_id);
         $chat = $chats_model->find_by_id($req_chat_id);
         $listing_id = $chat['listing_id'];
         $is_seller = $chat['seller_id'] == $current_user_id;
         
-        $title = null;
-        $image_source = null;
-        $href = null;
-
+        $hidden_input = "<input type='hidden' name='chat_id' value='{$chat['chat_id']}'>";
+        
+        $href = '';
+        $img = '';
+        $title = '';
 
         if ($chat['contains_listing']) {
             $title = $chat['listing_title'];
             $href = "/listings/{$chat['listing_id']}";
             $image_source = sprintf('/api/storage/covers/%s', $chat['cover_file_id']);
+            $img = $chat['cover_file_id'] ? sprintf('<img src="%s" alt="Zdjęcie czatu">', $image_source) : '';
         } else {
             $title = $is_seller ? $chat['buyer_name'] : $chat['seller_name'];
             $href = sprintf('/profile/%d', $is_seller ? $chat['buyer_id'] : $chat['seller_id']);
             $image_source = sprintf('/api/storage/profile-pictures/%s', $is_seller ? $chat['buyer_pfp_file_id'] : $chat['seller_pfp_file_id']);
+            $img = sprintf('<img src="%s" alt="Zdjęcie czatu">', $image_source);
         }
 
         $template = "";
@@ -241,14 +248,14 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
 
         $message_box .= <<<HTML
         <a href="{$href}" id="message-to">
-            <img src="{$image_source}" alt="zdjęcie czatu">
+            {$img}
             <span>{$title}</span>
         </a>
         <section id="message-list">
             {$template}
         </section>
         <section id="message-input">
-            <form method="post" action="/api/new-message">
+            <form method="POST" action="/api/new-message">
                 {$hidden_input}
                 <input type="text" name="content" placeholder="Treść wiadomości..." minlength="1" required>
                 <button type="submit">

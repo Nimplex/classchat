@@ -99,8 +99,8 @@ body > main {
 }
 
 .chat {
-  flex: 0 1;
-  height: 8rem;
+  flex: 1;
+  max-height: 6rem;
   display: flex;
   padding: 0.5rem;
   background: var(--main-bg);
@@ -117,12 +117,7 @@ body > main {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.25rem;
-}
-
-.chat:hover,
-.chat.active {
-  background: var(--accent);
-  color: black;
+  flex: 1;
 }
 
 .chat-details > h3,
@@ -132,6 +127,12 @@ body > main {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 100%;
+}
+
+.chat:hover,
+.chat.active {
+  background: var(--accent);
+  color: black;
 }
 
 .chat > div > span {
@@ -148,10 +149,6 @@ body > main {
 
 .chat img.pfp {
   border-radius: 100%;
-}
-
-.chat > div {
-  flex: 1;
 }
 
 #chats-list .chat:first-child {
