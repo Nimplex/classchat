@@ -19,7 +19,7 @@ $listing = null;
 if ($req_listing_id) {
     unset($req_user_id);
 
-    $listing = $listing_model->get($req_listing_id, -1);
+    $listing = $listing_model->get($req_listing_id, $current_user_id);
     if (!$listing) {
         // todo: error handling, inform user
         header('Location: /messages', true, 303);
@@ -147,10 +147,15 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
         $hidden_input = '';
 
         if (isset($req_listing_id)) {
-            $res = $listing_model->get($req_listing_id, -1);
+            $res = $listing_model->get($req_listing_id, $current_user_id);
 
             if (!isset($res)) {
                 header('Location: /404', true, 303);
+                die;
+            }
+
+            if ($res['user_id'] == $current_user_id) {
+                header('Location: /messages', true, 303);
                 die;
             }
 
