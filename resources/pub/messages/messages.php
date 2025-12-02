@@ -8,10 +8,10 @@ $chats_model = (new App\Builder\ChatsBuilder())->make();
 
 $title = "Wiadomości";
 
-$current_user_id = $_SESSION['user_id'] ?: null;
-$req_chat_id = $_ROUTE['id'] ?: null;
-$req_user_id = $_GET['user_id'] ?: null;
-$req_listing_id = $_GET['listing_id'] ?: null;
+$current_user_id = (int)$_SESSION['user_id'] ?: null;
+$req_chat_id = (int)$_ROUTE['id'] ?: null;
+$req_user_id = (int)$_GET['user_id'] ?: null;
+$req_listing_id = (int)$_GET['listing_id'] ?: null;
 $new_chat = isset($req_user_id) || isset($req_listing_id);
 
 $listing = null;
@@ -50,7 +50,7 @@ if ($req_listing_id) {
     }
 }
 
-if ($req_chat_id) {
+if (!$new_chat && $req_chat_id) {
     $res = $chats_model->find_by_id($req_chat_id);
     if ($res) {
         if ($res['buyer_id'] != $current_user_id && $res['seller_id'] != $current_user_id) {
@@ -106,7 +106,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
                 $chat_details = sprintf("<h3>%s</h3>", $target_user_name);
             }
 
-            $img = '/api/storage/' . (
+            $img_source = '/api/storage/' . (
                 $refers_to_listing
                 ? sprintf('covers/%s', $chat['cover_file_id'])
                 : sprintf(
@@ -117,12 +117,13 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
                 )
             );
 
+            $img = sprintf('<img src="%s" class="%s" alt="Okładka czatu">', $img_source, $refers_to_listing ? '' : 'pfp');
+
             $active = ($req_chat_id == $id) ? ' active' : '';
-            $pfp_class = $refers_to_listing ? '' : 'class="pfp" ';
 
             $list .= <<<HTML
             <button class="chat{$active}" onclick="window.openChat(event)" data-chat-id="{$id}">
-                <img {$pfp_class} src="{$img}">
+                {$img}
                 <div class="chat-details">
                     {$chat_details}
                 </div>
@@ -164,14 +165,14 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
 
             $pic_id = $res['picture_id'] ?: "nil";
             $href = "/profile/{$req_user_id}";
-            $image_source = "/api/storage/profile-pictures/{$pic_id}";
+            $img = sprintf('<img src="%s" alt="Okładka czatu">', "/api/storage/profile-pictures/{$pic_id}");
             $title = htmlspecialchars($res['display_name']);
             $hidden_input = "<input type='hidden' name='user_id' value='{$req_user_id}'>";
         }
 
         $message_box .= <<<HTML
         <a href="{$href}" id="message-to">
-            <img src="{$image_source}" alt="zdjęcie czatu">
+            {$img}
             <span>{$title}</span>
         </a>
         <section id="new-message">
@@ -188,9 +189,7 @@ $render_content = function () use ($user, $current_user_id, $listing_model, $cha
             </form>
         </section>
         HTML;
-    }
-    
-    if (!$req_chat_id) {
+    } elseif (!$req_chat_id) {
         $message_box .= <<<HTML
         <div class="no-chats">
             <i class="big-icon" data-lucide="arrow-big-down-dash"></i>

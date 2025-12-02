@@ -213,7 +213,6 @@ body > main {
   background: var(--main-bg);
   border-bottom: 1px solid var(--border-gray);
   height: 5rem;
-  height: 5rem;
   overflow: hidden;
   color: var(--white);
   align-items: center;
