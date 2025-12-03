@@ -1,12 +1,7 @@
 <?php
 
-$title = 'Nowe ogłoszenie';
-
-$render_scripts = function (): string {
-    return <<<HTML
-    <script type="module" src="/_dist/js/file_picker.js"></script>
-    HTML;
-};
+$TITLE = 'Nowe ogłoszenie';
+$HEAD = '<link rel="stylesheet" href="/_dist/css/new.css">';
 
 ob_start();
 ?>
@@ -68,12 +63,8 @@ ob_start();
 </div>
 
 <?php
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
 
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/new.css">
-    HTML;
-};
+$SCRIPTS = ['/_dist/js/file_picker.js'];
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

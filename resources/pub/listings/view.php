@@ -20,7 +20,8 @@ foreach ($listing_covers as $cover) {
     }
 }
 
-$title = htmlspecialchars($listing['title']);
+$TITLE = htmlspecialchars($listing['title']);
+$HEAD = '<link rel="stylesheet" href="/_dist/css/view.css">';
 
 $key_lookup_table = [
     'isbn' => [
@@ -69,12 +70,6 @@ $key_lookup_table = [
     ],
 ];
 
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/view.css">
-    HTML;
-};
-
 ob_start();
 ?>
 
@@ -91,14 +86,14 @@ ob_start();
         <ul>
             <?php foreach ($listing_covers as $cover): ?>
             <li>
-                <img src="/api/storage/covers/<?= $cover['file_id'] ?>" alt="Podgląd <?= htmlspecialchars($title) ?>" tabindex="0">
+                <img src="/api/storage/covers/<?= $cover['file_id'] ?>" alt="Podgląd <?= $TITLE ?>" tabindex="0">
             </li>
             <?php endforeach; ?>
         </ul>
     </section>
     <?php endif; ?>
     <div id="inner-container">
-        <h1><?= $title ?></h1>
+        <h1><?= $TITLE ?></h1>
         <hr>
         <div class="row">
             <section id="data-section">
@@ -144,7 +139,7 @@ ob_start();
                         onclick="window.message(event)"
                         class="btn-accent"
                         data-listing-id="<?= $listing_id ?>"
-                        aria-label="Skontaktuj się z sprzedającym na temat '<?= $title ?>'"
+                        aria-label="Skontaktuj się z sprzedającym na temat '<?= $TITLE ?>'"
                     >
                         <i data-lucide="message-circle" aria-hidden="true"></i>
                         <span>Napisz do ogłoszeniodawcy</span>
@@ -158,13 +153,11 @@ ob_start();
 </div>
 
 <?php
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
 
-$render_scripts = function () {
-    return <<<HTML
-    <script type="module" src="/_dist/js/listings.js"></script>
-    <script type="module" src="/_dist/js/carousel.js"></script>
-    HTML;
-};
+$SCRIPTS = [
+    '/_dist/js/listings.js',
+    '/_dist/js/carousel.js',
+];
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

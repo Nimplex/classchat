@@ -2,15 +2,10 @@
 
 http_response_code(403);
 
-$title = '403';
+$TITLE = '403';
+$HEAD = '<link rel="stylesheet" href="/_dist/css/error.css">';
 
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/error.css">
-    HTML;
-};
-
-$render_content = <<<HTML
+$CONTENT = <<<HTML
 <h1>Forbidden</h1>
 HTML;
 

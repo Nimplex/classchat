@@ -3,14 +3,9 @@
 $pat = App\Controller\UserController::PASSWORD_PATTERN;
 $new_pat = substr($pat, 2, strlen($pat) - 4);
 
-$title = 'Rejestracja';
-$no_navbar = true;
-
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/register.css">
-    HTML;
-};
+$TITLE = 'Rejestracja';
+$NO_NAVBAR = true;
+$HEAD = '<link rel="stylesheet" href="/_dist/css/register.css">';
 
 ob_start();
 
@@ -44,13 +39,7 @@ ob_start();
 </form>
 
 <?php
-
-$render_content = ob_get_clean();
-
-$render_scripts = function (): string {
-    return <<<HTML
-    <script type="module" src="/_dist/js/register.js"></script>
-    HTML;
-};
+$CONTENT = ob_get_clean();
+$SCRIPTS = ['/_dist/js/register.js'];
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

@@ -1,13 +1,8 @@
 <?php
 
-$title = 'Logowanie';
-$no_navbar = true;
-
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/login.css">
-    HTML;
-};
+$TITLE = 'Logowanie';
+$NO_NAVBAR = true;
+$HEAD = '<link rel="stylesheet" href="/_dist/css/login.css">';
 
 ob_start();
 ?>
@@ -38,7 +33,6 @@ ob_start();
 </div>
 
 <?php
-
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

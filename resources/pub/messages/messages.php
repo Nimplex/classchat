@@ -17,7 +17,8 @@ $req_listing_id = filter_input(INPUT_GET, 'listing_id', FILTER_VALIDATE_INT);
 $new_chat = ($_ROUTE['id'] ?? null) == 'new' && (isset($req_user_id) || isset($req_listing_id));
 $show_ui = $new_chat || $req_chat_id;
 
-$title = $new_chat ? 'Nowy czat' : 'Wiadomości';
+$TITLE = $new_chat ? 'Nowy czat' : 'Wiadomości';
+$HEAD = '<link rel="stylesheet" href="/_dist/css/messages.css">';
 
 // Check if user has provided both queries
 if (isset($req_listing_id) && isset($req_user_id)) {
@@ -104,12 +105,6 @@ if ($req_chat_id) {
         die;
     }
 }
-
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/messages.css">
-    HTML;
-};
 
 
 $x = function () use ($user_controller, $current_user_id, $listing_model, $chats_model, $req_user_id, $req_listing_id, $new_chat, $req_chat_id) {
@@ -276,13 +271,6 @@ $x = function () use ($user_controller, $current_user_id, $listing_model, $chats
     HTML;
 };
 
-$render_scripts = function (): string {
-    return <<<HTML
-    <script type="module" src="/_dist/js/messages.js"></script>
-    HTML;
-};
-
-
 ob_start();
 ?>
 
@@ -360,6 +348,7 @@ ob_start();
 </section>
 
 <?php
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
+$SCRIPTS = ['/_dist/js/messages.js'];
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

@@ -2,7 +2,7 @@
 
 $favourites_model = (new App\Builder\FavouritesBuilder())->make();
 
-$title = "Polubione";
+$TITLE = "Polubione";
 
 ob_start();
 ?>
@@ -20,6 +20,6 @@ ob_start();
 </div>
 
 <?php
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

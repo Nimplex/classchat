@@ -2,15 +2,10 @@
 
 http_response_code(404);
 
-$title = '404';
+$TITLE = '404';
+$HEAD = '<link rel="stylesheet" href="/_dist/css/error.css">';
 
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/error.css">
-    HTML;
-};
-
-$render_content = <<<HTML
+$CONTENT = <<<HTML
 <h1>Not found</h1>
 HTML;
 

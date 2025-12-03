@@ -7,18 +7,15 @@ if (isset($_SERVER['HTTP_PARTIAL_REQ'])) {
 
 $lis = (new App\Builder\ListingBuilder())->make();
 
-$title = 'Ogłoszenia';
-
-$render_head = function () {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/all_listings.css">
-    <noscript>
-        <style>
-            #throbber { display: none; }
-        </style>
-    </noscript>
-    HTML;
-};
+$TITLE = 'Ogłoszenia';
+$HEAD = <<<HTML
+<link rel="stylesheet" href="/_dist/css/all_listings.css">
+<noscript>
+    <style>
+        #throbber { display: none; }
+    </style>
+</noscript>
+HTML;
 
 $total_pages = $lis->countPages();
 
@@ -40,13 +37,11 @@ ob_start();
 </div>
 
 <?php
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
 
-$render_scripts = function () {
-    return <<<HTML
-    <script type="module" src="/_dist/js/listings.js"></script>
-    <script type="module" src="/_dist/js/scroll.js"></script>
-    HTML;
-};
+$SCRIPTS = [
+    '/_dist/js/listings.js',
+    '/_dist/js/scroll.js',
+];
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

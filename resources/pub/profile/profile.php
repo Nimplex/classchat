@@ -17,13 +17,8 @@ if (!$res) {
 
 $listings = $listingModel->listByUser($id);
 
-$title = 'Użytkownik ' . htmlspecialchars($res['display_name']);
-
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/profile.css">
-    HTML;
-};
+$TITLE = 'Użytkownik ' . htmlspecialchars($res['display_name']);
+$HEAD = '<link rel="stylesheet" href="/_dist/css/profile.css">';
 
 $display_name = htmlspecialchars($res['display_name']);
 $created_at = date('d.m.Y', strtotime($res['created_at']));
@@ -114,6 +109,6 @@ ob_start();
 </section>
 
 <?php
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

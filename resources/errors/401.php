@@ -2,15 +2,10 @@
 
 http_response_code(401);
 
-$title = '401';
+$TITLE = '401';
+$HEAD = '<link rel="stylesheet" href="/_dist/css/error.css">';
 
-$render_head = function (): string {
-    return <<<HTML
-    <link rel="stylesheet" href="/_dist/css/error.css">
-    HTML;
-};
-
-$render_content = <<<HTML
+$CONTENT = <<<HTML
 <h1>Unauthorized</h1>
 HTML;
 

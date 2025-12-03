@@ -2,7 +2,7 @@
 
 $listing_model = (new App\Builder\ListingBuilder())->make();
 
-$title = 'Oferty użytkownika ' . htmlspecialchars($_SESSION['user_display_name']);
+$TITLE = 'Oferty użytkownika ' . htmlspecialchars($_SESSION['user_display_name']);
 
 ob_start();
 ?>
@@ -19,6 +19,6 @@ ob_start();
 </div>
 
 <?php
-$render_content = ob_get_clean();
+$CONTENT = ob_get_clean();
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';
