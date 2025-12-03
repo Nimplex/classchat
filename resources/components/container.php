@@ -15,7 +15,7 @@ if (!in_array($lang, $allowed, true)) {
 /** @var bool $NO_NAVBAR */
 /** @var string $HEAD */
 /** @var string $CONTENT */
-/** @var string $SCRIPTS */
+/** @var array<int,string> $SCRIPTS */
 ?>
 
 <!DOCTYPE html>
