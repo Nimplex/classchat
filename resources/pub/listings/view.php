@@ -101,21 +101,25 @@ ob_start();
                     <p class="with-icon"><i data-lucide="book-open-text" aria-hidden="true"></i>Opis:</p>
                     <p><?= htmlspecialchars($listing['description']) ?></p>
                 </div>
-                <?php
-                foreach ($attrib_list as $attribute => $value):
-                    $a = htmlspecialchars($attribute);
-                    $v = ($a = "language")
-                        ? sprintf("%s (%s)", $iso->languageByCode2t($value), $iso->nativeByCode2t($value, true))
-                        : htmlspecialchars($value);
-                ?>
-                <tr>
-                    <th class="with-icon">
-                        <i data-lucide="<?= $key_lookup_table[$attribute]['icon'] ?>" aria-hidden="true"></i>
-                        <?= $key_lookup_table[$attribute]['display'] ?>
-                    </th>
-                    <td><?= $value ?></td>
-                </tr>
-                <?php endforeach; ?>
+                <table id="details">
+                    <tbody>
+                        <?php
+                        foreach ($attrib_list as $attribute => $value):
+                            $a = htmlspecialchars($attribute);
+                            $v = ($a = "language")
+                                ? sprintf("%s (%s)", $iso->languageByCode2t($value), $iso->nativeByCode2t($value, true))
+                                : htmlspecialchars($value);
+                            ?>
+                            <tr>
+                                <th class="with-icon">
+                                    <i data-lucide="<?= $key_lookup_table[$attribute]['icon'] ?>" aria-hidden="true"></i>
+                                    <?= $key_lookup_table[$attribute]['display'] ?>
+                                </th>
+                                <td><?= $value ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </section>
             <section id="button-section">
                 <h1><?= htmlspecialchars($listing['price']) ?></h1>
@@ -131,14 +135,12 @@ ob_start();
                     <span><?= $template_label ?></span>
                 </button>
                 <?php if ($listing['user_id'] != $_SESSION['user_id']): ?>
-                <form action="/messages" method="get">
+                <form action="/messages" method="GET">
                     <input type="hidden" name="new_message" value="t">
                     <input type="hidden" name="listing_id" value="<?= $listing_id ?>">
                     <button
                         type="submit"
-                        onclick="window.message(event)"
                         class="btn-accent"
-                        data-listing-id="<?= $listing_id ?>"
                         aria-label="Skontaktuj się z sprzedającym na temat '<?= $TITLE ?>'"
                     >
                         <i data-lucide="message-circle" aria-hidden="true"></i>

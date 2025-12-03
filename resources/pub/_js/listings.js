@@ -30,10 +30,3 @@ window.favourite = async function (event) {
     target.querySelector("span").innerHTML = "Dodaj do ulubionych";
   }
 }
-
-window.message = function (event) {
-  const { listingId } = event.target.dataset;
-
-  if (!listingId || listingId === "")
-    return console.warn("No listingId found!");
-}
