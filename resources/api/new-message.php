@@ -1,7 +1,7 @@
 <?php
 
-/** @var \App\Controller\UserController $user */
-global $user;
+/** @var \App\Controller\UserController $user_controller */
+global $user_controller;
 
 $current_user_id = $_SESSION['user_id'];
 $content = $_POST['content'] ?: null;

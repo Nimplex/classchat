@@ -2,7 +2,7 @@
 
 use App\FlashMessage;
 
-/** @var \App\Controller\UserController $user */
+/** @var \App\Controller\UserController $user_controller */
 global $_ROUTE, $user_controller;
 
 $listing_model = (new App\Builder\ListingBuilder())->make();
@@ -118,7 +118,7 @@ $render_head = function (): string {
 };
 
 
-$x = function () use ($user, $current_user_id, $listing_model, $chats_model, $req_user_id, $req_listing_id, $new_chat, $req_chat_id) {
+$x = function () use ($user_controller, $current_user_id, $listing_model, $chats_model, $req_user_id, $req_listing_id, $new_chat, $req_chat_id) {
     //===== NEW CHAT ========================================================//
     $message_box = '';
 
@@ -137,7 +137,7 @@ $x = function () use ($user, $current_user_id, $listing_model, $chats_model, $re
         }
 
         if (isset($req_user_id)) {
-            $res = $user->user->get_profile($req_user_id);
+            $res = $user_controller->user->get_profile($req_user_id);
 
             if (!isset($res)) {
                 header('Location: /404', true, 303);
@@ -290,7 +290,6 @@ $render_scripts = function (): string {
 
 
 ob_start();
-
 ?>
 
 <section id="chats-sidebar">
@@ -303,79 +302,70 @@ ob_start();
     </section>
     <section id="chats-list">
         <?php if ($no_chats): ?>
-            <div class="no-chats">
-                <i class="big-icon" data-lucide="message-circle-off" aria-hidden="true"></i>
-                <span>Nie znaleziono czatów</span>
+        <div class="no-chats">
+            <i class="big-icon" data-lucide="message-circle-off" aria-hidden="true"></i>
+            <span>Nie znaleziono czatów</span>
+        </div>
+        <?php else: foreach ($chats as $chat): ?>
+        <button class="chat<?= $req_chat_id == $chat['chat_id'] ? ' active' : '' ?>" onclick="window.openChat(event)" data-chat-id="<?= $chat['chat_id'] ?>">
+            <?php if (!$chat['contains_listing']): ?>
+            <img src="/api/storage/profile-pictures/<?= $chat['is_seller'] ? $chat['buyer_pfp_file_id'] : $chat['seller_pfp_file_id'] ?>" alt="Okładka czatu">
+            <?php elseif ($chat['cover_file_id']): ?>
+            <img src="/api/storage/covers/<?= $chat['cover_file_id'] ?>" alt="Okładka czatu">
+            <?php endif ?>
+            <div class="chat-details">
+                <?php if (!$chat['contains_listing']): ?>
+                <h3><?= htmlspecialchars($chat['is_seller'] ? $chat['buyer_name'] : $chat['seller_name']) ?></h3>
+                <?php else: ?>
+                <h3><?= htmlspecialchars($chat['listing_title']) ?></h3>
+                <span><i data-lucide="user" aria-hidden="true"></i> <?= htmlspecialchars($chat['is_seller'] ? $chat['buyer_name'] : $chat['seller_name']) ?></span>
+                <?php endif ?>
             </div>
-        <?php else: ?>
-            <?php foreach ($chats as $chat): ?>
-                <button class="chat <?= $req_chat_id == $chat['chat_id'] ? 'active' : '' ?>" onclick="window.openChat(event)" data-chat-id="<?= $chat['chat_id'] ?>">
-                    <?php if (!$chat['contains_listing']): ?>
-                        <img src="/api/storage/profile-pictures/<?= $chat['is_seller'] ? $chat['buyer_pfp_file_id'] : $chat['seller_pfp_file_id'] ?>" alt="Okładka czatu">
-                    <?php elseif ($chat['cover_file_id']): ?>
-                        <img src="/api/storage/covers/<?= $chat['cover_file_id'] ?>" alt="Okładka czatu">
-                    <?php endif ?>
-                    <div class="chat-details">
-                        <?php if (!$chat['contains_listing']): ?>
-                            <h3><?= htmlspecialchars($chat['is_seller'] ? $chat['buyer_name'] : $chat['seller_name']) ?></h3>
-                        <?php else: ?>
-                            <h3><?= htmlspecialchars($chat['listing_title']) ?></h3>
-                            <span><i data-lucide="user" aria-hidden="true"></i> <?= htmlspecialchars($chat['is_seller'] ? $chat['buyer_name'] : $chat['seller_name']) ?></span>
-                        <?php endif ?>
-                    </div>
-                </button>
-            <?php endforeach ?>
-        <?php endif ?>
+        </button>
+        <?php endforeach; endif;?>
     </section>
 </section>
 <section id="message-box">
     <?php if ($show_ui): ?>
-        <a id="message-to" href="<?= isset($req_listing_id) ? "/listings/{$listing['id']}" : "/profile/{$user['id']}" ?>">
-            <?php if (isset($req_listing_id)): ?>
-                <?php if ($listing['cover_file_id']): ?>
-                    <img src="/api/storage/covers/<?= $listing['cover_file_id'] ?>" alt="Okładka czatu">
-                    <span><?= $listing['title'] ?></span>
-                <?php endif ?>
-            <?php elseif (isset($req_user_id)): ?>
-                    <img src="/api/storage/profile-pictures/<?= $user['picture_id'] ?>" alt="Okładka czatu">
-                    <span><?= $user['display_name'] ?></span>
-            <?php endif ?>
-        </a>
+    <a id="message-to" href="<?= isset($req_listing_id) ? "/listings/{$listing['id']}" : "/profile/{$user['id']}" ?>">
+        <?php if (isset($req_listing_id) && $listing['cover_file_id']): ?>
+        <img src="/api/storage/covers/<?= $listing['cover_file_id'] ?>" alt="Okładka czatu">
+        <span><?= $listing['title'] ?></span>
+        <?php elseif (isset($req_user_id)): ?>
+        <img src="/api/storage/profile-pictures/<?= $user['picture_id'] ?>" alt="Okładka czatu">
+        <span><?= $user['display_name'] ?></span>
+        <?php endif ?>
+    </a>
     <?php endif ?>
     <div id="message-list" class="<?= $new_chat ? '' : 'no-chats' ?>">
         <?php if ($new_chat): ?>
-            <i class="big-icon" data-lucide="message-square-dashed" aria-hidden="true"></i>
-            <i class="big-icon" data-lucide="arrow-big-down-dash"></i>
-            <span>Tutaj znajdzie się twój czat!</span>
-            <span>Napisz swoją pierwszą wiadomość</span>
+        <i class="big-icon" data-lucide="message-square-dashed" aria-hidden="true"></i>
+        <i class="big-icon" data-lucide="arrow-big-down-dash"></i>
+        <span>Tutaj znajdzie się twój czat!</span>
+        <span>Napisz swoją pierwszą wiadomość</span>
         <?php endif ?>
     </div>
     <?php if ($show_ui): ?> 
-        <div id="message-input">
-            <form method="POST" action="/api/new-chat">
-                <?php if (isset($req_listing_id)): ?>
-                    <input type="hidden" name="listing_id" value="<?= $listing['id'] ?>">
-                <?php elseif (isset($req_user_id)): ?>
-                    <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
-                <?php elseif (isset($req_chat_id)): ?>
-                    <input type="hidden" name="chat_id" value="<?= $chat['id'] ?>">
-<?= var_dump($chat) ?>
-                <?php endif ?>
+    <div id="message-input">
+        <form method="POST" action="/api/new-chat">
+            <?php if (isset($req_chat_id)): ?>
+            <input type="hidden" name="chat_id" value="<?= $chat['id'] ?>">
+            <?php elseif (isset($req_listing_id)): ?>
+            <input type="hidden" name="listing_id" value="<?= $listing['id'] ?>">
+            <?php elseif (isset($req_user_id)): ?>
+            <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
+            <?php endif ?>
 
-                <input type="text" name="content" placeholder="Treść wiadomości..." minlength="1" required>
-                <button type="submit">
-                    <i data-lucide="send" aria-hidden="true"></i>
-                </button>
-            </form>
-        </div>
+            <input type="text" name="content" placeholder="Treść wiadomości..." minlength="1" required>
+            <button type="submit">
+                <i data-lucide="send" aria-hidden="true"></i>
+            </button>
+        </form>
+    </div>
     <?php endif ?>
 </section>
 
 <?php
-
-$🫃 = 'test';
 $render_content = ob_get_clean();
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';
-
-?>

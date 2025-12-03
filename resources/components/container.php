@@ -14,7 +14,7 @@ if (!in_array($lang, $allowed, true)) {
 /** @var string $title */
 /** @var bool $no_navbar */
 /** @var function $render_head */
-/** @var function $render_content */
+/** @var string $render_content */
 /** @var string $render_scripts */
 ?>
 

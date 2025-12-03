@@ -1,10 +1,10 @@
 <?php
 
-/** @var \App\Controller\UserController $user */
-global $user;
+/** @var \App\Controller\UserController $user_controller */
+global $user_controller;
 
 try {
-    echo $user->favourite_from_request($_POST) ? "yes" : "no";
+    echo $user_controller->favourite_from_request($_POST) ? "yes" : "no";
 } catch (\InvalidArgumentException $e) {
     http_response_code(500);
 }

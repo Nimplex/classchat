@@ -1,7 +1,7 @@
 <?php
 
-/** @var \App\Controller\UserController $user */
-global $user, $_ROUTE;
+/** @var \App\Controller\UserController $user_controller */
+global $user_controller, $_ROUTE;
 
 $listing_model = (new App\Builder\ListingBuilder())->make();
 $chats_model = (new App\Builder\ChatsBuilder())->make();
@@ -35,7 +35,7 @@ if (isset($listing_id)) {
 }
 
 if (isset($user_id)) {
-    $exists = $user->user->exists($user_id);
+    $exists = $user_controller->user->exists($user_id);
     if (!$exists) {
         // todo: error handling, inform user
         header('Location: /messages', true, 303);

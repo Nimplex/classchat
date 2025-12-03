@@ -11,7 +11,7 @@ class AuthBuilder
         require __DIR__ . '/../../bootstrap.php';
 
         /** @var PDO $db */
-        $user = new UserController($db);
-        return $user;
+        $user_controller = new UserController($db);
+        return $user_controller;
     }
 }

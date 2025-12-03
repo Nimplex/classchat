@@ -2,12 +2,12 @@
 
 $msg = new App\FlashMessage();
 
-/** @var \App\Controller\UserController $user */
-global $user;
+/** @var \App\Controller\UserController $user_controller */
+global $user_controller;
 
 
 try {
-    $user->add_profile_picture($_SESSION['user_id'], $_FILES['pfp']);
+    $user_controller->add_profile_picture($_SESSION['user_id'], $_FILES['pfp']);
     $msg->setOk('Pomyślnie ustawiono zdjęcie profilowe');
     header('Location: /profile', true, 303);
 } catch (\InvalidArgumentException $e) {

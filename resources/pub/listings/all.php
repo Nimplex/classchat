@@ -20,27 +20,27 @@ $render_head = function () {
     HTML;
 };
 
-$render_content = function () use ($lis) {
-    $total_pages = $lis->countPages();
+$total_pages = $lis->countPages();
 
-    ob_start();
-    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/templates/listings.php';
-    $listings = ob_get_clean();
+ob_start();
+?>
 
-    return <<<HTML
-    <div id="heading">
-        <h1>Aktualne ogłoszenia</h1>
-        <form action="/listings/new" method="GET">
-            <button class="btn-accent" type="submit">
-                <i data-lucide="package-plus" aria-hidden="true"></i>
-                Nowe ogłoszenie
-            </button>
-        </form>
-    </div>
-    <hr>
-    <div id="offers">$listings</div>
-    HTML;
-};
+<div id="heading">
+    <h1>Aktualne ogłoszenia</h1>
+    <form action="/listings/new" method="GET">
+        <button class="btn-accent" type="submit">
+            <i data-lucide="package-plus" aria-hidden="true"></i>
+            Nowe ogłoszenie
+        </button>
+    </form>
+</div>
+<hr>
+<div id="offers">
+    <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/templates/listings.php'; ?>
+</div>
+
+<?php
+$render_content = ob_get_clean();
 
 $render_scripts = function () {
     return <<<HTML

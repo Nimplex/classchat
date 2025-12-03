@@ -187,6 +187,7 @@ main > hr {
   padding: 1rem;
   gap: 1rem;
   border-radius: var(--radius);
+  min-width: 250px;
 }
 
 .btn-no-border-red {

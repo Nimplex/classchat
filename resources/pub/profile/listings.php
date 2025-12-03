@@ -1,22 +1,24 @@
 <?php
 
-$listingModel = (new App\Builder\ListingBuilder())->make();
+$listing_model = (new App\Builder\ListingBuilder())->make();
 
 $title = 'Oferty użytkownika ' . htmlspecialchars($_SESSION['user_display_name']);
 
-$render_content = function () use ($listingModel) {
-    $html = "<h1>Moje oferty</h1><div>";
-    foreach ($listingModel->listByUser($_SESSION['user_id']) as $listing) {
-        $html .= <<<HTML
-        <div class="listing">
-            <div class="listing-title">{$listing['title']}</div>
-            <div class="listing-price">{$listing['price']}</div>
-            <div class="listing-timestamp">{$listing['updated_at']}</div>
-        </div>
-        HTML;
-    }
-    $html .= "</div>";
-    return $html;
-};
+ob_start();
+?>
+
+<h1>Moje oferty</h1>
+<div>
+    <?php foreach ($listing_model->listByUser($_SESSION['user_id']) as $listing): ?>
+    <div class="listing">
+        <div class="listing-title"><?= $listing['title'] ?></div>
+        <div class="listing-price"><?= $listing['price'] ?></div>
+        <div class="listing-timestamp"><?= $listing['updated_at'] ?></div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+<?php
+$render_content = ob_get_clean();
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

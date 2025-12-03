@@ -9,6 +9,17 @@ $listing_id = $_ROUTE['id'];
 $listing = $listingBuilder->get($listing_id, $_SESSION['user_id']);
 $listing_covers = $listingBuilder->getCovers($listing_id);
 
+$main_cover = "";
+
+$attrib_list = json_decode($listing['attributes']) ?? [];
+
+foreach ($listing_covers as $cover) {
+    if ($cover['main']) {
+        $main_cover = $cover['file_id'];
+        break;
+    }
+}
+
 $title = htmlspecialchars($listing['title']);
 
 $key_lookup_table = [
@@ -64,130 +75,90 @@ $render_head = function (): string {
     HTML;
 };
 
-$render_content = function () use ($title, $listing, $listing_covers, $key_lookup_table, $iso, $listing_id): string {
-    $array_size = count($listing_covers);
-    $img_controls_disabled = $array_size <= 1 ? "disabled" : null;
-    $main_cover = "";
-    $carousel = "<ul>";
-    $attributes = "";
-    $description = htmlspecialchars($listing['description']);
+ob_start();
+?>
 
-    foreach ($listing_covers as $cover) {
-        if ($cover['main'] == true) {
-            $main_cover = $cover['file_id'];
-        }
-
-        $carousel .= <<<HTML
-        <li>
-            <img src="/api/storage/covers/{$cover['file_id']}" alt="Podgląd '{$title}'" tabindex="0">
-        </li>
-        HTML;
-    }
-
-    $carousel .= "</ul>";
-
-    $attrib_list = json_decode($listing['attributes']) ?? null;
-
-    if ($attrib_list) {
-        foreach ($attrib_list as $attribute => $value) {
-            $attribute = htmlspecialchars($attribute);
-            $value = htmlspecialchars($value);
-
-            switch ($attribute) {
-                case 'language':
-                    $language = $iso->languageByCode2t($value, true);
-                    $native_language = $iso->nativeByCode2t($value, true);
-                    $value = "{$native_language} ({$language})";
-                    break;
-            }
-
-            $attributes .= <<<HTML
-            <tr>
-                <th class="with-icon"><i data-lucide="{$key_lookup_table[$attribute]['icon']}" aria-hidden="true"></i>{$key_lookup_table[$attribute]['display']}</th>
-                <td>{$value}</td>
-            </tr>
-            HTML;
-        }
-    }
-
-    $carousel_section = ($array_size === 0) ? null : <<<HTML
-        <section class="carousel" role="region" aria-roledescription="carousel" aria-label="Zdjęcia oferty">
-            <div id="cover-container">
-                <img src="/api/storage/covers/{$main_cover}" id="main-cover">
-                <button class="left" aria-label="Poprzednie zdjęcie" tabindex="-1" $img_controls_disabled>‹</button>
-                <button class="right" aria-label="Kolejne zdjęcie" tabindex="-1" $img_controls_disabled>›</button>
-            </div>
-            <hr>
-            {$carousel}
-        </section>
-    HTML;
-
-    $attribute_table = ($attributes === "") ? "" : <<<HTML
-        <table id="details">
-            <tbody>
-               {$attributes}
-            </tbody>
-        </table>
-    HTML;
-
-    $template_favourited_class = ($listing['is_favourited'] ?? null) ? 'favourited' : '';
-    $template_label = ($listing['is_favourited'] ?? null) ? "Usuń z ulubionych" : "Dodaj do ulubionych";
-    $is_favourited = $listing['is_favourited'] ? 'true' : 'false';
-    $chat_btn_disabled = ($_SESSION['user_id'] == $listing['user_id']) ? 'disabled' : '';
-    $aria_label = sprintf($listing['is_favourited'] ? 'Usuń %s z ulubionych' : 'Dodaj %s do ulubionych', $title);
-
-    $button_chat = ($_SESSION['user_id'] == $listing['user_id']) ? "" : <<<HTML
-    <form action="/messages" method="get">
-        <input type="hidden" name="new_message" value="t">
-        <input type="hidden" name="listing_id" value="{$listing_id}">
-        <button
-            type="submit"
-            onclick="window.message(event)"
-            class="btn-accent"
-            data-listing-id="{$listing_id}"
-            aria-label="Skontaktuj się z sprzedającym na temat '{$title}'"
-            $chat_btn_disabled>
-            <i data-lucide="message-circle" aria-hidden="true"></i>
-            <span>Napisz do ogłoszeniodawcy</span>
-        </button>
-    </form>
-    HTML;
-
-    $template = <<<HTML
-    <div class="row">
-        {$carousel_section}
-        <div id="inner-container">
-            <h1>{$title}</h1>
-            <hr>
-            <div class="row">
-                <div id="data-section">
-                    <div>
-                        <p class="with-icon"><i data-lucide="book-open-text" aria-hidden="true"></i>Opis:</p>
-                        <p>{$description}</p>
-                    </div>
-                    {$attribute_table}
+<div class="row">
+    <?php if (!empty($listing_covers)): ?>
+    <section class="carousel" role="region" aria-roledescription="carousel" aria-label="Zdjęcia oferty">
+        <div id="cover-container">
+            <img src="/api/storage/covers/<?= $main_cover ?>" id="main-cover">
+            <?php $img_controls_disabled = (count($listing_covers) > 1) ? "" : " disabled" ?>
+            <button class="left" aria-label="Poprzednie zdjęcie" tabindex="-1"<?= $img_controls_disabled ?>>‹</button>
+            <button class="right" aria-label="Kolejne zdjęcie" tabindex="-1"<?= $img_controls_disabled ?>>›</button>
+        </div>
+        <hr>
+        <ul>
+            <?php foreach ($listing_covers as $cover): ?>
+            <li>
+                <img src="/api/storage/covers/<?= $cover['file_id'] ?>" alt="Podgląd <?= htmlspecialchars($title) ?>" tabindex="0">
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+    <?php endif; ?>
+    <div id="inner-container">
+        <h1><?= $title ?></h1>
+        <hr>
+        <div class="row">
+            <section id="data-section">
+                <div>
+                    <p class="with-icon"><i data-lucide="book-open-text" aria-hidden="true"></i>Opis:</p>
+                    <p><?= htmlspecialchars($listing['description']) ?></p>
                 </div>
-                <div id="button-section">
-                    <h1>{$listing['price']}</h1>
+                <?php
+                foreach ($attrib_list as $attribute => $value):
+                    $a = htmlspecialchars($attribute);
+                    $v = ($a = "language")
+                        ? sprintf("%s (%s)", $iso->languageByCode2t($value), $iso->nativeByCode2t($value, true))
+                        : htmlspecialchars($value);
+                ?>
+                <tr>
+                    <th class="with-icon">
+                        <i data-lucide="<?= $key_lookup_table[$attribute]['icon'] ?>" aria-hidden="true"></i>
+                        <?= $key_lookup_table[$attribute]['display'] ?>
+                    </th>
+                    <td><?= $value ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </section>
+            <section id="button-section">
+                <h1><?= htmlspecialchars($listing['price']) ?></h1>
+                <?php $template_label = ($listing['is_favourited'] ?? null) ? "Usuń z ulubionych" : "Dodaj do ulubionych" ?>
+                <button
+                    type="button"
+                    class="<?= ($listing['is_favourited'] ?? null) ? 'favourited' : '' ?>"
+                    onclick="window.favourite(event)"
+                    data-listing-id="<?= $listing_id ?>"
+                    aria-label="<?= $template_label ?>"
+                >
+                    <i data-lucide="star" aria-hidden="true"></i>
+                    <span><?= $template_label ?></span>
+                </button>
+                <?php if ($listing['user_id'] != $_SESSION['user_id']): ?>
+                <form action="/messages" method="get">
+                    <input type="hidden" name="new_message" value="t">
+                    <input type="hidden" name="listing_id" value="<?= $listing_id ?>">
                     <button
-                        type="button"
-                        class="{$template_favourited_class}"
-                        onclick="window.favourite(event)"
-                        data-listing-id="{$listing_id}"
-                        aria-label="{$template_label}">
-                        <i data-lucide="star" aria-hidden="true"></i>
-                        <span>{$template_label}</span>
+                        type="submit"
+                        onclick="window.message(event)"
+                        class="btn-accent"
+                        data-listing-id="<?= $listing_id ?>"
+                        aria-label="Skontaktuj się z sprzedającym na temat '<?= $title ?>'"
+                    >
+                        <i data-lucide="message-circle" aria-hidden="true"></i>
+                        <span>Napisz do ogłoszeniodawcy</span>
                     </button>
-                    $button_chat
-                    <button class="btn-red-alt"><i data-lucide="flag"></i>Zgłoś</button>
-                </div>
-            </div>
+                </form>
+                <?php endif; ?>
+                <button class="btn-red-alt"><i data-lucide="flag"></i>Zgłoś</button>
+            </section>
         </div>
     </div>
-    HTML;
+</div>
 
-    return $template;
-};
+<?php
+$render_content = ob_get_clean();
 
 $render_scripts = function () {
     return <<<HTML
