@@ -60,7 +60,7 @@ const cssOptions = {
     ".png": "file",
     ".jpg": "file",
     ".jpeg": "file",
-    ".svg": "file",
+    ".svg": "dataurl",
   },
   minify: isProd,
   sourcemap: !isProd,

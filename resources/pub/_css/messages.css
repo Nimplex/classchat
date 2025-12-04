@@ -190,18 +190,38 @@ body > main {
 }
 
 .message {
+  position: relative;
   place-self: flex-start;
   background: var(--main-bg);
   color: var(--white);
   padding: 1rem;
   border-radius: var(--radius);
   transition: all 250ms;
+  border-bottom-left-radius: 0;
+}
+
+.message svg {
+  position: absolute;
+  display: block;
+  color: var(--main-bg);
+  bottom: -0px;
+  left: -11px;
+  transform: scaleX(-1);
 }
 
 .message.author {
   place-self: flex-end;
   background: var(--accent);
   color: var(--main-bg);
+  border-bottom-left-radius: var(--radius);
+  border-bottom-right-radius: 0;
+}
+
+.message.author svg {
+  left: unset;
+  right: -11px;
+  fill: var(--accent);
+  transform: unset;
 }
 
 .message .message-author {
