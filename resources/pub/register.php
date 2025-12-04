@@ -8,7 +8,6 @@ $NO_NAVBAR = true;
 $HEAD = '<link rel="stylesheet" href="/_dist/css/register.css">';
 
 ob_start();
-
 ?>
 
 <form action="/api/register" method="POST">
@@ -16,7 +15,7 @@ ob_start();
     <label>Nazwa użytkownika: <input type="text" name="display_name" placeholder="Nazwa wyświetlana" maxlength="255" required></label><br>
     <label>Login: <input type="text" name="login" placeholder="Login" maxlength="255" required></label><br>
     <label>E-mail: <input type="email" name="email" placeholder="E-mail" maxlength="255" required></label><br>
-    <label>Hasło: <input id="pass_input" type="password" name="password" placeholder="Hasło" minlength="8" pattern="{$new_pat}" required></label>
+    <label>Hasło: <input id="pass_input" type="password" name="password" placeholder="Hasło" minlength="8" pattern="<?= $new_pat ?>" required></label>
     <div class="req">
         Hasło musi zawierać:
         <ul>
