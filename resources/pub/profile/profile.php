@@ -51,15 +51,15 @@ ob_start();
     <section id="profile-edit">
         <?php if ($_SESSION['user_id'] == $id): ?>
         <button>Edytuj profil</button>
-        <form action="/api/logout" method="get">
+        <form action="/api/logout" method="GET">
             <button class="btn-red-alt" type="submit">
                 <i class="flipped" data-lucide="log-out" aria-hidden="true"></i>
                 <span>Wyloguj się</span>
             </button>
         </form>
         <?php else: ?>
-        <form action="/messages" method="get">
-            <input type="hidden" name="new_message" value="t">
+        <form action="/messages" method="GET">
+            <input type="hidden" name="new_chat" value="1">
             <input type="hidden" name="user_id" value="<?= $id ?>">
             <button type="submit" class="btn-accent">
                 <i data-lucide="message-circle" aria-hidden="true"></i>

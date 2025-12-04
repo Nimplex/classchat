@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
         <ul class="desktop">
             <li><a href="/"><img id="home-thumbnail" src="/_assets/thumbnail.png" height="40"></a></li>
         </ul>
-        <form class="inline-input" role="search" action="/listings/search.php" method="get">
+        <form class="inline-input" role="search" action="/listings/search.php" method="GET">
             <input type="search" id="site-search" name="q" placeholder="Wyszukaj...">
             <button type="submit" aria-label="Wyszukaj">
                 <i data-lucide="search" aria-hidden="true"></i>

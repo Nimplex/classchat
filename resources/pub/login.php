@@ -18,7 +18,7 @@ ob_start();
     <div class="right">
         <h2>Nie posiadasz jeszcze konta?</h2>
         <div>
-            <form action="/register" method="get">
+            <form action="/register" method="GET">
                 <input type="submit" value="Zarejestruj się!">
             </form>
             <footer role="contentinfo">

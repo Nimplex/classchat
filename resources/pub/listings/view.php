@@ -136,7 +136,7 @@ ob_start();
                 </button>
                 <?php if ($listing['user_id'] != $_SESSION['user_id']): ?>
                 <form action="/messages" method="GET">
-                    <input type="hidden" name="new_message" value="t">
+                    <input type="hidden" name="new_chat" value="1">
                     <input type="hidden" name="listing_id" value="<?= $listing_id ?>">
                     <button
                         type="submit"
