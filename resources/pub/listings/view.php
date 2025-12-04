@@ -101,6 +101,7 @@ ob_start();
                     <p class="with-icon"><i data-lucide="book-open-text" aria-hidden="true"></i>Opis:</p>
                     <p><?= htmlspecialchars($listing['description']) ?></p>
                 </div>
+                <?php if (!empty($attrib_list)): ?>
                 <table id="details">
                     <tbody>
                         <?php
@@ -120,6 +121,7 @@ ob_start();
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                <?php endif; ?>
             </section>
             <section id="button-section">
                 <h1><?= htmlspecialchars($listing['price']) ?></h1>
