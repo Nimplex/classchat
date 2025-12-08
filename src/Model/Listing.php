@@ -153,7 +153,7 @@ class Listing extends BaseDBModel
 
             $tmp_name = $files['images']['tmp_name'][$i];
             $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($tmp_name);
-            $allowed = ['image/jpeg' => '.jpg', 'image/png' => '.png'];
+            $allowed = ['image/jpeg' => '.jpg', 'image/png' => '.png', 'image/webp' => '.webp'];
 
             if (!isset($allowed[$mime])) {
                 throw new \InvalidArgumentException('Unsupported file type');

@@ -19,7 +19,7 @@ if (!$filepath || !str_starts_with($filepath, $baseDir) || !is_file($filepath)) 
 
 $mime = mime_content_type($filepath);
 
-if (!in_array($mime, ['image/jpeg', 'image/png'], true)) {
+if (!in_array($mime, ['image/webp', 'image/jpeg', 'image/png'], true)) {
     require $_SERVER['DOCUMENT_ROOT'] . '/../resources/errors/404.php';
     die;
 }
