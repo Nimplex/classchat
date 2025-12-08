@@ -181,12 +181,10 @@ ob_start();
             <li><label>Sprzedaż<input type="radio" class="sr-only" name="tab" value="sell"></label></li>
         </ul>
     </section>
-    <section id="chats-list">
+    <section id="chats-list" <?= $no_chats ? 'class="no-chats"' : "" ?>>
         <?php if ($no_chats): ?>
-        <div class="no-chats">
-            <i class="big-icon" data-lucide="message-circle-off" aria-hidden="true"></i>
-            <span>Nie znaleziono czatów</span>
-        </div>
+        <i class="big-icon" data-lucide="message-circle-off" aria-hidden="true"></i>
+        <span>Nie znaleziono czatów</span>
         <?php else: foreach ($chats as $listing_chat): ?>
         <button class="chat<?= $req_chat_id == $listing_chat['chat_id'] ? ' active' : '' ?>" onclick="window.openChat(event)" data-chat-id="<?= $listing_chat['chat_id'] ?>">
             <?php if (!$listing_chat['contains_listing']): ?>
