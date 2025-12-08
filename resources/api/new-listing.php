@@ -3,10 +3,13 @@
 $msg = new App\FlashMessage();
 
 $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
-$price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
 $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_SPECIAL_CHARS);
 
-if (!isset($title) || !isset($price) || !isset($description)) {
+$raw_price = $_POST['price'] ?? '';
+$normalized = str_replace(',', '.', $raw_price);
+$price = filter_var($normalized, FILTER_VALIDATE_FLOAT);
+
+if (!$title || !$price || !$description) {
     $msg->setErr('i18n:invalid_query');
     header('Location: /listings/new', true, 303);
     die;
