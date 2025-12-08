@@ -26,8 +26,8 @@ ob_start();
                     Cena:<br>
                     <input
                         class="money-input"
-                        type="text"
-                        inputmode="numeric"
+                        type="number"
+                        inputmode="decimal"
                         pattern="\d{1,4}((,|\.)\d\d)?"
                         name="price"
                         placeholder="5,00"

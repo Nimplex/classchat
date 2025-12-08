@@ -2,8 +2,11 @@
 
 global $_ROUTE;
 
-$iso = new Matriphe\ISO639\ISO639();
-$listingBuilder = (new App\Builder\ListingBuilder())->make();
+use App\Builder\ListingBuilder;
+use Matriphe\ISO639\ISO639;
+
+$iso = new ISO639();
+$listingBuilder = (new ListingBuilder())->make();
 
 $listing_id = filter_var($_ROUTE['id'] ?? null, FILTER_VALIDATE_INT);
 // Just in case
@@ -13,12 +16,18 @@ if (!isset($listing_id)) {
 }
 
 $listing = $listingBuilder->get($listing_id, $_SESSION['user_id']);
+
+if (!$listing) {
+    require $_SERVER['DOCUMENT_ROOT'] . '/../resources/errors/404.php';
+    die;
+}
+
 $listing_covers = $listingBuilder->getCovers($listing_id);
 
+$TITLE = htmlspecialchars($listing['title']);
+$HEAD = '<link rel="stylesheet" href="/_dist/css/view.css">';
+
 $main_cover = "";
-
-$attrib_list = json_decode($listing['attributes']) ?? [];
-
 foreach ($listing_covers as $cover) {
     if ($cover['main']) {
         $main_cover = $cover['file_id'];
@@ -26,9 +35,7 @@ foreach ($listing_covers as $cover) {
     }
 }
 
-$TITLE = htmlspecialchars($listing['title']);
-$HEAD = '<link rel="stylesheet" href="/_dist/css/view.css">';
-
+$attrib_list = json_decode($listing['attributes']) ?? [];
 $key_lookup_table = [
     'isbn' => [
         'display' => 'ISBN',

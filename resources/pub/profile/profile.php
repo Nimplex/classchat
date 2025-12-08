@@ -19,6 +19,7 @@ if (!isset($id)) {
 $res = $user_controller->user->get_profile($id);
 if (!$res) {
     require $_SERVER['DOCUMENT_ROOT'] . '/../resources/errors/404.php';
+    die;
 }
 
 $listings = $listingModel->listByUser($id);
