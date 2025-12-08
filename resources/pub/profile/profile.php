@@ -51,7 +51,7 @@ ob_start();
             </div>
             <div class="stat">
                 <i data-lucide="package" aria-hidden="true"></i>
-                <?= $listing_count, $listing_count_text ?>
+                <?= $listing_count . ' ' . $listing_count_text ?>
             </div>
         </div>
     </section>
@@ -77,6 +77,7 @@ ob_start();
         <?php endif; ?>
     </section>
 </div>
+
 <section id="listings-section">
     <div id="heading">
         <h2>Ogłoszenia użytkownika</h2>
