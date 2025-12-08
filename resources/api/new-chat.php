@@ -21,7 +21,7 @@ if ((!isset($listing_id) && !isset($user_id)) || !isset($content)) {
     die;
 }
 
-if (strlen($content) == 0) {
+if (empty($content)) {
     (new FlashMessage())->setErr('i18n:empty_content');
     header('Location: /messages', true, 303);
     die;
