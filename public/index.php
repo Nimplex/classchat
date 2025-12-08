@@ -70,6 +70,12 @@ $router->GET(
 );
 
 $router->GET(
+    '/profile/edit',
+    fn () => require __DIR__ . '/../resources/pub/profile/edit.php',
+    true,
+);
+
+$router->GET(
     '/profile/:id:int',
     fn () => require __DIR__ . '/../resources/pub/profile/profile.php',
     true,
@@ -84,7 +90,7 @@ $router->GET(
 );
 
 $router->GET(
-    '/messages/:id',
+    '/messages/:id:int',
     fn () => require __DIR__ . '/../resources/pub/messages/messages.php',
     true,
 );

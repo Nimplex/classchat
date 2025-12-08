@@ -53,7 +53,7 @@ ob_start();
                                 accept="image/jpeg,image/png"
                             >
                         </label>
-                        <button onclick="removeFile(this); event.preventDefault(); event.stopPropagation();">×</button>
+                        <button onclick="removeFile(this);">×</button>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,6 @@ ob_start();
 
 <?php
 $CONTENT = ob_get_clean();
-
 $SCRIPTS = ['/_dist/js/file_picker.js'];
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

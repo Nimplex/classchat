@@ -45,7 +45,7 @@ class UserController
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function add_profile_picture(int $user_id, array $image): void
+    public function set_profile_picture(int $user_id, array $image): void
     {
         if (empty($image)) {
             throw new \InvalidArgumentException("No image provided");

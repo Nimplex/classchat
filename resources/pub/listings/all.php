@@ -38,7 +38,6 @@ ob_start();
 
 <?php
 $CONTENT = ob_get_clean();
-
 $SCRIPTS = [
     '/_dist/js/listings.js',
     '/_dist/js/scroll.js',

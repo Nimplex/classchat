@@ -1,0 +1,74 @@
+#set-pfp {
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+  background-color: var(--gray-bg);
+  max-width: 300px;
+  padding: 1rem;
+  text-align: center;
+}
+
+#set-pfp-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 1rem;
+}
+
+#set-pfp-inner svg {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 250ms;
+}
+
+#set-pfp-inner img {
+  transition: filter 250ms;
+  cursor: pointer;
+}
+
+#set-pfp-inner:has(input:focus-visible) {
+  outline: var(--sel-outline);
+}
+
+#set-pfp-inner img:hover + svg,
+#set-pfp-inner svg:hover,
+#set-pfp-inner input:focus-visible ~ svg {
+  opacity: 1;
+}
+
+#set-pfp-inner img:hover,
+#set-pfp img:has(+ svg:hover),
+#set-pfp-inner input:focus-visible ~ img {
+  filter: brightness(40%);
+}
+
+#profile-picture {
+  border-radius: 100%;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+section#user_name_values div:has(input)::after {
+  content: "*";
+}
+
+section#user_name_values div {
+  display: flex;
+}
+
+main > hr {
+  margin: 2rem 0;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.row > * {
+  flex: 1;
+}

@@ -23,12 +23,15 @@ import {
   PackageOpen,
   PackagePlus,
   PackageX,
+  Pen,
+  Save,
   Search,
   Send,
   Signature,
   Star,
   TableProperties,
   User,
+  UserPen,
   XCircle,
 } from "lucide";
 
@@ -56,12 +59,15 @@ export const iconRegistry = {
   PackageOpen,
   PackagePlus,
   PackageX,
+  Pen,
+  Save,
   Search,
   Send,
   Signature,
   Star,
   TableProperties,
   User,
+  UserPen,
   XCircle,
 };
 

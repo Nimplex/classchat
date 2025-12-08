@@ -57,7 +57,12 @@ ob_start();
     </section>
     <section id="profile-edit">
         <?php if ($_SESSION['user_id'] == $id): ?>
-        <button>Edytuj profil</button>
+        <form action="/profile/edit" method="GET">
+            <button type="submit">
+                <i data-lucide="user-pen" aria-hidden="true"></i>
+                <span>Edytuj profil</span>
+            </button>
+        </form>
         <form action="/api/logout" method="GET">
             <button class="btn-red-alt" type="submit">
                 <i class="flipped" data-lucide="log-out" aria-hidden="true"></i>
