@@ -1,6 +1,7 @@
 <?php
 
 use App\FlashMessage;
+use App\Mailer;
 
 /** @var \App\Controller\UserController $user_controller */
 global $user_controller, $_ROUTE;
@@ -24,6 +25,8 @@ if (empty($content)) {
 }
 
 $chat = $chats_model->find_by_id($chat_id);
+$is_seller = $chat['seller_id'] == $current_user_id;
+$recipant = $user_controller->user->find_by_id($is_seller ? $chat['buyer_id'] : $chat['seller_id']);
 
 if (!isset($chat)) {
     (new FlashMessage())->setErr('i18n:chat_does_not_exist');
@@ -36,5 +39,17 @@ $res = $chats_model->add_message($chat_id, $current_user_id, $content);
 if ($res == false) {
     (new FlashMessage())->setErr('i18n:database_fail');
 }
+
+$mailer = new Mailer();
+$mailer->send(
+    $recipant['email'],
+    'Nowa wiadomość',
+    'message',
+    [
+        'name' => $is_seller ? $chat['buyer_name'] : $chat['seller_name'],
+        'messager' => $messager,
+        'link' => "$protocol://$host/api/activate/$res/$token"
+    ],
+);
 
 header("Location: /messages/{$chat_id}", true, 303);

@@ -81,6 +81,7 @@ class User extends BaseDBModel
             u.id,
             u.display_name,
             u.created_at,
+            u.description,
             (
                 SELECT COUNT(*) FROM listings l WHERE l.user_id = u.id
             ) as listing_count,

@@ -17,7 +17,7 @@ if (file_exists($history_file)) {
 
 $command_table = [
     'send_email' => [
-        'description' => 'Force send email',
+        'description' => 'Send email from configured SMTP',
         'exec' => function ($args) {
             $email = $args[0];
             $template = trim($args[1]);
@@ -27,16 +27,43 @@ $command_table = [
                 throw new \Exception('Missing parameters');
             }
 
+            $path = getcwd() . "/templates/{$template}.php";
+            if (!file_exists($path)) {
+                throw new \RuntimeException("Template not found: $template");
+            }
+
+            $code = file_get_contents($path);
+            $tokens = token_get_all($code);
+
+            $vars = [];
+            foreach ($tokens as $token) {
+                if (is_array($token) && $token[0] === T_VARIABLE) {
+                    $vars[] = ltrim($token[1], '$'); // clean "$foo" → "foo"
+                }
+            }
+
+            $vars = array_unique($vars);
+
+            $ignore = ['this']; 
+            $vars = array_diff($vars, $ignore);
+
             $params = json_decode(join(' ', $raw_params), true);
-            if (!isset($params)) {
+            if (!is_array($params)) {
                 throw new \Exception('Missing parameter');
+            }
+
+            if (!isset($params['subject']) || !isset($params['params'])) {
+                throw new \Exception('Correct params format: {"subject": "...", "params": {...}}');
             }
 
             $subject = $params['subject'];
             $nested_params = $params['params'];
 
-            if (!isset($subject) || !isset($nested_params)) {
-                throw new \Exception('Correct params format: {"subject": "...", "params": {...}}');
+            $missing = array_diff($vars, array_keys($nested_params));
+
+            if (!empty($missing)) {
+                $m = implode(', ', $missing);
+                throw new \RuntimeException("Missing template variables: $m");
             }
 
             $mailer = new App\Mailer();
@@ -68,6 +95,14 @@ while (true) {
     $raw_args = explode(' ', $raw_command);
     $cmd = $raw_args[0];
     $args = array_slice($raw_args, 1);
+
+    if ($cmd == '?') {
+        foreach ($command_table as $command => $properties) {
+            printf("%s -- \e[33m%s\e[0m\n", str_pad($command, 15), $properties['description']);
+        }
+
+        continue;
+    }
 
     if (isset($command_table[$cmd])) {
         try {

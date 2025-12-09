@@ -108,7 +108,8 @@ section {
   margin-bottom: 0.5rem;
 }
 
-.stat, .no-listings {
+.stat,
+.no-listings {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,6 +119,14 @@ section {
   margin: auto 0;
 }
 
+#profile-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 2rem;
+}
+
+#description-section,
 #listings-section {
   flex: 1;
   display: flex;
@@ -137,7 +146,9 @@ section {
   background: var(--main-bg);
   border: 1px solid var(--border-gray);
   border-radius: var(--radius);
-  transition: all 250ms, outline 0s;
+  transition:
+    all 250ms,
+    outline 0s;
   text-decoration: none;
   color: inherit;
 }
