@@ -46,9 +46,10 @@ $mailer->send(
     'Nowa wiadomość',
     'message',
     [
-        'name' => $is_seller ? $chat['buyer_name'] : $chat['seller_name'],
-        'messager' => $messager,
-        'link' => "$protocol://$host/api/activate/$res/$token"
+        'name' => $is_seller ? $chat['seller_name'] : $chat['buyer_name'],
+        'messager' => $is_seller ? $chat['buyer_name'] : $chat['seller_name'],
+        'content' => mb_strimwidth($content, 0, 24, '...'),
+        'chat_id' => $chat['chat_id'],
     ],
 );
 
