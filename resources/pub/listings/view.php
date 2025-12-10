@@ -163,7 +163,7 @@ ob_start();
                     </button>
                 </form>
                 <?php endif; ?>
-                <button class="btn-red-alt"><i data-lucide="flag"></i>Zgłoś</button>
+                <button class="btn-red-alt" data-listing-id="<?= $listing['listing_id'] ?>" onclick="window.report(event)"><i data-lucide="flag"></i>Zgłoś</button>
             </section>
         </div>
     </div>
@@ -174,6 +174,7 @@ $CONTENT = ob_get_clean();
 $SCRIPTS = [
     '/_dist/js/listings.js',
     '/_dist/js/carousel.js',
+    '/_dist/js/report.js',
 ];
 
 require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/container.php';

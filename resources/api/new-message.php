@@ -44,12 +44,13 @@ if (isset($_ENV['SMTP_HOST'])) {
     $mailer = new Mailer();
     $mailer->send(
         $recipant['email'],
-        'Nowa wiadomość',
+        'Nowa wiadomosc',
         'message',
         [
-            'name' => $is_seller ? $chat['seller_name'] : $chat['buyer_name'],
+            'name' => $recipant['display_name'],
             'messager' => $is_seller ? $chat['buyer_name'] : $chat['seller_name'],
             'content' => mb_strimwidth($content, 0, 24, '...'),
+            'listing' => $chat['listing_title'],
             'chat_id' => $chat['chat_id'],
         ],
     );

@@ -26,6 +26,7 @@ $listings = $listingModel->listByUser($id);
 
 $TITLE = 'Użytkownik ' . htmlspecialchars($user['display_name']);
 $HEAD = '<link rel="stylesheet" href="/_dist/css/profile.css">';
+$SCRIPTS = ['/_dist/js/report.js'];
 
 ob_start();
 ?>
@@ -72,7 +73,7 @@ ob_start();
                 <span>Napisz do użytkownika</span>
             </button>
         </form>
-        <button class="btn-red-alt"><i data-lucide="flag" aria-hidden="true"></i>Zgłoś profil</button>
+        <button class="btn-red-alt" data-user-id="<?= $id ?>" onclick="window.report(event)"><i data-lucide="flag" aria-hidden="true"></i>Zgłoś profil</button>
         <?php endif; ?>
     </section>
 </div>
