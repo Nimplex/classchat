@@ -6,8 +6,6 @@ use App\FlashMessage;
 global $user_controller;
 
 $target = $_POST['redir'] ?? '/';
-// echo '<pre>' . var_dump(str_split($target), '') . '</pre>';
-// die;
 
 if (!preg_match('/^[\w\/]+(?:\?.*)?$/', $target)) {
     $target = '/';
