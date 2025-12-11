@@ -52,7 +52,7 @@ ob_start();
     </section>
     <section id="profile-edit">
         <?php if ($_SESSION['user_id'] == $id): ?>
-        <form action="/profile/edit" method="GET">
+        <form action="/settings/profile" method="GET">
             <button type="submit">
                 <i data-lucide="user-pen" aria-hidden="true"></i>
                 <span>Edytuj profil</span>

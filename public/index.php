@@ -69,15 +69,18 @@ $router->GET(
     true,
 );
 
-$router->GET(
-    '/profile/edit',
-    fn () => require __DIR__ . '/../resources/pub/profile/edit.php',
-    true,
-);
 
 $router->GET(
     '/profile/:id:int',
     fn () => require __DIR__ . '/../resources/pub/profile/profile.php',
+    true,
+);
+
+//==== SETTINGS =============================================================//
+
+$router->GET(
+    '/settings/profile',
+    fn () => require __DIR__ . '/../resources/pub/settings/profile.php',
     true,
 );
 
