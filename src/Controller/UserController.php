@@ -14,6 +14,7 @@ class UserController
     public User $user;
     public Activation $activation;
     public Favourites $favourites;
+    public Reports $reports;
     public const int MAX_PFP_FILE_SIZE = 5_000_000;
     public const string PASSWORD_PATTERN = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 
