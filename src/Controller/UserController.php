@@ -6,6 +6,7 @@ use App\Mailer;
 use App\Model\Activation;
 use App\Model\Favourites;
 use App\Model\User;
+use App\Model\Reports;
 use PDO;
 
 class UserController
@@ -22,6 +23,7 @@ class UserController
         $this->user = new User($db);
         $this->activation = new Activation($db);
         $this->favourites = new Favourites($db);
+        $this->reports = new Reports($db);
     }
 
     /**
