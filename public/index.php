@@ -174,6 +174,11 @@ $router->POST(
     true,
 );
 
+$router->POST(
+    '/api/report',
+    fn () => require __DIR__ . '/../resources/api/report.php'
+);
+
 $router->DEFAULT(fn () => require __DIR__ . '/../resources/errors/404.php');
 
 $router->handle();
