@@ -11,11 +11,12 @@ $listing_id = filter_input(INPUT_POST, 'listing_id', FILTER_VALIDATE_INT);
 $reason = filter_input(INPUT_POST, 'reason', FILTER_SANITIZE_SPECIAL_CHARS);
 $reason_len = strlen($reason);
 
-if (!isset($user_id) || !isset($reason) || $reason_len <= 0 || $reason_len > 255) {
+if (!isset($reason) || $reason_len <= 0 || $reason_len > 255) {
     // @todo: implement correct error handling.
     echo 'no';
     die;
 }
+
 
 if (isset($listing_id)) {
     $listing_model = (new ListingBuilder())->make();
@@ -27,6 +28,18 @@ if (isset($listing_id)) {
     }
 
     $user_id = $listing['user_id'];
+} elseif (isset($user_id)) {
+    $user = $user_controller->user->find_by_id($user_id);
+
+    if (!isset($user)) {
+        echo 'no';
+        die;
+    }
+
+    $user_id = $user['id'];
+} else {
+    echo 'no';
+    die;
 }
 
 $user_controller->reports->create($current_user_id, $user_id, $listing_id, $reason);

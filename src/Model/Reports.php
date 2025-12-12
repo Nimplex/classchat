@@ -11,7 +11,7 @@ class Reports extends BaseDBModel
     {
         $stmt = $this->db->prepare(<<<SQL
         SELECT
-            id,
+            r.id,
             r.reporter_id,
             r.reported_id,
             r.listing_id,
@@ -21,11 +21,11 @@ class Reports extends BaseDBModel
             rd.display_name AS reported_name,
             l.id AS listing_id,
             l.title AS listing_title, 
-            (r.listing_id IS NOT NULL) AS contains_listing,
+            (r.listing_id IS NOT NULL) AS contains_listing
+        FROM user_reports r
         LEFT JOIN users rr ON r.reporter_id = rr.id
         LEFT JOIN users rd ON r.reported_id = rd.id
         LEFT JOIN listings l ON r.listing_id = l.id
-        FROM user_reports r
         WHERE r.id = :id
         SQL);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -37,7 +37,7 @@ class Reports extends BaseDBModel
     {
         $stmt = $this->db->prepare(<<<SQL
         SELECT
-            id,
+            r.id,
             r.reporter_id,
             r.reported_id,
             r.listing_id,
@@ -47,24 +47,25 @@ class Reports extends BaseDBModel
             rd.display_name AS reported_name,
             l.id AS listing_id,
             l.title AS listing_title, 
-            (r.listing_id IS NOT NULL) AS contains_listing,
+            (r.listing_id IS NOT NULL) AS contains_listing
+        FROM user_reports r
         LEFT JOIN users rr ON r.reporter_id = rr.id
         LEFT JOIN users rd ON r.reported_id = rd.id
         LEFT JOIN listings l ON r.listing_id = l.id
-        FROM user_reports r
         WHERE r.reported_id = :user_id OR r.reporter_id = :user_id
+        ORDER BY r.created_at DESC
         SQL);
         $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC) ?: null;
     }
 
-    public function get_all(int $page, int $limit = Reports::PER_PAGE): array
+    public function get_all(int $page, int $limit = Reports::PER_PAGE): ?array
     {
         $offset = ($page - 1) * $limit;
         $stmt = $this->db->prepare(<<<SQL
         SELECT
-            id,
+            r.id,
             r.reporter_id,
             r.reported_id,
             r.listing_id,
@@ -74,12 +75,12 @@ class Reports extends BaseDBModel
             rd.display_name AS reported_name,
             l.id AS listing_id,
             l.title AS listing_title, 
-            (r.listing_id IS NOT NULL) AS contains_listing,
+            (r.listing_id IS NOT NULL) AS contains_listing
+        FROM user_reports r
         LEFT JOIN users rr ON r.reporter_id = rr.id
         LEFT JOIN users rd ON r.reported_id = rd.id
         LEFT JOIN listings l ON r.listing_id = l.id
-        FROM user_reports r
-        ORDER BY r.created_at
+        ORDER BY r.created_at DESC
         LIMIT :limit OFFSET :offset
         SQL);
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);

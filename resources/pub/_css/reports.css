@@ -1,0 +1,21 @@
+main hr {
+  margin: 2rem 0;
+}
+
+#reports {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.report {
+  color: var(--white);
+  padding: 1rem 2rem;
+  background: var(--gray-bg);
+  border: 1px solid var(--border-gray);
+  border-radius: var(--radius);
+}
+
+a:has(> .report) {
+  text-decoration: none;
+}

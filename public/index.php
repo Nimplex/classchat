@@ -84,6 +84,12 @@ $router->GET(
     true,
 );
 
+$router->GET(
+    '/admin/reports',
+    fn () => require __DIR__ . '/../resources/pub/admin/reports.php',
+    true,
+);
+
 //==== SETTINGS =============================================================//
 
 $router->GET(
