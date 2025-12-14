@@ -1,12 +1,3 @@
-main h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-}
-
-main hr {
-  margin: 2rem 0;
-}
-
 .money-input {
   display: inline-flex;
   text-align: right;

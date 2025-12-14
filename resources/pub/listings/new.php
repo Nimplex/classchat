@@ -54,7 +54,7 @@ ob_start();
                                 accept="image/jpeg,image/png"
                             >
                         </label>
-                        <button onclick="removeFile(this);">×</button>
+                        <button type="button" onclick="removeFile(this);">×</button>
                     </div>
                 </div>
             </div>

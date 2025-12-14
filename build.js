@@ -43,7 +43,7 @@ const commonOptions = {
 
 const jsOptions = {
   ...commonOptions,
-  entryPoints: ["resources/pub/_js/*.js"],
+  entryPoints: ["resources/pub/_js/**/*.js"],
   outdir: "public/_dist/js",
   minify: isProd,
   sourcemap: !isProd,
@@ -52,7 +52,7 @@ const jsOptions = {
 
 const cssOptions = {
   ...commonOptions,
-  entryPoints: ["resources/pub/_css/*.css"],
+  entryPoints: ["resources/pub/_css/**/*.css"],
   outdir: "public/_dist/css",
   loader: {
     ".css": "css",

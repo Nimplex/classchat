@@ -26,7 +26,7 @@ window.previewFile = input => {
         accept="image/jpeg,image/png"
     >
 </label>
-<button onclick="removeFile(this)">×</button>`;
+<button type="button" onclick="removeFile(this)">×</button>`;
     grid.insertBefore(new_field, wrapper.nextSibling);
     wrapper.className = "has-img";
     new_field.firstElementChild.focus();
