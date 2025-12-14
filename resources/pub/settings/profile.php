@@ -4,6 +4,7 @@
 global $user_controller;
 
 $SETTINGS_PAGE = [
+    'self-url' => '/settings/profile',
     'head' => '<link rel="stylesheet" href="/_dist/css/settings/edit_profile.css">',
     'title' => 'Edytuj profil',
     'scripts' => ['/_dist/js/edit_profile.js'],
@@ -37,7 +38,7 @@ ob_start();
                 </div>
             </label>
         </section>
-        <div id="set-pfp">
+        <section id="set-pfp">
             <label id="set-pfp-inner">
                 <input
                     type="file"
@@ -55,7 +56,7 @@ ob_start();
                 <span class="sr-only">Zmień zdjęcie profilowe</span>
             </label>
             Naciśnij, aby zmienić zdjęcie profilowe
-        </div>
+        </section>
     </div>
     <button type="submit" class="btn-accent">
         <i data-lucide="save" aria-hidden="true"></i>

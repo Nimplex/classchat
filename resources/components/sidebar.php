@@ -22,7 +22,7 @@ SIDEBAR_CFG structure:
     ?>
     <ul>
         <?php foreach ($group as $page): ?>
-        <li>
+        <li<?= $page[1] == $SIDEBAR_CFG['selected'] ? ' class="selected"' : '' ?>>
             <?php # [icon, page_name, page_dest] ?>
             <a href="<?= $page[1] ?>">
                 <i data-lucide="<?= $page[2] ?>" aria-hidden="true"></i>

@@ -33,6 +33,7 @@ $SIDEBAR_CFG = [
         'meow',
         'mreow~',
     ],
+    'selected' => $SETTINGS_PAGE['self-url'],
 ];
 
 ob_start();

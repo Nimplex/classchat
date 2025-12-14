@@ -39,12 +39,6 @@
 }
 
 #sidebar li:not(:last-child) {
-  /* content: ""; */
-  /* width: 90%; */
-  /* margin: auto; */
-  /* display: block; */
-  /* background-color: white; */
-  /* height: 1px; */
   border-bottom: 1px solid var(--border-gray);
 }
 
@@ -68,5 +62,10 @@
 #sidebar .group-title {
   color: var(--text-secondary);
 
+}
+
+#sidebar .selected > *::before {
+  content: "»";
+  color: var(--accent);
 }
 
