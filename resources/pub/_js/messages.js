@@ -21,6 +21,8 @@ window.openSidebar = function (event) {
   rightDash.style.transform = isOpen ? "" : "rotate(-180deg) translateX(1rem)";
   sidebar.style.display = isOpen ? "none" : "flex";
   messageBox.style.display = isOpen ? "flex" : "none";
+  if (isOpen) sidebarToggle.classList.remove("active");
+  else sidebarToggle.classList.add("active");
 }
 
 window.addEventListener("resize", (event) => {
