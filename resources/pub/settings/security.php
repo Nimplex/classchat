@@ -6,7 +6,7 @@ global $user_controller;
 $SETTINGS_PAGE = [
     'self-url' => '/settings/security',
     'head' => '<link rel="stylesheet" href="/_dist/css/settings/security.css">',
-    'title' => 'Ustawienia zabezpieczeń',
+    'title' => 'Zabezpieczenia',
     'scripts' => [],
 ];
 

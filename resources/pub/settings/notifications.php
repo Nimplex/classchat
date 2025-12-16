@@ -6,7 +6,7 @@ global $user_controller;
 $SETTINGS_PAGE = [
     'self-url' => '/settings/notifications',
     'head' => '<link rel="stylesheet" href="/_dist/css/settings/notifications.css">',
-    'title' => 'Ustawienia powiadomień',
+    'title' => 'Powiadomienia',
     'scripts' => [],
 ];
 
