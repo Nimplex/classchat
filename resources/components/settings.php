@@ -19,19 +19,10 @@ $SIDEBAR_CFG = [
             ['Edytuj profil', '/settings/profile', 'user'],
             ['Powiadomienia', '/settings/notifications', 'bell'],
             ['Zabezpieczenia', '/settings/security', 'lock'],
-            ['Ahmed', '/abdul', 'book'],
-            ['Ahmed', '/abdul', 'book'],
-            ['Ahmed', '/abdul', 'book'],
-        ],
-        [
-            ['Ahmed', '/abdul', 'book'],
-            ['Ahmed', '/abdul', 'book'],
-            ['Ahmed', '/abdul', 'book'],
-        ],
+        ]
     ],
     'group_names' => [
-        'meow',
-        'mreow~',
+        'Ogólne',
     ],
     'selected' => $SETTINGS_PAGE['self-url'],
 ];
