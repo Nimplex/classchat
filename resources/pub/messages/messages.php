@@ -115,9 +115,9 @@ if (isset($_SERVER['HTTP_PARTIAL_REQ'])) {
 $chats = $chats_model->find_by_user($_SESSION['user_id']);
 $no_chats = empty($chats);
 
-$display_image = "";
-$href = "";
-$title = "";
+$display_image = '';
+$href = '';
+$title = '';
 
 if ($show_ui) {
     if (isset($chat)) {
@@ -132,12 +132,15 @@ if ($show_ui) {
             $profile_id = $is_seller_me
                 ? $chat['buyer_id']
                 : $chat['seller_id'];
+
             $pfp_id = $is_seller_me
-                            ? $chat['buyer_pfp_file_id']
-                            : $chat['seller_pfp_file_id'];
+                ? $chat['buyer_pfp_file_id']
+                : $chat['seller_pfp_file_id'];
+
             $display_image_source = $pfp_id
                 ? "/api/storage/profile-pictures/{$pfp_id}"
                 : null;
+
             $href = "/profile/{$profile_id}";
             $title = htmlspecialchars($is_seller_me ? $chat['buyer_name'] : $chat['seller_name']);
         }
@@ -154,8 +157,8 @@ if ($show_ui) {
     }
  
     $display_image = $display_image_source
-        ? "<img src='{$display_image_source}' alt='Okładka chatu'>"
-        : "";
+        ? sprintf('<img%s src="%s" alt="Okładka chatu">', $chat['contains_listing'] ? '' : ' class="pfp"', $display_image_source)
+        : '';
 }
 
 ob_start();
@@ -193,7 +196,7 @@ ob_start();
         <?php else: foreach ($chats as $listing_chat): ?>
         <button class="chat<?= $req_chat_id == $listing_chat['chat_id'] ? ' active' : '' ?>" onclick="window.openChat(event)" data-chat-id="<?= $listing_chat['chat_id'] ?>">
             <?php if (!$listing_chat['contains_listing']): ?>
-            <img src="/api/storage/profile-pictures/<?= $listing_chat['is_seller'] ? $listing_chat['buyer_pfp_file_id'] : $listing_chat['seller_pfp_file_id'] ?>" alt="Okładka czatu">
+            <img class="pfp" src="/api/storage/profile-pictures/<?= $listing_chat['is_seller'] ? $listing_chat['buyer_pfp_file_id'] : $listing_chat['seller_pfp_file_id'] ?>" alt="Okładka czatu">
             <?php elseif ($listing_chat['cover_file_id']): ?>
             <img src="/api/storage/covers/<?= $listing_chat['cover_file_id'] ?>" alt="Okładka czatu">
             <?php endif ?>
@@ -240,7 +243,7 @@ ob_start();
             <?php elseif (isset($user)): ?>
             <input type="hidden" name="user_id" value="<?= $user['id'] ?>">
             <?php endif ?>
-            <input type="text" name="content" placeholder="Treść wiadomości..." minlength="1" required>
+            <input type="text" name="content" placeholder="Treść wiadomości..." minlength="1" required autofocus>
             <button type="submit">
                 <i data-lucide="send" aria-hidden="true"></i>
             </button>
