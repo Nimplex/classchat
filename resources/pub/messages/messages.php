@@ -226,7 +226,7 @@ ob_start();
         <i class="big-icon" data-lucide="message-square-dashed" aria-hidden="true"></i>
         <span>Napisz swoją pierwszą wiadomość</span>
         <?php elseif (!$show_ui): ?>
-        <i class="big-icon" data-lucide="arrow-big-down-dash"></i>
+        <i class="big-icon" data-lucide="arrow-big-down-dash" aria-hidden="true"></i>
         <span>Tutaj znajdzie się twój czat!</span>
         <?php else: ?>
         <?php require $_SERVER['DOCUMENT_ROOT'] . '/../resources/components/templates/messages.php'; ?>
