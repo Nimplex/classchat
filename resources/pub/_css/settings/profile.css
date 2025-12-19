@@ -67,17 +67,6 @@
   object-fit: cover;
 }
 
-.edit-indicator {
-  display: none;
-  color: var(--accent);
-  font-feature-settings: 'case';
-  scale: 2;
-}
-
-.edit-indicator.show {
-  display: inline-block;
-}
-
 section#user-name-values div {
   display: flex;
 }
