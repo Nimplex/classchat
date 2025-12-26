@@ -6,7 +6,7 @@ global $user_controller;
 $SETTINGS_PAGE = [
     'self-url' => '/settings/profile',
     'head' => '<link rel="stylesheet" href="/_dist/css/settings/profile.css">',
-    'title' => 'Edytuj profil',
+    'title' => 'Profil',
     'scripts' => [
         '/_dist/js/settings/profile.js',
         '/_dist/js/form_modified.js',

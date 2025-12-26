@@ -26,6 +26,13 @@ body > main {
   height: calc(100vh - 11rem);
 }
 
+#sidebar-anim-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100%;
+}
+
 #chats-list,
 #message-box {
   background: var(--gray-bg);
@@ -224,9 +231,17 @@ body > main {
 
 .message .message-author {
   font-weight: 700;
+  display: block;
+  color: inherit;
+  text-decoration: inherit;
 }
 
-.message.author p {
+.message .message-author:hover {
+  text-decoration: revert;
+}
+
+.message.author p,
+.message.author a {
   text-align: end;
 }
 

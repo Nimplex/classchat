@@ -27,6 +27,11 @@
   border-radius: 100%;
   aspect-ratio: 1;
   margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+#set-pfp-inner * {
+  cursor: inherit;
 }
 
 #set-pfp-inner:has(:hover) {
@@ -41,7 +46,6 @@
 
 #set-pfp-inner img {
   transition: filter 250ms;
-  cursor: pointer;
 }
 
 #set-pfp-inner:has(input:focus-visible) {

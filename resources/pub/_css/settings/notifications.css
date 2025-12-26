@@ -6,6 +6,10 @@ tr > td {
   padding: 0.5rem 0;
 }
 
+tr > td:last-of-type {
+  width: 20px;
+}
+
 table {
   margin-bottom: 1rem;
 }

@@ -13,13 +13,16 @@ SIDEBAR_CFG structure:
 */
 ?>
 
-<section id="sidebar">
-    <h2><?= $SIDEBAR_CFG['title'] ?></h2>
+<div id="sidebar-bg-fadeout" onclick="window.closeSidebar();"></div>
+<section id="sidebar" hidden>
+    <div id="sidebar-heading">
+        <h2><?= $SIDEBAR_CFG['title'] ?></h2>
+        <button id="sidebar-close-button" type="button" onclick="window.closeSidebar();">×</button>
+    </div>
     <?php foreach ($SIDEBAR_CFG['groups'] as $index => $group): ?>
     <?= isset($SIDEBAR_CFG['group_names'][$index])
         ? "<span class=\"group-title\">{$SIDEBAR_CFG['group_names'][$index]}</span>"
-        : ''
-        ?>
+        : '' ?>
     <ul>
         <?php foreach ($group as $page): ?>
         <li<?= $page[1] == $SIDEBAR_CFG['selected'] ? ' class="selected"' : '' ?>>

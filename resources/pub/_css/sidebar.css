@@ -1,3 +1,7 @@
+body > main {
+  height: 0; /* no clue why but this is the only thing that works */
+}
+
 main hr {
   margin: 2rem 0;
 }
@@ -5,36 +9,36 @@ main hr {
 #sidebar-wrapper {
   display: flex;
   gap: 2rem;
+  --w: 250px;
+  min-height: 100%;
 }
 
 #sidebar {
   display: flex;
   flex-direction: column;
-  /* background-color: var(--gray-bg); */
-  /* border: 1px solid var(--border-gray); */
   border-radius: var(--radius);
-  /* padding: 1rem; */
-  width: 250px;
+  width: var(--w);
+  height: 100%;
 }
 
 #sidebar-pane {
   flex: 1;
 }
 
-#sidebar-pane>h2 {
+#sidebar-pane > h2 {
   font-size: 1.75rem;
   margin-bottom: 1rem;
 }
 
-#sidebar h2 {
+#sidebar-heading {
   margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 #sidebar ul {
   margin-bottom: 0.5rem;
   list-style: none;
-  /* background-color: var(--main-bg); */
-  /* border: 1px solid var(--border-gray); */
   border-radius: var(--radius);
 }
 
@@ -66,10 +70,108 @@ main hr {
 
 #sidebar .group-title {
   color: var(--text-secondary);
-
 }
 
-#sidebar .selected>*::before {
+#sidebar .selected > *::before {
   content: "»";
   color: var(--accent);
 }
+
+#heading {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+#sidebar-close-button {
+  display: none;
+  width: 36px;
+  height: 36px;
+  font-size: 2rem;
+  align-items: center;
+  justify-content: center;
+  font-feature-settings: "case";
+}
+
+#sidebar-open-button {
+  display: none;
+}
+
+@media only screen and (max-width: 1000px) {
+  #sidebar {
+    border: 1px solid var(--border-gray);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    border-left: none;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    padding: 1rem;
+    padding-left: 2rem;
+    width: min-content;
+    background-color: var(--gray-bg);
+    z-index: 1;
+    translate: 0px;
+  }
+
+  #sidebar-heading {
+    width: var(--w);
+  }
+
+  #sidebar + .vr {
+    display: none;
+  }
+
+  #sidebar-close-button {
+    display: flex;
+  }
+
+  #sidebar-open-button {
+    display: flex;
+  }
+
+  #sidebar-bg-fadeout {
+    position: absolute;
+    top: -2rem;
+    bottom: -2rem;
+    left: 0;
+    right: 0;
+    background-color: #000000;
+    opacity: 0.6;
+    z-index: 1;
+  }
+
+  #sidebar[hidden],
+  #sidebar-wrapper:has(#sidebar[hidden]) #sidebar-bg-fadeout {
+    visibility: hidden;
+  }
+
+  #sidebar-wrapper:has(#sidebar[hidden]) #sidebar-bg-fadeout {
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    #sidebar[hidden] {
+      translate: -100%;
+    }
+
+    #sidebar {
+      transition:
+        translate 300ms,
+        visibility 300ms;
+    }
+
+    #sidebar-bg-fadeout {
+      transition:
+        opacity 300ms,
+        visibility 300ms;
+    }
+  }
+
+  /* this needs to be here because it bugs out weirdly otherwise */
+  @media (prefers-reduced-motion: reduce) {
+    #sidebar[hidden] {
+      display: none
+    }
+  }
+}
+

@@ -1,7 +1,6 @@
-window.openChat = function (event) {
+window.openChat = (event) => {
   const target = event.target.closest("button");
   const { chatId } = target.dataset;
-  console.log(target.dataset, chatId);
 
   const locationUrl = new URL(window.location);
   locationUrl.search = "";
@@ -10,7 +9,7 @@ window.openChat = function (event) {
   window.location.assign(locationUrl.toString());
 };
 
-window.openSidebar = function (event) {
+window.openSidebar = () => {
   const sidebarToggle = document.getElementById("sidebar-toggle");
   const sidebar = document.getElementById("chats-sidebar");
   const messageBox = document.getElementById("message-box");
@@ -25,8 +24,8 @@ window.openSidebar = function (event) {
   else sidebarToggle.classList.add("active");
 }
 
-window.addEventListener("resize", (event) => {
-  const sidebarToggle = document.getElementById("sidebar-toggle");
+window.addEventListener("resize", () => {
+  // const sidebarToggle = document.getElementById("sidebar-toggle");
   const sidebar = document.getElementById("chats-sidebar");
   const messageBox = document.getElementById("message-box");
   const isOpen = sidebar.dataset.open == "true";
@@ -44,7 +43,7 @@ window.addEventListener("resize", (event) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const sidebar = document.getElementById("chats-sidebar");
+  // const sidebar = document.getElementById("chats-sidebar");
   const messageList = document.getElementById("message-list");
 
   messageList.scrollTop = messageList.scrollHeight;
